@@ -1,0 +1,50 @@
+@use 'shared/styles/variables';
+
+$borderRadius: 4px;
+
+.select-wrapper {
+    color: variables.$textColor;
+
+    &.select {
+        &-small {
+        }
+
+        &-medium {
+            min-width: 165px;
+        }
+
+        &-big {
+        }
+    }
+
+    .element {
+        &-small {
+        }
+
+        &-medium {
+        }
+
+        &-big {
+        }
+    }
+
+    .chooseFiled {
+        border-radius: $borderRadius;
+
+        .chooseFiled-text {
+        }
+        .icon {
+        }
+    }
+
+    .optionsWrapper {
+        border-radius: $borderRadius;
+        margin-top: 9px;
+    }
+
+    @each $name, $value in variables.$baseColorsMap {
+        .bg-#{$name} {
+            background-color: $value;
+        }
+    }
+}

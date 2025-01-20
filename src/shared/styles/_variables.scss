@@ -11,3 +11,11 @@ $textColor: black;
 $smallText: 0.875rem;
 $mediumText: 1rem;
 $bigText: 1.25rem;
+
+// map for easier looping
+$baseColorsMap: (
+    primary: $primaryColor,
+    secondary: $secondaryColor,
+    info: $infoColor,
+    danger: $dangerColor,
+);

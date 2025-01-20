@@ -26,7 +26,11 @@ export const Button: FC<ButtonProps> = ({
     const renderIcon = (iconPositionArg: IconPosition) => {
         return (
             iconPosition === iconPositionArg && (
-                <span className={classNames('iconWrapper', iconPositionArg)}>
+                <span
+                    className={classNames('iconWrapper', {
+                        [iconPositionArg]: loading || icon,
+                    })}
+                >
                     {loading ? (
                         <LoadingIcon width={20} height={20} />
                     ) : (

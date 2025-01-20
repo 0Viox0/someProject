@@ -1,13 +1,6 @@
 @use 'shared/styles/variables';
 @use 'sass:color';
 
-$buttonColors: (
-    primary: variables.$primaryColor,
-    secondary: variables.$secondaryColor,
-    info: variables.$infoColor,
-    danger: variables.$dangerColor,
-);
-
 @mixin disabledButtonBg($bgColor) {
     background-color: color.adjust($color: $bgColor, $lightness: 10%);
 }
@@ -53,7 +46,7 @@ $buttonColors: (
         transform: scale(0.94);
     }
 
-    @each $type, $color in $buttonColors {
+    @each $type, $color in variables.$baseColorsMap {
         &-#{$type} {
             background-color: $color;
 

@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { Checkbox } from 'components/Checkbox';
+import { Select } from 'components/Select';
+import { OptionValue } from 'components/Select/types';
 
 import './index.scss';
 
 export const App = () => {
-    const [value, setValue] = useState(false);
+    const [value, setValue] = useState<OptionValue>('germany');
 
-    const handleChange = () => {
-        setValue((prevValue) => !prevValue);
+    const handleChange = (newValue: OptionValue) => {
+        setValue(newValue);
     };
 
     return (
@@ -18,11 +19,28 @@ export const App = () => {
                 minHeight: '100vh',
             }}
         >
-            <Checkbox
-                checked={value}
+            <Select
+                selectedValue={value}
                 onChange={handleChange}
-                type="info"
-                size="medium"
+                type="primary"
+                options={[
+                    {
+                        label: 'Germany',
+                        value: 'germany',
+                    },
+                    {
+                        label: 'France',
+                        value: 'france',
+                    },
+                    {
+                        label: 'Brazil',
+                        value: 'brazil',
+                    },
+                    {
+                        label: 'Spain',
+                        value: 'spain',
+                    },
+                ]}
             />
         </div>
     );

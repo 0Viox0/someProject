@@ -1,13 +1,13 @@
-import { Input } from 'components/Input';
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
+import { Checkbox } from 'components/Checkbox';
 
 import './index.scss';
 
 export const App = () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(false);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
+    const handleChange = () => {
+        setValue((prevValue) => !prevValue);
     };
 
     return (
@@ -18,14 +18,11 @@ export const App = () => {
                 minHeight: '100vh',
             }}
         >
-            <Input
-                value={value}
+            <Checkbox
+                checked={value}
                 onChange={handleChange}
-                placeholder="Enter your name..."
                 type="info"
-                variant="outlined"
-                label="Some label"
-                error="Wrong input type shit"
+                size="medium"
             />
         </div>
     );

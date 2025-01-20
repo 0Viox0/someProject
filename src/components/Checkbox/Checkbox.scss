@@ -1,0 +1,75 @@
+@use 'shared/styles/variables';
+
+@mixin checkboxIconAppearTransition() {
+    transition: transform 0.1s ease-in-out;
+}
+
+.checkboxWrapper {
+    display: flex;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    .realCheckbox {
+        width: 0;
+        height: 0;
+        position: absolute;
+        z-index: -1;
+
+        &:checked + .customCheckbox .checkIcon {
+            transform: scale(1);
+            @include checkboxIconAppearTransition();
+        }
+
+        &:disabled + .customCheckbox {
+            opacity: 0.6;
+        }
+    }
+
+    .customCheckbox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .checkIcon {
+            transform: scale(0);
+            @include checkboxIconAppearTransition();
+        }
+
+        border-width: 2px;
+        border-style: solid;
+        border-radius: 4px;
+
+        &-primary {
+            border-color: variables.$primaryColor;
+        }
+
+        &-secondary {
+            border-color: variables.$secondaryColor;
+        }
+
+        &-info {
+            border-color: variables.$infoColor;
+        }
+
+        &-danger {
+            border-color: variables.$dangerColor;
+        }
+
+        &-small {
+            width: 20px;
+            height: 20px;
+        }
+
+        &-medium {
+            width: 28px;
+            height: 28px;
+        }
+
+        &-big {
+            width: 35px;
+            height: 35px;
+        }
+    }
+}

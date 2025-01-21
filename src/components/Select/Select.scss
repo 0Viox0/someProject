@@ -1,12 +1,20 @@
 @use 'shared/styles/variables';
-
-$borderRadius: 4px;
+@use 'sass:color';
+@use './styles/variables' as drop;
 
 .select-wrapper {
     color: variables.$textColor;
 
+    cursor: pointer;
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
     &.select {
         &-small {
+            min-width: 145px;
         }
 
         &-medium {
@@ -14,37 +22,39 @@ $borderRadius: 4px;
         }
 
         &-big {
+            min-width: 195px;
         }
     }
 
     .element {
         &-small {
+            font-size: 0.8rem;
+            padding: 8px 11px;
         }
 
         &-medium {
+            font-size: 1rem;
+            padding: 8px 11px;
         }
 
         &-big {
+            font-size: 1.4rem;
+            padding: 8px 11px;
         }
-    }
-
-    .chooseFiled {
-        border-radius: $borderRadius;
-
-        .chooseFiled-text {
-        }
-        .icon {
-        }
-    }
-
-    .optionsWrapper {
-        border-radius: $borderRadius;
-        margin-top: 9px;
     }
 
     @each $name, $value in variables.$baseColorsMap {
         .bg-#{$name} {
             background-color: $value;
+        }
+
+        .border-#{$name} {
+            border: 1px solid color.scale($color: $value, $lightness: -40%);
+        }
+
+        .chosenOption-#{$name} {
+            background-color: color.scale($color: $value, $lightness: -14%);
+            border-radius: 5px;
         }
     }
 }

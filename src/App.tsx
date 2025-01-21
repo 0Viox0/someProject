@@ -1,28 +1,29 @@
 import { useState } from 'react';
 import { Select } from 'components/Select';
-import { OptionValue } from 'components/Select/types';
+import { Option, OptionValue } from 'components/Select/types';
 
 import './index.scss';
 
 export const App = () => {
-    const [value, setValue] = useState<OptionValue>('germany');
+    const [value, setValue] = useState<OptionValue>('Germany');
 
-    const handleChange = (newValue: OptionValue) => {
-        setValue(newValue);
+    const handleChange = (newValue: Option) => {
+        setValue(newValue.label);
     };
 
     return (
         <div
             style={{
                 display: 'grid',
-                placeContent: 'center',
+                placeItems: 'center',
                 minHeight: '100vh',
             }}
         >
             <Select
                 selectedValue={value}
                 onChange={handleChange}
-                type="primary"
+                type="secondary"
+                size="medium"
                 options={[
                     {
                         label: 'Germany',

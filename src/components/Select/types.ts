@@ -1,3 +1,4 @@
+import { RefObject } from 'react';
 import { BaseComponentProps } from 'shared/types/types';
 
 export type OptionValue = string | number;
@@ -9,8 +10,20 @@ export type Option = {
 
 export interface SelectProps extends BaseComponentProps {
     selectedValue: OptionValue;
-    onChange: (newValue: OptionValue) => void;
+    onChange: (newValue: Option) => void;
     options: Option[];
-    placeholder?: string;
     disabled?: boolean;
+}
+
+export interface DropdownProps
+    extends Omit<SelectProps, 'onChange' | 'className' | 'disabled'> {
+    isExpanded: boolean;
+    expandedSectionRef: RefObject<HTMLDivElement>;
+    handleOptionClick: (option: Option) => void;
+}
+
+export interface TriggerProps
+    extends Pick<SelectProps, 'size' | 'type' | 'selectedValue'> {
+    isExpanded: boolean;
+    toggleExpandSelect: () => void;
 }

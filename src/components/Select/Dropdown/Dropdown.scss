@@ -1,0 +1,23 @@
+@use '../styles/variables' as drop;
+
+.optionsWrapper {
+    @include drop.selectTransition();
+
+    border-radius: drop.$borderRadius;
+
+    margin-top: 0;
+    height: 0;
+    overflow: hidden;
+
+    box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
+
+    &.active {
+        margin-top: 9px;
+        height: auto;
+        overflow: hidden;
+    }
+
+    .option {
+        margin: 5px;
+    }
+}

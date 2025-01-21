@@ -1,9 +1,10 @@
-import { FC, useState } from 'react';
-import { SelectProps } from './types';
-import ExpandArrowIcon from 'shared/assets/icons/ExpandArrow.svg';
+import { FC, useEffect, useRef, useState } from 'react';
+import { DropdownProps, Option, SelectProps, TriggerProps } from './types';
+import classNames from 'classnames';
+import { Dropdown } from './Dropdown/Dropdown';
+import { Trigger } from './Trigger/Trigger';
 
 import './Select.scss';
-import classNames from 'classnames';
 
 export const Select: FC<SelectProps> = ({
     selectedValue,
@@ -12,37 +13,78 @@ export const Select: FC<SelectProps> = ({
     options,
     size = 'medium',
     type = 'secondary',
-    placeholder = '',
     disabled = false,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    console.log(options);
+    const expandedSectionRef = useRef<HTMLDivElement>(null);
+    const selectWrapperRef = useRef<HTMLDivElement>(null);
 
-    // target priority should educate the angles that you choose but never ever should you choose target priority over your position
+    const toggleExpandSelect = () => {
+        if (!disabled) {
+            setIsExpanded((prevState) => !prevState);
+        }
+    };
+
+    const handleOptionClick = (option: Option) => {
+        setIsExpanded(false);
+        onChange(option);
+    };
+
+    useEffect(() => {
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (!selectWrapperRef.current.contains(event.target as Node)) {
+                setIsExpanded(false);
+            }
+        };
+
+        window.addEventListener('click', handleOutsideClick);
+
+        return () => {
+            window.removeEventListener('click', handleOutsideClick);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isExpanded) {
+            expandedSectionRef.current.style.height = `${expandedSectionRef.current.scrollHeight}px`;
+        } else {
+            expandedSectionRef.current.style.height = '0px';
+        }
+    }, [isExpanded]);
+
+    const dropdownProps: DropdownProps = {
+        selectedValue,
+        options,
+        size,
+        type,
+        isExpanded,
+        expandedSectionRef,
+        handleOptionClick,
+    };
+
+    const triggerProps: TriggerProps = {
+        selectedValue,
+        size,
+        type,
+        isExpanded,
+        toggleExpandSelect,
+    };
 
     return (
-        <div className={classNames('select-wrapper', `select-${size}`)}>
-            <div
-                className={classNames(
-                    'chooseFiled',
-                    `bg-${type}`,
-                    `element-${size}`,
-                )}
-            >
-                <span className="chooseFiled-text">{selectedValue}</span>
-                <ExpandArrowIcon className="icon" />
-            </div>
-            <div className={classNames('optionsWrapper', `bg-${type}`)}>
-                {options.map((option) => (
-                    <div
-                        className="option"
-                        onClick={() => onChange(option.value)}
-                    >
-                        {option.label}
-                    </div>
-                ))}
-            </div>
+        <div
+            className={classNames(
+                'select-wrapper',
+                `select-${size}`,
+                className,
+                {
+                    disabled: disabled,
+                },
+            )}
+            ref={selectWrapperRef}
+        >
+            <Trigger {...triggerProps} />
+            <Dropdown {...dropdownProps} />
         </div>
     );
 };

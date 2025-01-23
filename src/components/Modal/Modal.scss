@@ -1,0 +1,152 @@
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
+
+$baseFont: 1.6rem;
+$cancelButtonBg: #f6f6f6;
+$buttonBorderRadius: 7px;
+
+@mixin transition() {
+    transition: all 0.1s ease-in-out;
+}
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(150, 150, 150, 0.4);
+
+    opacity: 1;
+    z-index: 20;
+
+    @include transition();
+
+    &.hide {
+        opacity: 0;
+        z-index: -20;
+    }
+
+    .modal-wrapper {
+        position: fixed;
+
+        min-width: 612px;
+        min-height: 250px;
+
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        border-radius: 11px;
+
+        box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: 0.25);
+
+        @each $value, $color in v.$baseColorsMap {
+            &.modal-#{$value} {
+                background-color: $color;
+            }
+        }
+
+        .children {
+            margin-bottom: 60px;
+        }
+
+        .closeIcon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+
+            width: 30px;
+            height: 30px;
+
+            stroke-width: 2px;
+
+            &:hover {
+                scale: 1.1;
+                cursor: pointer;
+            }
+
+            &:active {
+                scale: 0.95;
+            }
+        }
+
+        .modal-title {
+            font-size: $baseFont;
+            margin-top: 17px;
+            margin-left: 19px;
+            font-weight: 400;
+        }
+
+        .buttons-wrapper {
+            position: absolute;
+
+            right: 13px;
+            bottom: 13px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .button {
+                border: none;
+                background-color: transparent;
+                outline: none;
+                font-size: $baseFont;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                @include transition();
+            }
+
+            .cancel-button {
+                margin-right: 12px;
+                background-color: $cancelButtonBg;
+                padding: 3px 10px;
+                border-radius: $buttonBorderRadius;
+
+                &:hover {
+                    background-color: color.scale(
+                        $color: $cancelButtonBg,
+                        $lightness: -20%
+                    );
+                }
+
+                &:active {
+                    background-color: $cancelButtonBg;
+                }
+            }
+
+            .okButton {
+                padding: 3px 20px;
+                border-radius: $buttonBorderRadius;
+
+                color: white;
+
+                @each $value, $color in v.$baseColorsMap {
+                    &.button-#{$value} {
+                        background-color: color.scale(
+                            $color: $color,
+                            $lightness: -20%
+                        );
+
+                        &:hover {
+                            background-color: color.scale(
+                                $color: $color,
+                                $lightness: -40%
+                            );
+                        }
+
+                        &:active {
+                            background-color: color.scale(
+                                $color: $color,
+                                $lightness: -20%
+                            );
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

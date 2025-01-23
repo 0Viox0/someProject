@@ -1,0 +1,106 @@
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
+
+.tabs-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .tabs-header-wrapper {
+        display: flex;
+
+        justify-content: start;
+        align-items: center;
+
+        .arrow {
+            &:hover {
+                scale: 1.1;
+                cursor: pointer;
+            }
+
+            &:active {
+                scale: 0.95;
+            }
+
+            &-left {
+                transform: rotate(0deg);
+            }
+
+            &-right {
+                transform: rotate(180deg);
+            }
+
+            &-small {
+                width: 24px;
+                height: 24px;
+            }
+
+            &-medium {
+                width: 33px;
+                height: 33px;
+            }
+
+            &-big {
+                width: 43px;
+                height: 43px;
+            }
+        }
+
+        .tabs-header {
+            display: flex;
+
+            &-item {
+                border-radius: 5px 5px 0 0;
+
+                display: flex;
+                justify-content: start;
+                align-items: center;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                &:not(:first-child) {
+                    margin-left: 2px;
+                }
+
+                @each $value, $color in v.$baseColorsMap {
+                    &.tab-#{$value} {
+                        background-color: color.scale(
+                            $color: $color,
+                            $lightness: 20%
+                        );
+                        border: 2px solid transparent;
+                    }
+
+                    &.tab-#{$value}-active {
+                        background-color: $color;
+                        border: 2px
+                            solid
+                            color.scale($color: $color, $lightness: -30%);
+                    }
+                }
+
+                &.tab-small {
+                    font-size: 1rem;
+                    padding: 3px;
+                }
+
+                &.tab-medium {
+                    font-size: 1.25rem;
+                    padding: 5px;
+                }
+
+                &.tab-big {
+                    font-size: 1.6rem;
+                    padding: 7px;
+                }
+
+                &.tab-disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                    user-select: none;
+                }
+            }
+        }
+    }
+}

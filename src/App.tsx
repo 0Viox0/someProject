@@ -1,7 +1,46 @@
-import { Tabs } from 'components/Tabs';
-import TriangleIcon from 'shared/assets/icons/TriangleArrow.svg';
+import { Table } from 'components/Table';
+import { DataSource, TableColumns } from 'components/Table/types';
 
 import './index.scss';
+
+interface User {
+    name: string;
+    age: number;
+    sex: 'male' | 'female';
+}
+
+const columns: TableColumns<User> = [
+    {
+        title: 'Name',
+        key: 'name',
+    },
+    {
+        title: 'Age',
+        key: 'age',
+    },
+    {
+        title: 'Sex',
+        key: 'sex',
+    },
+];
+
+const dataSource: DataSource<User> = [
+    {
+        name: 'Jack',
+        age: 20,
+        sex: 'male',
+    },
+    {
+        name: 'Max',
+        age: 20,
+        sex: 'male',
+    },
+    {
+        name: 'Sam',
+        age: 19,
+        sex: 'male',
+    },
+];
 
 export const App = () => {
     return (
@@ -13,49 +52,11 @@ export const App = () => {
                 minHeight: '100vh',
             }}
         >
-            <Tabs
-                items={[
-                    {
-                        key: 1,
-                        label: 'Tab 1',
-                        content: 'some content',
-                    },
-                    {
-                        key: 2,
-                        label: 'Tab 2',
-                        content: 'some content in the second tab',
-                    },
-                    {
-                        key: 3,
-                        label: 'Tab 3',
-                        content: 'this is third tab',
-                        icon: <TriangleIcon />,
-                    },
-                    {
-                        key: 4,
-                        label: 'Tab 4',
-                        content: (
-                            <div>
-                                <h1>some content</h1>
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur
-                                    <br />
-                                    adipisicing elit. Ratione numquam quisquam
-                                    <br />
-                                    ut voluptatem harum eveniet nulla aliquid?
-                                    <br />
-                                    Ea voluptatum soluta illo ipsum saepe
-                                    <br />
-                                    mollitia hic, vitae qui, praesentium aperiam
-                                    ducimus?
-                                </p>
-                            </div>
-                        ),
-                    },
-                ]}
-                defaultActiveKey={1}
+            <Table
+                columns={columns}
+                dataSource={dataSource}
+                type="secondary"
                 size="medium"
-                type="info"
             />
         </div>
     );

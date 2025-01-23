@@ -1,0 +1,67 @@
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
+
+.table {
+    border-collapse: collapse;
+
+    th {
+        @each $value, $color in v.$baseColorsMap {
+            &.table-head-#{$value} {
+                color: $color;
+            }
+        }
+
+        &.small {
+            font-size: 1.2rem;
+            padding: 0.4rem;
+        }
+
+        &.medium {
+            font-size: 1.4rem;
+            padding: 0.7rem;
+        }
+
+        &.big {
+            font-size: 1.6rem;
+            padding: 0.9rem;
+        }
+    }
+
+    tbody {
+        tr {
+            @each $value, $color in v.$baseColorsMap {
+                &.border-top-#{$value}:not(:first-child) {
+                    border-top: 1px solid $color;
+                }
+
+                &.hover-#{$value} {
+                    cursor: pointer;
+                    background-color: color.scale($color: $color, $alpha: -80%);
+                }
+            }
+        }
+    }
+
+    td {
+        @each $value, $color in v.$baseColorsMap {
+            &.border-left-#{$value}:not(:first-child) {
+                border-left: 1px solid $color;
+            }
+        }
+
+        &.small {
+            font-size: 1rem;
+            padding: 0.4rem;
+        }
+
+        &.medium {
+            font-size: 1.2rem;
+            padding: 0.7rem;
+        }
+
+        &.big {
+            font-size: 1.4rem;
+            padding: 0.9rem;
+        }
+    }
+}

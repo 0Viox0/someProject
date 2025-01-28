@@ -6,7 +6,7 @@ $borderRadius: 5px;
 .input-wrapper {
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: start;
 
     @each $name, $color in variables.$baseColorsMap {
         .label-#{$name} {
@@ -43,14 +43,12 @@ $borderRadius: 5px;
     .error-wrapper {
         position: relative;
 
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+
         .error {
-            position: absolute;
-
-            bottom: -1.2rem;
-            left: 0;
-
             text-wrap: nowrap;
-
             color: color.scale($color: red, $lightness: 60%);
         }
 

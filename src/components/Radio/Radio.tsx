@@ -9,10 +9,9 @@ export const Radio: FC<RadioProps> = ({
     options,
     onChange,
     size = 'medium',
-    type = 'primary',
+    theme = 'primary',
     disabled = false,
     direction = 'column',
-    className,
 }) => {
     const handleOptionClick = (option: RadioElement) => {
         if (!disabled) {
@@ -26,13 +25,12 @@ export const Radio: FC<RadioProps> = ({
         {
             disabled: disabled,
         },
-        className,
     );
 
     const circleClasses = classNames(
         'circle',
         `circle-${size}`,
-        `color-${type}`,
+        `color-${theme}`,
     );
 
     return (
@@ -54,7 +52,7 @@ export const Radio: FC<RadioProps> = ({
                             <div
                                 className={classNames(
                                     'underline',
-                                    `color-${type}`,
+                                    `color-${theme}`,
                                 )}
                             ></div>
                         )}

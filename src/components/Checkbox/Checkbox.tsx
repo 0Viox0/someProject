@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import CheckIcon from 'shared/assets/icons/CheckIcon.svg';
 import { CheckboxProps } from './types';
 import classNames from 'classnames';
@@ -8,31 +8,49 @@ import './Checkbox.scss';
 export const Checkbox: FC<CheckboxProps> = ({
     onChange,
     size = 'medium',
-    type = 'primary',
-    className = '',
+    theme = 'primary',
     icon = <CheckIcon />,
     checked = false,
     disabled = false,
+    text,
+    className = '',
 }) => {
     const checkboxClasses = classNames(
         'customCheckbox',
-        `customCheckbox-${type}`,
+        `customCheckbox-${theme}`,
         `customCheckbox-${size}`,
-        className,
     );
+    const [innerIsChecked, setInnerIsChecked] = useState(checked);
+
+    const innerOnChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInnerIsChecked((prevState) => !prevState);
+
+        if (onChange) {
+            onChange(event);
+        }
+    };
+
+    useEffect(() => {
+        setInnerIsChecked(checked);
+    }, [checked]);
 
     return (
-        <label className="checkboxWrapper">
+        <label className={classNames('checkboxWrapper', className)}>
             <input
                 className="realCheckbox"
                 type="checkbox"
-                checked={checked}
-                onChange={onChange}
+                checked={innerIsChecked}
+                onChange={innerOnChange}
                 disabled={disabled}
             />
             <div className={checkboxClasses}>
                 <span className="checkIcon">{icon}</span>
             </div>
+            {text && (
+                <span className={classNames('text', `text-${size}`)}>
+                    {text}
+                </span>
+            )}
         </label>
     );
 };

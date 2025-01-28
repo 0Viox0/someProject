@@ -1,53 +1,38 @@
-import { useState } from 'react';
-import { Radio } from 'components/Radio';
-import { RadioElement } from 'components/Radio/types';
+import { ChangeEvent, useState } from 'react';
+import { Input } from 'components/Input';
 
 import './index.scss';
+import { Button } from 'components/Button';
 
 export const App = () => {
-    const [value, setValue] = useState<RadioElement>({
-        value: 1,
-        label: 'Town',
-    });
+    const [value, setValue] = useState('');
 
-    const handleChange = (newValue: RadioElement) => {
-        setValue(newValue);
-        console.log(newValue.value);
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setValue(event.target.value);
+    };
+
+    const handleClick = () => {
+        console.log(value);
     };
 
     return (
         <div
             style={{
-                display: 'grid',
-                placeContent: 'center',
+                display: 'flex',
+                justifyContent: 'center',
+                alignContent: 'center',
                 minHeight: '100vh',
             }}
         >
-            <Radio
-                currentChoice={value}
-                options={[
-                    {
-                        value: 1,
-                        label: 'Town',
-                    },
-                    {
-                        value: 2,
-                        label: 'City',
-                    },
-                    {
-                        value: 3,
-                        label: 'Village',
-                    },
-                    {
-                        value: 4,
-                        label: 'House',
-                    },
-                ]}
-                onChange={handleChange}
-                type="danger"
-                size="small"
-                direction="row"
-            />
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
+                <Input label="something" error="username already exists" />
+                <Input label="something" />
+            </div>
         </div>
     );
 };

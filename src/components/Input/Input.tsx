@@ -5,43 +5,36 @@ import classNames from 'classnames';
 import './Input.scss';
 
 export const Input: FC<InputProps> = ({
-    value,
-    onChange,
-    error,
     size = 'medium',
-    type = 'secondary',
+    theme = 'secondary',
     inputType = 'text',
-    disabled = false,
-    placeholder = '',
     variant = 'outlined',
-    label = null,
+    error,
+    label,
+    className,
+    ...props
 }) => {
     const inputClasses = classNames(
         'input',
-        `input-${type}`,
+        `input-${theme}`,
         `input-${size}`,
-        `input-${type}-${variant}`,
+        `input-${theme}-${variant}`,
         {
-            'with-label': label && label !== '',
+            'with-label': label,
         },
     );
 
     return (
-        <div className="input-wrapper">
+        <div className={classNames('input-wrapper', className)}>
             {label && (
-                <label className={classNames(`label-${type}`, `input-${size}`)}>
+                <label
+                    className={classNames(`label-${theme}`, `input-${size}`)}
+                >
                     {label}
                 </label>
             )}
             <div className="error-wrapper">
-                <input
-                    className={inputClasses}
-                    type={inputType}
-                    placeholder={placeholder}
-                    disabled={disabled}
-                    value={value}
-                    onChange={onChange}
-                />
+                <input className={inputClasses} type={inputType} {...props} />
                 {error && <span className="error">{error}</span>}
             </div>
         </div>

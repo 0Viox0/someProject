@@ -6,19 +6,19 @@ import LoadingIcon from 'shared/assets/icons/LoadingIcon.svg';
 import './Button.scss';
 
 export const Button: FC<ButtonProps> = ({
-    onClick,
+    size = 'medium',
+    theme = 'primary',
+    iconPosition = 'left',
     icon,
     children,
-    className,
     disabled,
-    size = 'medium',
-    type = 'primary',
-    iconPosition = 'left',
-    loading = false,
+    loading,
+    className,
+    ...props
 }) => {
     const buttonClasses = classNames(
         'button',
-        `button-${type}`,
+        `button-${theme}`,
         `button-${size}`,
         className,
     );
@@ -28,6 +28,7 @@ export const Button: FC<ButtonProps> = ({
             iconPosition === iconPositionArg && (
                 <span
                     className={classNames('iconWrapper', {
+                        rotateIcon: loading,
                         [iconPositionArg]: loading || icon,
                     })}
                 >
@@ -44,8 +45,8 @@ export const Button: FC<ButtonProps> = ({
     return (
         <button
             className={buttonClasses}
-            onClick={onClick}
             disabled={disabled || loading}
+            {...props}
         >
             {renderIcon('left')}
             <span className="text">{children}</span>

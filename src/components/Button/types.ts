@@ -1,13 +1,12 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import { BaseComponentProps } from 'shared/types/types';
 
 export type IconPosition = 'left' | 'right';
 
-export interface ButtonProps extends BaseComponentProps {
-    onClick: () => void;
+export interface ButtonProps
+    extends BaseComponentProps,
+        ButtonHTMLAttributes<HTMLButtonElement> {
     iconPosition?: IconPosition;
-    disabled?: boolean;
     icon?: ReactNode;
-    children?: ReactNode;
     loading?: boolean;
 }

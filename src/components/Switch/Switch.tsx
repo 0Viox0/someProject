@@ -8,10 +8,9 @@ export const Switch: FC<SwitchProps> = ({
     value,
     onChange,
     size = 'medium',
-    type = 'primary',
+    theme = 'primary',
     shape = 'circle',
     disabled,
-    className,
 }) => {
     const handleToggle = () => {
         if (!disabled) {
@@ -22,12 +21,11 @@ export const Switch: FC<SwitchProps> = ({
     const switchClasses = classNames(
         `switchWrapper`,
         `switch-${size}`,
-        `switch-${type}`,
+        `switch-${theme}`,
         `${value}`,
         {
             disabled: disabled,
         },
-        className,
     );
 
     return (

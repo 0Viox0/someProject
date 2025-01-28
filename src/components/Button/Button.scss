@@ -19,11 +19,13 @@
     align-items: center;
 
     .iconWrapper {
-        animation: rotate 1s linear infinite;
-
         display: grid;
 
         place-content: center;
+
+        &.rotateIcon {
+            animation: rotate 1s linear infinite;
+        }
 
         &.left {
             margin-right: 10px;

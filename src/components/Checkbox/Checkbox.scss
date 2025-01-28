@@ -6,6 +6,8 @@
 
 .checkboxWrapper {
     display: flex;
+    justify-content: start;
+    align-items: center;
 
     &:hover {
         cursor: pointer;
@@ -65,11 +67,28 @@
         &-medium {
             width: 28px;
             height: 28px;
+            font-size: 1.3rem;
         }
 
         &-big {
             width: 35px;
             height: 35px;
+        }
+    }
+
+    .text {
+        margin-left: 8px;
+
+        &-small {
+            font-size: 1rem;
+        }
+
+        &-medium {
+            font-size: 1.3rem;
+        }
+
+        &-big {
+            font-size: 1.7rem;
         }
     }
 }

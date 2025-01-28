@@ -6,7 +6,7 @@ import { TriggerProps } from '../types';
 import './Trigger.scss';
 
 export const Trigger: FC<TriggerProps> = ({
-    type,
+    theme,
     size,
     toggleExpandSelect,
     isExpanded,
@@ -16,9 +16,9 @@ export const Trigger: FC<TriggerProps> = ({
         <div
             className={classNames(
                 'chooseFiled',
-                `bg-${type}`,
+                `bg-${theme}`,
                 `element-${size}`,
-                `border-${type}`,
+                `border-${theme}`,
             )}
             onClick={toggleExpandSelect}
         >

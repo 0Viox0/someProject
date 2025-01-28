@@ -8,14 +8,14 @@ export const Dropdown: FC<DropdownProps> = ({
     isExpanded,
     selectedValue,
     options,
-    type,
+    theme,
     size,
     expandedSectionRef,
     handleOptionClick,
 }) => {
     return (
         <div
-            className={classNames('optionsWrapper', `bg-${type}`, {
+            className={classNames('optionsWrapper', `bg-${theme}`, {
                 active: isExpanded,
             })}
             ref={expandedSectionRef}
@@ -23,7 +23,7 @@ export const Dropdown: FC<DropdownProps> = ({
             {options.map((option, index) => (
                 <div
                     className={classNames('option', `element-${size}`, {
-                        [`chosenOption-${type}`]:
+                        [`chosenOption-${theme}`]:
                             option.label === selectedValue,
                     })}
                     onClick={() => handleOptionClick(option)}

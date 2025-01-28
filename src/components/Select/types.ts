@@ -23,7 +23,7 @@ export interface DropdownProps
 }
 
 export interface TriggerProps
-    extends Pick<SelectProps, 'size' | 'type' | 'selectedValue'> {
+    extends Pick<SelectProps, 'size' | 'theme' | 'selectedValue'> {
     isExpanded: boolean;
     toggleExpandSelect: () => void;
 }

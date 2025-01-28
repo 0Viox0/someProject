@@ -9,10 +9,9 @@ import './Select.scss';
 export const Select: FC<SelectProps> = ({
     selectedValue,
     onChange,
-    className,
     options,
     size = 'medium',
-    type = 'secondary',
+    theme = 'secondary',
     disabled = false,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
@@ -57,7 +56,7 @@ export const Select: FC<SelectProps> = ({
         selectedValue,
         options,
         size,
-        type,
+        theme: theme,
         isExpanded,
         expandedSectionRef,
         handleOptionClick,
@@ -66,21 +65,16 @@ export const Select: FC<SelectProps> = ({
     const triggerProps: TriggerProps = {
         selectedValue,
         size,
-        type,
+        theme,
         isExpanded,
         toggleExpandSelect,
     };
 
     return (
         <div
-            className={classNames(
-                'select-wrapper',
-                `select-${size}`,
-                className,
-                {
-                    disabled: disabled,
-                },
-            )}
+            className={classNames('select-wrapper', `select-${size}`, {
+                disabled: disabled,
+            })}
             ref={selectWrapperRef}
         >
             <Trigger {...triggerProps} />

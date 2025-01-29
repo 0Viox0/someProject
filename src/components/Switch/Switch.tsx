@@ -1,43 +1,69 @@
-import { FC } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { SwitchProps } from './types';
 import classNames from 'classnames';
 
 import './Switch.scss';
 
 export const Switch: FC<SwitchProps> = ({
-    value,
-    onChange,
     size = 'medium',
     theme = 'primary',
     shape = 'circle',
+    label,
+    value,
+    onChange,
     disabled,
 }) => {
-    const handleToggle = () => {
+    const [checked, setChecked] = useState(value ?? false);
+
+    const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
         if (!disabled) {
-            onChange();
+            if (onChange) {
+                onChange(event);
+            } else {
+                setChecked(event.target.checked);
+            }
         }
     };
+
+    useEffect(() => {
+        if (value) {
+            setChecked(value);
+        }
+    }, [value]);
 
     const switchClasses = classNames(
         `switchWrapper`,
         `switch-${size}`,
         `switch-${theme}`,
-        `${value}`,
         {
-            disabled: disabled,
+            on: checked,
+            off: !checked,
         },
     );
 
     return (
-        <div className={switchClasses} onClick={handleToggle}>
-            <div
-                className={classNames(
-                    'shape',
-                    `shape-${shape}`,
-                    `state-${value}`,
-                    `${value}`,
-                )}
-            ></div>
-        </div>
+        <label
+            className={classNames('checkboxWrapper', {
+                disabled: disabled,
+            })}
+        >
+            <input
+                className="realCheckbox"
+                type="checkbox"
+                checked={checked}
+                onChange={handleToggle}
+            />
+            <div className={switchClasses}>
+                <div
+                    className={classNames('shape', `shape-${shape}`, {
+                        on: checked,
+                        off: !checked,
+                    })}
+                />
+            </div>
+            <span className={classNames('labelText', `labelText-${size}`)}>
+                {label}
+            </span>
+        </label>
     );
 };

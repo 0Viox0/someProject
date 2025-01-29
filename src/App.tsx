@@ -1,38 +1,25 @@
-import { ChangeEvent, useState } from 'react';
-import { Input } from 'components/Input';
+import { useState } from 'react';
+import { Switch } from 'components/Switch';
 
 import './index.scss';
-import { Button } from 'components/Button';
 
 export const App = () => {
-    const [value, setValue] = useState('');
+    const [value, setValue] = useState(false);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
-    };
-
-    const handleClick = () => {
-        console.log(value);
+    const handleValueChange = () => {
+        setValue(true);
     };
 
     return (
         <div
             style={{
                 display: 'flex',
-                justifyContent: 'center',
-                alignContent: 'center',
                 minHeight: '100vh',
+                justifyContent: 'center',
+                alignItems: 'center',
             }}
         >
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                }}
-            >
-                <Input label="something" error="username already exists" />
-                <Input label="something" />
-            </div>
+            <Switch size="medium" theme="danger" label="Toggle dark theme" />
         </div>
     );
 };

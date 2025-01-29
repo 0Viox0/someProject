@@ -4,6 +4,7 @@
 
 .select-wrapper {
     color: variables.$textColor;
+    position: relative;
 
     cursor: pointer;
 
@@ -55,6 +56,47 @@
         .chosenOption-#{$name} {
             background-color: color.scale($color: $value, $lightness: -14%);
             border-radius: 5px;
+        }
+
+        &.scrollBar-#{$name} {
+            ::-webkit-scrollbar-thumb {
+                background: color.scale($color: $value, $lightness: -20%);
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: color.scale($color: $value, $lightness: -50%);
+            }
+        }
+    }
+
+    .optionsWrapper {
+        @include drop.selectTransition();
+
+        position: absolute;
+        width: 100%;
+
+        border-radius: drop.$borderRadius;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        margin-top: 0;
+        height: 0;
+
+        box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        &.active {
+            margin-top: 9px;
         }
     }
 }

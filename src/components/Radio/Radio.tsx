@@ -1,11 +1,11 @@
 import { FC } from 'react';
-import { RadioElement, RadioProps } from './types';
+import { RadioProps } from './types';
 import classNames from 'classnames';
 
 import './Radio.scss';
 
 export const Radio: FC<RadioProps> = ({
-    currentChoice,
+    value,
     options,
     onChange,
     size = 'medium',
@@ -13,7 +13,7 @@ export const Radio: FC<RadioProps> = ({
     disabled = false,
     direction = 'column',
 }) => {
-    const handleOptionClick = (option: RadioElement) => {
+    const handleOptionClick = (option: number) => {
         if (!disabled) {
             onChange(option);
         }
@@ -35,20 +35,20 @@ export const Radio: FC<RadioProps> = ({
 
     return (
         <div className={radioContainerClasses}>
-            {options.map((option, index) => (
+            {options.map((option) => (
                 <div
                     className="optionContainer"
-                    key={index}
-                    onClick={() => handleOptionClick(option)}
+                    key={option.value}
+                    onClick={() => handleOptionClick(option.value)}
                 >
                     <div className={circleClasses}>
-                        {option.value === currentChoice.value && (
+                        {option.value === value && (
                             <div className="activeCircle"></div>
                         )}
                     </div>
                     <div className="labelWrapper">
                         {option.label}
-                        {option.value === currentChoice.value && (
+                        {option.value === value && (
                             <div
                                 className={classNames(
                                     'underline',

@@ -1,4 +1,6 @@
 @use '../styles/variables' as drop;
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
 
 .chooseFiled {
     border-radius: drop.$borderRadius;
@@ -9,8 +11,17 @@
 
     box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
 
-    .chooseFiled-text-expanded {
-        opacity: drop.$opacityWhileExpanded;
+    .input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        width: 100%;
+
+        @each $value, $color in v.$baseColorsMap {
+            &.placeholder-#{$value}::placeholder {
+                color: color.scale($color: $color, $lightness: -70%);
+            }
+        }
     }
 
     .icon {

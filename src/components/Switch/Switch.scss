@@ -1,12 +1,9 @@
 @use 'shared/styles/variables';
 
-.switchWrapper {
-    position: relative;
-
-    border-radius: 9.5px;
-    box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
-
-    transition: all 0.2s ease-in-out;
+.checkboxWrapper {
+    display: flex;
+    justify-content: start;
+    align-items: center;
 
     &.disabled {
         opacity: 0.5;
@@ -20,60 +17,89 @@
         cursor: pointer;
     }
 
-    &.switch {
-        &-small {
-            width: 44px;
-            height: 17px;
+    .realCheckbox {
+        display: none;
+    }
+
+    .switchWrapper {
+        position: relative;
+
+        border-radius: 9.5px;
+        box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
+
+        transition: all 0.2s ease-in-out;
+
+        &.switch {
+            &-small {
+                width: 44px;
+                height: 17px;
+            }
+
+            &-medium {
+                width: 66px;
+                height: 25px;
+            }
+
+            &-big {
+                width: 92px;
+                height: 35px;
+            }
+
+            @each $value, $color in variables.$baseColorsMap {
+                &-#{$value} {
+                    background-color: $color;
+                }
+            }
         }
 
-        &-medium {
-            width: 66px;
-            height: 25px;
+        &.off {
+            background-color: gray;
         }
 
-        &-big {
-            width: 92px;
-            height: 35px;
-        }
+        .shape {
+            position: absolute;
+            top: 50%;
 
-        @each $value, $color in variables.$baseColorsMap {
-            &-#{$value} {
-                background-color: $color;
+            background-color: #d9d9d9;
+
+            transition: all 0.2s ease-in-out;
+
+            &.on {
+                left: 100%;
+                transform: translate(-120%, -50%);
+            }
+
+            &.off {
+                left: 0;
+                transform: translate(20%, -50%);
+            }
+
+            width: 30%;
+            height: 79%;
+
+            &-circle {
+                border-radius: 50%;
+            }
+
+            &-square {
+                border-radius: 5px;
             }
         }
     }
 
-    &.off {
-        background-color: gray;
-    }
+    .labelText {
+        margin-left: 10px;
 
-    .shape {
-        position: absolute;
-        top: 50%;
-
-        background-color: #d9d9d9;
-
-        transition: all 0.2s ease-in-out;
-
-        &.on {
-            left: 100%;
-            transform: translate(-120%, -50%);
+        &-small {
+            font-size: 0.8rem;
         }
 
-        &.off {
-            left: 0;
-            transform: translate(20%, -50%);
+        &-medium {
+            font-size: 1.1rem;
         }
 
-        width: 30%;
-        height: 79%;
-
-        &-circle {
-            border-radius: 50%;
-        }
-
-        &-square {
-            border-radius: 5px;
+        &-big {
+            font-size: 1.5rem;
         }
     }
 }

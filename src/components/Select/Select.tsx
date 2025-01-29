@@ -1,23 +1,52 @@
 import { FC, useEffect, useRef, useState } from 'react';
-import { DropdownProps, Option, SelectProps, TriggerProps } from './types';
+import { Option, OptionValue, SelectProps, TriggerProps } from './types';
 import classNames from 'classnames';
-import { Dropdown } from './Dropdown/Dropdown';
 import { Trigger } from './Trigger/Trigger';
+import { OptionEl } from './Option/OptionEl';
 
 import './Select.scss';
 
 export const Select: FC<SelectProps> = ({
+    size = 'medium',
+    theme = 'secondary',
     selectedValue,
     onChange,
     options,
-    size = 'medium',
-    theme = 'secondary',
-    disabled = false,
+    disabled,
+    className,
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [maxHeight, setMaxHeight] = useState<number>(0);
 
-    const expandedSectionRef = useRef<HTMLDivElement>(null);
+    const expandedSectionRef = useRef<HTMLUListElement>(null);
     const selectWrapperRef = useRef<HTMLDivElement>(null);
+
+    const [inputValue, setInputValue] = useState<string>('');
+
+    const [innerSelectedValue, setInnerSelectedValue] = useState(selectedValue);
+    const [innerOptions, setInnerOptions] = useState(options ?? []);
+
+    const maxOptionCount = 4;
+
+    const inputFilter = (option: Option) => {
+        return inputValue !== ''
+            ? option.label.toLocaleLowerCase().includes(inputValue)
+            : true;
+    };
+
+    useEffect(() => {
+        setInnerOptions(options);
+    }, [options]);
+
+    useEffect(() => {
+        setInnerSelectedValue(selectedValue);
+    }, [selectedValue]);
+
+    useEffect(() => {
+        const height = expandedSectionRef.current.scrollHeight;
+        const maxHeight = (height / innerOptions.length) * maxOptionCount;
+        setMaxHeight(maxHeight);
+    }, [innerOptions.length]);
 
     const toggleExpandSelect = () => {
         if (!disabled) {
@@ -25,9 +54,14 @@ export const Select: FC<SelectProps> = ({
         }
     };
 
-    const handleOptionClick = (option: Option) => {
+    const handleOptionClick = (value: OptionValue) => {
         setIsExpanded(false);
-        onChange(option);
+
+        setInnerSelectedValue(value);
+
+        if (onChange) {
+            onChange(value);
+        }
     };
 
     useEffect(() => {
@@ -46,24 +80,26 @@ export const Select: FC<SelectProps> = ({
 
     useEffect(() => {
         if (isExpanded) {
-            expandedSectionRef.current.style.height = `${expandedSectionRef.current.scrollHeight}px`;
+            const oldHeight = expandedSectionRef.current.scrollHeight;
+            expandedSectionRef.current.style.height = 'auto';
+            const newHeight = expandedSectionRef.current.scrollHeight;
+            expandedSectionRef.current.style.height = `${oldHeight}px`;
+
+            if (newHeight > maxHeight) {
+                expandedSectionRef.current.style.height = `${maxHeight}px`;
+            } else {
+                expandedSectionRef.current.style.height = `${newHeight}px`;
+            }
         } else {
             expandedSectionRef.current.style.height = '0px';
         }
-    }, [isExpanded]);
-
-    const dropdownProps: DropdownProps = {
-        selectedValue,
-        options,
-        size,
-        theme: theme,
-        isExpanded,
-        expandedSectionRef,
-        handleOptionClick,
-    };
+    }, [isExpanded, maxHeight, inputValue]);
 
     const triggerProps: TriggerProps = {
-        selectedValue,
+        inputValue,
+        setInputValue,
+        selectedValue: innerSelectedValue,
+        options: innerOptions,
         size,
         theme,
         isExpanded,
@@ -72,13 +108,40 @@ export const Select: FC<SelectProps> = ({
 
     return (
         <div
-            className={classNames('select-wrapper', `select-${size}`, {
-                disabled: disabled,
-            })}
+            className={classNames(
+                'select-wrapper',
+                `scrollBar-${theme}`,
+                `select-${size}`,
+                {
+                    disabled: disabled,
+                },
+                className,
+            )}
             ref={selectWrapperRef}
         >
             <Trigger {...triggerProps} />
-            <Dropdown {...dropdownProps} />
+            <ul
+                className={classNames(
+                    'optionsWrapper',
+                    `bg-${theme}`,
+                    {
+                        active: isExpanded,
+                    },
+                    className,
+                )}
+                ref={expandedSectionRef}
+            >
+                {innerOptions.filter(inputFilter).map((option) => (
+                    <OptionEl
+                        selectedValue={innerSelectedValue}
+                        option={option}
+                        onClick={handleOptionClick}
+                        key={option.value}
+                        size={size}
+                        theme={theme}
+                    />
+                ))}
+            </ul>
         </div>
     );
 };

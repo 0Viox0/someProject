@@ -9,9 +9,9 @@ export interface RadioElement {
 export type Direction = 'row' | 'column';
 
 export interface RadioProps extends BaseComponentProps {
-    currentChoice: RadioElement;
+    value: number;
     options: RadioElement[];
-    onChange: (newChoice: RadioElement) => void;
+    onChange: (newChoiceValue: number) => void;
     disabled?: boolean;
     direction?: Direction;
 }

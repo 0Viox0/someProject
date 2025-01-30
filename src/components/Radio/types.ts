@@ -14,4 +14,5 @@ export interface RadioProps extends BaseComponentProps {
     onChange?: (newChoiceValue: number) => void;
     disabled?: boolean;
     direction?: Direction;
+    className?: string;
 }

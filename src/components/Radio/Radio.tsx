@@ -12,6 +12,7 @@ export const Radio: FC<RadioProps> = ({
     theme = 'primary',
     disabled = false,
     direction = 'column',
+    className,
 }) => {
     const [innerValue, setInnerValue] = useState(
         (value ?? options) ? options[0].value : 0,
@@ -46,6 +47,7 @@ export const Radio: FC<RadioProps> = ({
         {
             disabled: disabled,
         },
+        className,
     );
 
     const circleClasses = classNames(

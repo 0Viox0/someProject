@@ -43,10 +43,12 @@ export const Select: FC<SelectProps> = ({
     }, [selectedValue]);
 
     useEffect(() => {
-        const height = expandedSectionRef.current.scrollHeight;
-        const maxHeight = (height / innerOptions.length) * maxOptionCount;
-        setMaxHeight(maxHeight);
-    }, [innerOptions.length]);
+        if (innerOptions) {
+            const height = expandedSectionRef.current.scrollHeight;
+            const maxHeight = (height / innerOptions.length) * maxOptionCount;
+            setMaxHeight(maxHeight);
+        }
+    }, [innerOptions]);
 
     const toggleExpandSelect = () => {
         if (!disabled) {
@@ -131,16 +133,19 @@ export const Select: FC<SelectProps> = ({
                 )}
                 ref={expandedSectionRef}
             >
-                {innerOptions.filter(inputFilter).map((option) => (
-                    <OptionEl
-                        selectedValue={innerSelectedValue}
-                        option={option}
-                        onClick={handleOptionClick}
-                        key={option.value}
-                        size={size}
-                        theme={theme}
-                    />
-                ))}
+                {innerOptions &&
+                    innerOptions
+                        .filter(inputFilter)
+                        .map((option) => (
+                            <OptionEl
+                                selectedValue={innerSelectedValue}
+                                option={option}
+                                onClick={handleOptionClick}
+                                key={option.value}
+                                size={size}
+                                theme={theme}
+                            />
+                        ))}
             </ul>
         </div>
     );

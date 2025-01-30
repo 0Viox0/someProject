@@ -9,4 +9,5 @@ export interface SwitchProps extends BaseComponentProps {
     disabled?: boolean;
     shape?: Shape;
     label?: string;
+    className?: string;
 }

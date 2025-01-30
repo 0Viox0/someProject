@@ -8,6 +8,8 @@
 
     cursor: pointer;
 
+    z-index: 9999;
+
     &.disabled {
         opacity: 0.5;
         cursor: not-allowed;
@@ -74,6 +76,7 @@
         @include drop.selectTransition();
 
         position: absolute;
+        left: 0;
         width: 100%;
 
         border-radius: drop.$borderRadius;

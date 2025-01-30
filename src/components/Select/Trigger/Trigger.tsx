@@ -42,9 +42,9 @@ export const Trigger: FC<TriggerProps> = ({
     const getValue = () => {
         if (isFocused) return inputValue;
 
-        const currentOption = options.find(
-            (option) => option.value === selectedValue,
-        );
+        const currentOption = options
+            ? options.find((option) => option.value === selectedValue)
+            : undefined;
 
         if (!currentOption) return '';
 
@@ -52,9 +52,9 @@ export const Trigger: FC<TriggerProps> = ({
     };
 
     const getCurrentPlaceholder = () => {
-        const currentOption = options.find(
-            (option) => option.value === selectedValue,
-        );
+        const currentOption = options
+            ? options.find((option) => option.value === selectedValue)
+            : undefined;
 
         if (!currentOption) return 'Search to choose';
 

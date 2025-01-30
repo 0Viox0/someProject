@@ -12,6 +12,7 @@ export const Switch: FC<SwitchProps> = ({
     value,
     onChange,
     disabled,
+    className,
 }) => {
     const [checked, setChecked] = useState(value ?? false);
 
@@ -43,7 +44,7 @@ export const Switch: FC<SwitchProps> = ({
 
     return (
         <label
-            className={classNames('checkboxWrapper', {
+            className={classNames('checkboxWrapper', className, {
                 disabled: disabled,
             })}
         >

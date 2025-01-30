@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { RadioProps } from './types';
 import classNames from 'classnames';
 
@@ -13,9 +13,30 @@ export const Radio: FC<RadioProps> = ({
     disabled = false,
     direction = 'column',
 }) => {
+    const [innerValue, setInnerValue] = useState(
+        (value ?? options) ? options[0].value : 0,
+    );
+    const [innerOptions, setInnerOptions] = useState(options ?? []);
+
+    useEffect(() => {
+        if (value) {
+            setInnerValue(value);
+        }
+    }, [value]);
+
+    useEffect(() => {
+        if (options) {
+            setInnerOptions(options);
+        }
+    }, [options]);
+
     const handleOptionClick = (option: number) => {
         if (!disabled) {
-            onChange(option);
+            if (onChange) {
+                onChange(option);
+            } else {
+                setInnerValue(option);
+            }
         }
     };
 
@@ -35,20 +56,20 @@ export const Radio: FC<RadioProps> = ({
 
     return (
         <div className={radioContainerClasses}>
-            {options.map((option) => (
+            {innerOptions.map((option) => (
                 <div
                     className="optionContainer"
                     key={option.value}
                     onClick={() => handleOptionClick(option.value)}
                 >
                     <div className={circleClasses}>
-                        {option.value === value && (
+                        {option.value === innerValue && (
                             <div className="activeCircle"></div>
                         )}
                     </div>
                     <div className="labelWrapper">
                         {option.label}
-                        {option.value === value && (
+                        {option.value === innerValue && (
                             <div
                                 className={classNames(
                                     'underline',

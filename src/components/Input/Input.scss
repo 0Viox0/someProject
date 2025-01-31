@@ -1,0 +1,103 @@
+@use 'shared/styles/variables';
+@use 'sass:color';
+
+$borderRadius: 5px;
+
+.input-wrapper {
+    position: relative;
+
+    display: flex;
+    align-items: start;
+
+    @each $name, $color in variables.$baseColorsMap {
+        .label-#{$name} {
+            border-width: 1px;
+            border-style: solid;
+
+            border-color: color.scale(
+                $color: $color,
+                $lightness: -40%,
+                $alpha: -10%
+            );
+
+            border-radius: $borderRadius 0 0 $borderRadius;
+
+            background-color: color.scale($color: $color, $alpha: -30%);
+        }
+    }
+
+    .input-small {
+        font-size: variables.$smallText;
+        padding: 0.36rem 1.375rem;
+    }
+
+    .input-medium {
+        font-size: variables.$mediumText;
+        padding: 0.56rem 1.5rem;
+    }
+
+    .input-big {
+        font-size: variables.$bigText;
+        padding: 0.56rem 1.875rem;
+    }
+
+    .error-wrapper {
+        position: relative;
+
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+
+        .error {
+            text-wrap: nowrap;
+            color: color.scale($color: red, $lightness: 60%);
+        }
+
+        .input {
+            outline: none;
+            border: none;
+            background-color: transparent;
+
+            color: variables.$textColor;
+
+            &:disabled {
+                opacity: 0.5;
+
+                &:hover {
+                    cursor: not-allowed;
+                }
+            }
+
+            @each $name, $color in variables.$baseColorsMap {
+                &-#{$name} {
+                    border-color: color.scale(
+                        $color: $color,
+                        $lightness: 40%,
+                        $alpha: -10%
+                    );
+                }
+
+                &-#{$name}-outlined {
+                    border-width: 1px;
+                    border-style: solid;
+                    border-radius: $borderRadius;
+                }
+
+                &-#{$name}-filled {
+                    background-color: color.scale($color: $color, $alpha: -60%);
+                    border-radius: $borderRadius;
+                }
+
+                &-#{$name}-borderless {
+                    border: none;
+                }
+            }
+
+            &.with-label {
+                padding-left: 20px;
+                border-left: transparent;
+                border-radius: 0 $borderRadius $borderRadius 0;
+            }
+        }
+    }
+}

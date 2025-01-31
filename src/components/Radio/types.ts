@@ -1,0 +1,18 @@
+import { ReactNode } from 'react';
+import { BaseComponentProps } from 'shared/types/types';
+
+export interface RadioElement {
+    value?: number;
+    label?: ReactNode;
+}
+
+export type Direction = 'row' | 'column';
+
+export interface RadioProps extends BaseComponentProps {
+    options: RadioElement[];
+    value?: number;
+    onChange?: (newChoiceValue: number) => void;
+    disabled?: boolean;
+    direction?: Direction;
+    className?: string;
+}

@@ -1,0 +1,93 @@
+@use 'shared/styles/variables';
+@use 'sass:color';
+
+@mixin disabledButtonBg($bgColor) {
+    background-color: color.adjust($color: $bgColor, $lightness: 10%);
+}
+
+.button {
+    border: none;
+    outline: none;
+    background-color: none;
+
+    box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
+
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .iconWrapper {
+        display: grid;
+
+        place-content: center;
+
+        &.rotateIcon {
+            animation: rotate 1s linear infinite;
+        }
+
+        &.left {
+            margin-right: 10px;
+        }
+
+        &.right {
+            margin-left: 10px;
+        }
+    }
+
+    &:disabled:hover {
+        cursor: not-allowed;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active:not(:disabled) {
+        transform: scale(0.94);
+    }
+
+    @each $type, $color in variables.$baseColorsMap {
+        &-#{$type} {
+            background-color: $color;
+
+            &:disabled {
+                @include disabledButtonBg($color);
+            }
+
+            &:hover {
+                background-color: color.adjust($color: $color, $lightness: 10%);
+            }
+
+            &:active:not(:disabled) {
+                background-color: $color;
+            }
+        }
+    }
+
+    &-small {
+        font-size: variables.$smallText;
+        padding: 0.36rem 1.375rem;
+    }
+
+    &-medium {
+        font-size: variables.$mediumText;
+        padding: 0.56rem 1.5rem;
+    }
+
+    &-big {
+        font-size: variables.$bigText;
+        padding: 0.56rem 1.875rem;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

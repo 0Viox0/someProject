@@ -17,15 +17,15 @@
 
     &.select {
         &-small {
-            min-width: 145px;
-        }
-
-        &-medium {
             min-width: 165px;
         }
 
-        &-big {
+        &-medium {
             min-width: 195px;
+        }
+
+        &-big {
+            min-width: 245px;
         }
     }
 
@@ -100,6 +100,10 @@
 
         &.active {
             margin-top: 9px;
+        }
+
+        .emptyListMessage {
+            text-align: center;
         }
     }
 }

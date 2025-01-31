@@ -72,13 +72,16 @@ export const Trigger: FC<TriggerProps> = ({
             className={classNames(
                 'chooseFiled',
                 `bg-${theme}`,
-                `element-${size}`,
                 `border-${theme}`,
             )}
             onClick={toggleExpandSelectInner}
         >
             <input
-                className={classNames('input', `placeholder-${theme}`)}
+                className={classNames(
+                    'input',
+                    `placeholder-${theme}`,
+                    `element-${size}`,
+                )}
                 value={getValue()}
                 onChange={handleChange}
                 onFocus={handleFocus}

@@ -5,13 +5,14 @@ import { Trigger } from './Trigger/Trigger';
 import { OptionEl } from './Option/OptionEl';
 
 import './Select.scss';
+import { text } from './text';
 
 export const Select: FC<SelectProps> = ({
     size = 'medium',
     theme = 'secondary',
+    options = [],
     selectedValue,
     onChange,
-    options,
     disabled,
     className,
 }) => {
@@ -24,7 +25,6 @@ export const Select: FC<SelectProps> = ({
     const [inputValue, setInputValue] = useState<string>('');
 
     const [innerSelectedValue, setInnerSelectedValue] = useState(selectedValue);
-    const [innerOptions, setInnerOptions] = useState(options ?? []);
 
     const maxOptionCount = 4;
 
@@ -35,20 +35,16 @@ export const Select: FC<SelectProps> = ({
     };
 
     useEffect(() => {
-        setInnerOptions(options);
-    }, [options]);
-
-    useEffect(() => {
         setInnerSelectedValue(selectedValue);
     }, [selectedValue]);
 
     useEffect(() => {
-        if (innerOptions) {
+        if (options.length && isExpanded) {
             const height = expandedSectionRef.current.scrollHeight;
-            const maxHeight = (height / innerOptions.length) * maxOptionCount;
+            const maxHeight = (height / options.length) * maxOptionCount;
             setMaxHeight(maxHeight);
         }
-    }, [innerOptions]);
+    }, [options.length, isExpanded]);
 
     const toggleExpandSelect = () => {
         if (!disabled) {
@@ -61,9 +57,7 @@ export const Select: FC<SelectProps> = ({
 
         setInnerSelectedValue(value);
 
-        if (onChange) {
-            onChange(value);
-        }
+        onChange?.(value);
     };
 
     useEffect(() => {
@@ -101,7 +95,7 @@ export const Select: FC<SelectProps> = ({
         inputValue,
         setInputValue,
         selectedValue: innerSelectedValue,
-        options: innerOptions,
+        options,
         size,
         theme,
         isExpanded,
@@ -133,8 +127,8 @@ export const Select: FC<SelectProps> = ({
                 )}
                 ref={expandedSectionRef}
             >
-                {innerOptions &&
-                    innerOptions
+                {options.length ? (
+                    options
                         .filter(inputFilter)
                         .map((option) => (
                             <OptionEl
@@ -145,7 +139,17 @@ export const Select: FC<SelectProps> = ({
                                 size={size}
                                 theme={theme}
                             />
-                        ))}
+                        ))
+                ) : (
+                    <div
+                        className={classNames(
+                            'emptyListMessage',
+                            `element-${size}`,
+                        )}
+                    >
+                        {text.listIsEmpty}
+                    </div>
+                )}
             </ul>
         </div>
     );

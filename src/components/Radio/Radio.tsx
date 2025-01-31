@@ -15,25 +15,18 @@ export const Radio: FC<RadioProps> = ({
     className,
 }) => {
     const [innerValue, setInnerValue] = useState(
-        (value ?? options) ? options[0].value : 0,
+        value ?? (options?.length ? options[0].value : 0),
     );
-    const [innerOptions, setInnerOptions] = useState(options ?? []);
 
     useEffect(() => {
-        if (value) {
+        if (value !== undefined) {
             setInnerValue(value);
         }
     }, [value]);
 
-    useEffect(() => {
-        if (options) {
-            setInnerOptions(options);
-        }
-    }, [options]);
-
     const handleOptionClick = (option: number) => {
         if (!disabled) {
-            if (onChange) {
+            if (onChange && value !== undefined) {
                 onChange(option);
             } else {
                 setInnerValue(option);
@@ -58,7 +51,7 @@ export const Radio: FC<RadioProps> = ({
 
     return (
         <div className={radioContainerClasses}>
-            {innerOptions.map((option) => (
+            {options.map((option) => (
                 <div
                     className="optionContainer"
                     key={option.value}

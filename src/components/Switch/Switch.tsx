@@ -18,19 +18,10 @@ export const Switch: FC<SwitchProps> = ({
 
     const handleToggle = (event: ChangeEvent<HTMLInputElement>) => {
         if (!disabled) {
-            if (onChange) {
-                onChange(event);
-            } else {
-                setChecked(event.target.checked);
-            }
+            setChecked(event.target.checked);
+            onChange?.(event);
         }
     };
-
-    useEffect(() => {
-        if (value) {
-            setChecked(value);
-        }
-    }, [value]);
 
     const switchClasses = classNames(
         `switchWrapper`,
@@ -62,9 +53,11 @@ export const Switch: FC<SwitchProps> = ({
                     })}
                 />
             </div>
-            <span className={classNames('labelText', `labelText-${size}`)}>
-                {label}
-            </span>
+            {label && (
+                <span className={classNames('labelText', `labelText-${size}`)}>
+                    {label}
+                </span>
+            )}
         </label>
     );
 };

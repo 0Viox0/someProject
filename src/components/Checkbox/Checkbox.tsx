@@ -23,16 +23,12 @@ export const Checkbox: FC<CheckboxProps> = ({
     const [innerIsChecked, setInnerIsChecked] = useState(checked);
 
     const innerOnChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInnerIsChecked((prevState) => !prevState);
-
         if (onChange) {
             onChange(event);
+        } else {
+            setInnerIsChecked((prevState) => !prevState);
         }
     };
-
-    useEffect(() => {
-        setInnerIsChecked(checked);
-    }, [checked]);
 
     return (
         <label className={classNames('checkboxWrapper', className)}>

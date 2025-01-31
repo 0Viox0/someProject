@@ -1,13 +1,27 @@
 import { Switch } from 'components/Switch';
 import { Select } from 'components/Select';
-
-import './index.scss';
 import { Input } from 'components/Input';
 import { Checkbox } from 'components/Checkbox';
 import { Radio } from 'components/Radio';
 import { Button } from 'components/Button';
+import { ChangeEvent, useState } from 'react';
+import { OptionValue } from 'components/Select/types';
+
+import './index.scss';
 
 export const App = () => {
+    const [value, setValue] = useState<OptionValue>(1);
+
+    const handleChange = (newValue: OptionValue) => {
+        setValue(newValue);
+    };
+
+    const [switchValue, setSwitchValue] = useState(false);
+
+    const handleSwitchChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setSwitchValue(event.target.checked);
+    };
+
     return (
         <>
             <div
@@ -19,6 +33,9 @@ export const App = () => {
                 }}
             >
                 <Select
+                    size="medium"
+                    selectedValue={value}
+                    onChange={handleChange}
                     options={[
                         {
                             label: '1',
@@ -56,6 +73,8 @@ export const App = () => {
                 }}
             >
                 <Switch
+                    value={switchValue}
+                    onChange={handleSwitchChange}
                     className="toggle"
                     size="medium"
                     theme="danger"
@@ -90,25 +109,15 @@ export const App = () => {
             <div
                 style={{
                     position: 'absolute',
-                    top: '190px',
-                    left: '70px',
-                }}
-            >
-                <Checkbox text="Click me" />
-            </div>
-
-            <div
-                style={{
-                    position: 'absolute',
                     top: '320px',
                     left: '70px',
                 }}
             >
                 <Radio
                     options={[
-                        { label: 'first', value: 1 },
-                        { label: 'second', value: 2 },
-                        { label: 'third', value: 3 },
+                        { label: 'first', value: 0 },
+                        { label: 'second', value: 1 },
+                        { label: 'third', value: 2 },
                     ]}
                 />
             </div>

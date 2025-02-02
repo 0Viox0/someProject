@@ -3,9 +3,9 @@ import { Option, OptionValue, SelectProps, TriggerProps } from './types';
 import classNames from 'classnames';
 import { Trigger } from './Trigger/Trigger';
 import { OptionEl } from './Option/OptionEl';
+import { text } from './text';
 
 import './Select.scss';
-import { text } from './text';
 
 export const Select: FC<SelectProps> = ({
     size = 'medium',

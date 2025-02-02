@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import CheckIcon from 'shared/assets/icons/CheckIcon.svg';
 import { CheckboxProps } from './types';
 import classNames from 'classnames';

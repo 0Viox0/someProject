@@ -11,14 +11,26 @@ const config: StorybookConfig = {
         '@storybook/addon-essentials',
         '@chromatic-com/storybook',
         '@storybook/addon-interactions',
-        '@storybook/addon-webpack5-compiler-babel',
-        '@storybook/addon-styling-webpack',
     ],
     framework: {
         name: '@storybook/react-webpack5',
         options: {},
     },
     webpackFinal: async (config) => {
+        // we remove all previous svg rules
+        const imageRule = config.module?.rules?.find((rule) => {
+            const test = (rule as { test: RegExp }).test;
+
+            if (!test) {
+                return false;
+            }
+
+            return test.test('.svg');
+        }) as { [key: string]: unknown };
+
+        imageRule.exclude = /\.svg$/;
+
+        // we add our webpack config
         const withCustomWebpackConfig = {
             ...config,
             module: {
@@ -30,6 +42,7 @@ const config: StorybookConfig = {
             },
         };
 
+        // we load tsconfig plugin to use our global.b.ts file
         if (withCustomWebpackConfig.resolve) {
             withCustomWebpackConfig.resolve.plugins = [
                 ...(withCustomWebpackConfig.resolve.plugins || []),

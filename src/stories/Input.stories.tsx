@@ -4,7 +4,7 @@ import { Input } from 'components/Input/Input';
 
 const meta = {
     component: Input,
-    title: 'something',
+    title: 'components/Input',
 } satisfies Meta<typeof Input>;
 
 export default meta;

@@ -1,4 +1,4 @@
-@use 'shared/styles/variables';
+@use 'shared/styles/_variables.scss';
 
 @mixin checkboxIconAppearTransition() {
     transition: transform 0.1s ease-in-out;

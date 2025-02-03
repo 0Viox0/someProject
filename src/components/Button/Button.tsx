@@ -5,6 +5,7 @@ import LoadingIcon from 'shared/assets/icons/LoadingIcon.svg';
 
 import './Button.scss';
 
+/** Simple button that supports several themes and sizes */
 export const Button: FC<ButtonProps> = ({
     size = 'medium',
     theme = 'primary',

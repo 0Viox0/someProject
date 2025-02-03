@@ -30,6 +30,16 @@ const config: StorybookConfig = {
 
         imageRule.exclude = /\.svg$/;
 
+        // we load tsconfig plugin to use our global.b.ts file
+        if (config.resolve) {
+            config.resolve.plugins = [
+                ...(config.resolve.plugins || []),
+                new TsconfigPathsPlugin({
+                    extensions: config.resolve.extensions,
+                }),
+            ];
+        }
+
         // we add our webpack config
         const withCustomWebpackConfig = {
             ...config,
@@ -37,20 +47,10 @@ const config: StorybookConfig = {
                 ...config.module,
                 rules: [
                     ...(config.module?.rules ?? []),
-                    ...(custom({}).module?.rules ?? []),
+                    ...(custom({ mode: 'development' }).module?.rules ?? []),
                 ],
             },
         };
-
-        // we load tsconfig plugin to use our global.b.ts file
-        if (withCustomWebpackConfig.resolve) {
-            withCustomWebpackConfig.resolve.plugins = [
-                ...(withCustomWebpackConfig.resolve.plugins || []),
-                new TsconfigPathsPlugin({
-                    extensions: withCustomWebpackConfig.resolve.extensions,
-                }),
-            ];
-        }
 
         return withCustomWebpackConfig;
     },

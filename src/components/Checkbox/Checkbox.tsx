@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import './Checkbox.scss';
 
+/**  Simple checkbox with several themes */
 export const Checkbox: FC<CheckboxProps> = ({
     onChange,
     size = 'medium',

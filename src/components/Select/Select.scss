@@ -1,6 +1,6 @@
 @use 'shared/styles/_variables.scss';
 @use 'sass:color';
-@use './styles/_variables.scss' as drop;
+@use './styles/variables' as drop;
 
 .select-wrapper {
     color: variables.$textColor;

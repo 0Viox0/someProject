@@ -61,6 +61,7 @@
     "webpack-cli": "^6.0.1"
   },
   "dependencies": {
+    "@storybook/preset-scss": "^1.0.3",
     "classnames": "^2.5.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

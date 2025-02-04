@@ -7,7 +7,7 @@ import './Tabs.scss';
 
 export const Tabs: FC<TabsProps> = ({
     size = 'medium',
-    type = 'primary',
+    theme = 'primary',
     defaultActiveKey = 1,
     items,
     className,
@@ -59,8 +59,8 @@ export const Tabs: FC<TabsProps> = ({
     };
 
     const tabClassnames = (tab: Item) => {
-        return classNames('tabs-header-item', `tab-${type}`, `tab-${size}`, {
-            [`tab-${type}-active`]: tab.key === currentTab.key,
+        return classNames('tabs-header-item', `tab-${theme}`, `tab-${size}`, {
+            [`tab-${theme}-active`]: tab.key === currentTab.key,
             'tab-disabled': tab.disabled,
         });
     };

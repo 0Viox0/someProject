@@ -7,7 +7,7 @@ import './Loader.scss';
 
 export const Loader: FC<LoaderProps> = ({
     size = 'medium',
-    type = 'secondary',
+    theme = 'secondary',
     text,
     loaderShape = 'dots',
     animationSeed,
@@ -17,11 +17,15 @@ export const Loader: FC<LoaderProps> = ({
         <div className={classNames('loaderWrapper', className)}>
             <span className={classNames(`text text-${size}`)}>{text}</span>
             {loaderShape === 'dots' ? (
-                <Dots size={size} type={type} animationSpeed={animationSeed} />
+                <Dots
+                    size={size}
+                    theme={theme}
+                    animationSpeed={animationSeed}
+                />
             ) : (
                 <Circle
                     size={size}
-                    type={type}
+                    theme={theme}
                     animationSpeed={animationSeed}
                 />
             )}

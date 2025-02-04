@@ -8,7 +8,7 @@ export const Table = <T,>({
     columns,
     dataSource,
     size = 'medium',
-    type = 'primary',
+    theme = 'primary',
     className,
 }: TableProps<T>) => {
     const [hoveredRowIndex, setHoveredRowIndex] = useState(-1);
@@ -24,7 +24,7 @@ export const Table = <T,>({
                     {columns.map((column) => (
                         <th
                             key={String(column.key)}
-                            className={classNames(`table-head-${type}`, size)}
+                            className={classNames(`table-head-${theme}`, size)}
                         >
                             {column.title}
                         </th>
@@ -35,8 +35,8 @@ export const Table = <T,>({
                 {dataSource.map((row, rowIndex) => (
                     <tr
                         key={rowIndex}
-                        className={classNames(`border-top-${type}`, {
-                            [`hover-${type}`]: hoveredRowIndex === rowIndex,
+                        className={classNames(`border-top-${theme}`, {
+                            [`hover-${theme}`]: hoveredRowIndex === rowIndex,
                         })}
                         onMouseEnter={() => toggleHover(rowIndex)}
                         onMouseLeave={() => toggleHover(-1)}
@@ -45,7 +45,7 @@ export const Table = <T,>({
                             <td
                                 className={classNames(
                                     size,
-                                    `border-left-${type}`,
+                                    `border-left-${theme}`,
                                 )}
                                 key={index}
                             >

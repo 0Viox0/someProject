@@ -1,22 +1,26 @@
 import { FC } from 'react';
 import { ModalProps } from './types';
 import classNames from 'classnames';
-import CloseIcon from 'shared/assets/icons/CloseIcon.svg';
-import { text } from './text';
+import { RootPortal } from './RootPortal/RootPortal';
+import { ModalFooter } from './ModalFooter';
+import { ModalHeader } from './ModalHeader';
 
 import './Modal.scss';
 
 export const Modal: FC<ModalProps> = ({
-    type = 'primary',
+    theme = 'primary',
     isOpen = false,
     onOk,
     onCancel,
     children,
     title = '',
     className = '',
+    okText,
+    cancelText,
+    footer,
 }) => {
     const handleBackgroundOnClick = (event: React.MouseEvent) => {
-        onCancel();
+        onCancel?.();
         event.stopPropagation();
     };
 
@@ -24,42 +28,38 @@ export const Modal: FC<ModalProps> = ({
         event.stopPropagation();
     };
 
+    const backgroundClasses = classNames(
+        `background`,
+        {
+            hide: !isOpen,
+        },
+        className,
+    );
+
+    const modalFooterProps = {
+        footer,
+        okText,
+        cancelText,
+        onOk,
+        onCancel,
+        theme,
+    };
+
     return (
-        <div
-            className={classNames(
-                `background`,
-                {
-                    hide: !isOpen,
-                },
-                className,
-            )}
-            onClick={handleBackgroundOnClick}
-        >
+        <RootPortal>
             <div
-                className={classNames('modal-wrapper', `modal-${type}`)}
-                onClick={handleWrapperOnClick}
+                className={backgroundClasses}
+                onClick={handleBackgroundOnClick}
             >
-                {title && title !== '' && (
-                    <h3 className="modal-title">{title}</h3>
-                )}
-                <CloseIcon className="closeIcon" onClick={onCancel} />
-                <div className="children">{children}</div>
-                <div className="buttons-wrapper">
-                    <button className="button cancel-button" onClick={onCancel}>
-                        {text.cancel}
-                    </button>
-                    <button
-                        className={classNames(
-                            'button',
-                            'okButton',
-                            `button-${type}`,
-                        )}
-                        onClick={onOk}
-                    >
-                        {text.ok}
-                    </button>
+                <div
+                    className={classNames('modal-wrapper', `modal-${theme}`)}
+                    onClick={handleWrapperOnClick}
+                >
+                    <ModalHeader title={title} onCancel={onCancel} />
+                    <div className="children">{children}</div>
+                    <ModalFooter {...modalFooterProps} />
                 </div>
             </div>
-        </div>
+        </RootPortal>
     );
 };

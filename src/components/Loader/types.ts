@@ -6,4 +6,5 @@ export interface LoaderProps extends BaseComponentProps {
     text?: string;
     loaderShape?: LoaderShape;
     animationSeed?: number;
+    className?: string;
 }

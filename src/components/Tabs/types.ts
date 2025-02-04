@@ -16,4 +16,5 @@ export type Item = {
 export interface TabsProps extends BaseComponentProps {
     items: Item[];
     defaultActiveKey: number;
+    className?: string;
 }

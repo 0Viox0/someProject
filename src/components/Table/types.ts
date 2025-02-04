@@ -24,6 +24,7 @@ export type DataSource<T> = T[];
 export interface TableProps<T> extends BaseComponentProps {
     columns: Column<T>[];
     dataSource: DataSource<T>;
+    className?: string;
 }
 
 // for ease of use

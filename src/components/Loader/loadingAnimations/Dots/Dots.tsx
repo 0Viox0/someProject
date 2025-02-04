@@ -8,11 +8,11 @@ export interface DotsProps extends Omit<BaseComponentProps, 'className'> {
     animationSpeed?: number;
 }
 
-export const Dots: FC<DotsProps> = ({ size, type, animationSpeed = 230 }) => {
+export const Dots: FC<DotsProps> = ({ size, theme, animationSpeed = 230 }) => {
     const [dots, setDots] = useState([
-        `dot-${type}-light`,
-        `dot-${type}-normal`,
-        `dot-${type}-dark`,
+        `dot-${theme}-light`,
+        `dot-${theme}-normal`,
+        `dot-${theme}-dark`,
     ]);
 
     useEffect(() => {
@@ -27,11 +27,11 @@ export const Dots: FC<DotsProps> = ({ size, type, animationSpeed = 230 }) => {
 
     useEffect(() => {
         setDots([
-            `dot-${type}-light`,
-            `dot-${type}-normal`,
-            `dot-${type}-dark`,
+            `dot-${theme}-light`,
+            `dot-${theme}-normal`,
+            `dot-${theme}-dark`,
         ]);
-    }, [type]);
+    }, [theme]);
 
     return (
         <div className="dots-wrapper">

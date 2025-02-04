@@ -10,7 +10,7 @@ import './Circle.scss';
 
 export const Circle: FC<CircleProps> = ({
     size,
-    type,
+    theme,
     animationSpeed = 30,
 }) => {
     const [angle, setAngle] = useState(0);
@@ -34,7 +34,11 @@ export const Circle: FC<CircleProps> = ({
     return (
         <div
             ref={circleRef}
-            className={classNames('circle', `circle-${size}`, `circle-${type}`)}
+            className={classNames(
+                'circle',
+                `circle-${size}`,
+                `circle-${theme}`,
+            )}
         />
     );
 };

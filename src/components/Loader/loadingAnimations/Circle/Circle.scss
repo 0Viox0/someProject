@@ -1,0 +1,36 @@
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
+
+.circle {
+    border-radius: 50%;
+    border-style: solid;
+
+    transition: all 0.2s linear;
+
+    &-small {
+        width: 18px;
+        height: 18px;
+        border-width: 4.3px;
+    }
+
+    &-medium {
+        width: 25px;
+        height: 25px;
+        border-width: 5px;
+    }
+
+    &-big {
+        width: 30px;
+        height: 30px;
+        border-width: 6px;
+    }
+
+    @each $value, $color in v.$baseColorsMap {
+        &-#{$value} {
+            border-color: $color
+                $color
+                color.scale($color: $color, $lightness: 50%)
+                color.scale($color: $color, $lightness: 50%);
+        }
+    }
+}

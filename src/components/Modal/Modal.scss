@@ -1,0 +1,48 @@
+@use 'shared/styles/variables' as v;
+@use 'sass:color';
+@use './styles/variables' as modal;
+
+.background {
+    position: fixed;
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: rgba(150, 150, 150, 0.4);
+
+    opacity: 1;
+    z-index: 20;
+
+    @include modal.transition();
+
+    &.hide {
+        opacity: 0;
+        z-index: -20;
+    }
+
+    .modal-wrapper {
+        position: fixed;
+
+        min-width: 612px;
+        min-height: 250px;
+
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        border-radius: 11px;
+
+        box-shadow: 2px 2px 4px rgba($color: #000000, $alpha: 0.25);
+
+        @each $value, $color in v.$baseColorsMap {
+            &.modal-#{$value} {
+                background-color: $color;
+            }
+        }
+
+        .children {
+            margin-bottom: 60px;
+        }
+    }
+}

@@ -1,10 +1,6 @@
 import { ReactNode } from 'react';
 import { BaseComponentProps } from 'shared/types/types';
 
-export type ArrowDirection = 'left' | 'right';
-
-export type TabDirection = 'row' | 'column';
-
 export type Item = {
     key: number;
     label: string;
@@ -15,6 +11,6 @@ export type Item = {
 
 export interface TabsProps extends BaseComponentProps {
     items: Item[];
-    defaultActiveKey: number;
+    defaultActiveKey?: Item['key'];
     className?: string;
 }

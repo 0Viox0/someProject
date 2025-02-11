@@ -18,12 +18,12 @@ export const Circle: FC<CircleProps> = ({
     const rotateDelta = 10;
 
     useEffect(() => {
-        const intervalId = window.setInterval(() => {
+        const intervalId = setInterval(() => {
             setAngle((prevAngle) => prevAngle + rotateDelta);
         }, animationSpeed);
 
         return () => {
-            window.clearInterval(intervalId);
+            clearInterval(intervalId);
         };
     }, [animationSpeed]);
 

@@ -1,14 +1,13 @@
 import { FC } from 'react';
 import { ModalFooterProps } from '../types';
-import { text } from '../text';
 import classNames from 'classnames';
 
 import './ModalFooter.scss';
 
 export const ModalFooter: FC<ModalFooterProps> = ({
     footer,
-    okText,
-    cancelText,
+    okText = 'OK',
+    cancelText = 'Cancel',
     onOk,
     onCancel,
     theme,
@@ -24,7 +23,7 @@ export const ModalFooter: FC<ModalFooterProps> = ({
                             className="button cancel-button"
                             onClick={onCancel}
                         >
-                            {cancelText ?? text.cancel}
+                            {cancelText}
                         </button>
                     )}
                     {onOk && (
@@ -36,7 +35,7 @@ export const ModalFooter: FC<ModalFooterProps> = ({
                             )}
                             onClick={onOk}
                         >
-                            {okText ?? text.ok}
+                            {okText}
                         </button>
                     )}
                 </>

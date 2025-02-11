@@ -16,12 +16,12 @@ export const Dots: FC<DotsProps> = ({ size, theme, animationSpeed = 230 }) => {
     ]);
 
     useEffect(() => {
-        const intervalId = window.setInterval(() => {
+        const intervalId = setInterval(() => {
             setDots((prevDots) => [prevDots[2], prevDots[0], prevDots[1]]);
         }, animationSpeed);
 
         return () => {
-            window.clearInterval(intervalId);
+            clearInterval(intervalId);
         };
     }, [animationSpeed]);
 

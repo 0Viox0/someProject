@@ -46,14 +46,6 @@ export const Tabs: FC<TabsProps> = ({
         setCurrentTab(items[nextIndex]);
     };
 
-    const renderCurrentTab = () => {
-        return (
-            <div className={className}>
-                {items.find((item) => item.key === currentTab.key).content}
-            </div>
-        );
-    };
-
     const handleTabClick = (newTab: Item) => {
         setCurrentTab(newTab);
     };
@@ -91,7 +83,7 @@ export const Tabs: FC<TabsProps> = ({
                     onClick={handleClickRightArrow}
                 />
             </div>
-            <div>{renderCurrentTab()}</div>
+            <div className={className}>{currentTab.content}</div>
         </div>
     );
 };

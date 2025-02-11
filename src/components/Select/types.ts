@@ -9,10 +9,15 @@ export type Option = {
 };
 
 export interface SelectProps extends BaseComponentProps {
+    /** Currently selected value or initial value if onChange is not provided */
     selectedValue?: OptionValue;
+    /** Optional function to react to change events*/
     onChange?: (newValue: OptionValue) => void;
+    /** Select options */
     options?: Option[];
+    /** Sets the select component into disabled state */
     disabled?: boolean;
+    /** Some additional classes */
     className?: string;
 }
 
@@ -28,5 +33,6 @@ export interface TriggerProps
     inputValue: string;
     setInputValue: Dispatch<React.SetStateAction<string>>;
     isExpanded: boolean;
+    disabled: boolean;
     toggleExpandSelect: () => void;
 }

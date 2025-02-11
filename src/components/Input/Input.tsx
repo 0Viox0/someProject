@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import './Input.scss';
 
+/** Simple input component with several themes */
 export const Input: FC<InputProps> = ({
     size = 'medium',
     theme = 'secondary',

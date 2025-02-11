@@ -13,6 +13,7 @@ export const Trigger: FC<TriggerProps> = ({
     toggleExpandSelect,
     isExpanded,
     selectedValue,
+    disabled,
     options,
 }) => {
     const [isFocused, setIsFocused] = useState(false);
@@ -85,6 +86,7 @@ export const Trigger: FC<TriggerProps> = ({
                 value={getValue()}
                 onChange={handleChange}
                 onFocus={handleFocus}
+                disabled={disabled}
                 onBlur={handleBlur}
                 placeholder={getCurrentPlaceholder()}
                 ref={inputRef}

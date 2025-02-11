@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import './Radio.scss';
 
+/** Simple radio component with several themes */
 export const Radio: FC<RadioProps> = ({
     value,
     options,

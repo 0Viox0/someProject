@@ -1,10 +1,11 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import CheckIcon from 'shared/assets/icons/CheckIcon.svg';
 import { CheckboxProps } from './types';
 import classNames from 'classnames';
 
 import './Checkbox.scss';
 
+/**  Simple checkbox with several themes */
 export const Checkbox: FC<CheckboxProps> = ({
     onChange,
     size = 'medium',

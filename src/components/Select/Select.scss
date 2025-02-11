@@ -1,0 +1,109 @@
+@use 'shared/styles/_variables.scss';
+@use 'sass:color';
+@use './styles/variables' as drop;
+
+.select-wrapper {
+    color: variables.$textColor;
+    position: relative;
+
+    cursor: pointer;
+
+    z-index: 9999;
+
+    &.disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    &.select {
+        &-small {
+            min-width: 165px;
+        }
+
+        &-medium {
+            min-width: 195px;
+        }
+
+        &-big {
+            min-width: 245px;
+        }
+    }
+
+    .element {
+        &-small {
+            font-size: 0.8rem;
+            padding: 8px 11px;
+        }
+
+        &-medium {
+            font-size: 1rem;
+            padding: 8px 11px;
+        }
+
+        &-big {
+            font-size: 1.4rem;
+            padding: 8px 11px;
+        }
+    }
+
+    @each $name, $value in variables.$baseColorsMap {
+        .bg-#{$name} {
+            background-color: $value;
+        }
+
+        .border-#{$name} {
+            border: 1px solid color.scale($color: $value, $lightness: -40%);
+        }
+
+        .chosenOption-#{$name} {
+            background-color: color.scale($color: $value, $lightness: -14%);
+            border-radius: 5px;
+        }
+
+        &.scrollBar-#{$name} {
+            ::-webkit-scrollbar-thumb {
+                background: color.scale($color: $value, $lightness: -20%);
+                border-radius: 10px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: color.scale($color: $value, $lightness: -50%);
+            }
+        }
+    }
+
+    .optionsWrapper {
+        @include drop.selectTransition();
+
+        position: absolute;
+        left: 0;
+        width: 100%;
+
+        border-radius: drop.$borderRadius;
+
+        overflow-x: hidden;
+        overflow-y: scroll;
+
+        margin-top: 0;
+        height: 0;
+
+        box-shadow: 0.125rem 0.125rem 4px rgba(black, 0.25);
+
+        &::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        &.active {
+            margin-top: 9px;
+        }
+
+        .emptyListMessage {
+            text-align: center;
+        }
+    }
+}

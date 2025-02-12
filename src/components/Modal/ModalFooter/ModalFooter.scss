@@ -1,5 +1,5 @@
 @use '../styles/variables' as modal;
-@use 'shared/styles/variables' as v;
+@use 'shared/styles/variables.scss' as v;
 @use 'sass:color';
 
 $cancelButtonBg: #f6f6f6;

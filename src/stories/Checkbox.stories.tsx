@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { ComponentProps } from 'react';
 
 import { Checkbox } from 'components/Checkbox';
-import { ComponentProps } from 'react';
 
 type StoryProps = ComponentProps<typeof Checkbox>;
 

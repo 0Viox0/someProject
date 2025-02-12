@@ -20,8 +20,12 @@ export type Column<T> = {
 export type DataSource<T> = T[];
 
 export interface TableProps<T> extends BaseComponentProps {
+    /** Columns of the table */
     columns: Column<T>[];
+    /** Table data that will be displayed */
     dataSource: DataSource<T>;
+    /** Some additional styles */
     className?: string;
+    /** Optional page limit for pagination */
     pageLimit?: number;
 }

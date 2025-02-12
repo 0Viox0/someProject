@@ -73,7 +73,9 @@ export const Tabs: FC<TabsProps> = ({
                                 !item.disabled && handleTabClick(item)
                             }
                         >
-                            {item.icon}
+                            {item.icon && (
+                                <span className="iconWrapper">{item.icon}</span>
+                            )}
                             {item.label}
                         </div>
                     ))}

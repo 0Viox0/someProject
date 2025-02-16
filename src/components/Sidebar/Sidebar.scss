@@ -1,0 +1,147 @@
+@use './styles/variables' as sb;
+@use 'sass:color';
+
+@mixin collapseButtonTransition() {
+    transition: transform 0.2s linear;
+}
+
+.sidebar {
+    display: inline-flex;
+    flex-direction: column;
+
+    width: auto;
+    min-height: 100vh;
+
+    border-radius: 0 sb.$borderRadius sb.$borderRadius 0;
+
+    &-light {
+        background-color: sb.$lightThemeBg;
+        color: sb.$lightThemeColor;
+    }
+
+    &-dark {
+        background-color: sb.$darkThemeBg;
+        color: sb.$darkThemeColor;
+    }
+
+    .sidebarHeaderWrapper {
+        .sidebarHeader {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            margin: 5px 20px;
+
+            > * {
+                flex-shrink: 0;
+            }
+
+            .headerIconWrapper > * {
+                width: 35px;
+                height: 45px;
+
+                &.expanded {
+                    margin-right: 5px;
+                }
+            }
+
+            .headerTextWrapper {
+                margin-right: 14px;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+        }
+
+        .line {
+            position: relative;
+
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 13px;
+            height: 1.7px;
+
+            &.light {
+                background-color: color.scale(
+                    $color: sb.$lightThemeColor,
+                    $alpha: -80%
+                );
+            }
+
+            &.dark {
+                background-color: color.scale(
+                    $color: sb.$darkThemeColor,
+                    $alpha: -80%
+                );
+            }
+
+            border-radius: 10px;
+
+            .sidebarToggleButton {
+                position: absolute;
+
+                right: 0;
+                transform: translate(65%, -50%);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 50%;
+                padding: 5px;
+
+                box-shadow: 1px 1px 10px rgb(113, 106, 106, 0.5);
+
+                border: none;
+                outline: none;
+
+                & > * {
+                    flex-shrink: 0;
+
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &.light {
+                    background-color: sb.$darkThemeBg;
+                    color: sb.$darkThemeColor;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: #444;
+                    }
+                }
+
+                &.dark {
+                    background-color: sb.$lightThemeBg;
+                    color: sb.$lightThemeColor;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: #ddd;
+                    }
+                }
+
+                .icon-expanded {
+                    @include collapseButtonTransition();
+                    transform: rotate(180deg);
+                }
+
+                .icon-collapsed {
+                    @include collapseButtonTransition();
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+
+    .menuItemsContainer {
+    }
+
+    .sidebarFooter {
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        margin-bottom: 20px;
+    }
+}

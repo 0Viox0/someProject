@@ -7,12 +7,17 @@ export interface MenuItem {
 }
 
 export interface SidebarProps {
+    /** Optional currently selected key (just starting option if no onChange provided)*/
     selectedKey?: number;
+    /** Optional function that reacts to changing options*/
     onChange?: (newKey: number) => void;
-    children?: ReactNode;
+    /** Icon for the header of the sidebar */
     headerIcon?: ReactNode;
+    /** Text for the header of the sidebar */
     headerText?: string;
+    /** Menu items for the sidebar */
     menuItems?: MenuItem[];
+    /** Some additional styles */
     className?: string;
 }
 

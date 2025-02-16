@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from 'components/Sidebar/Sidebar';
 import { ThemeProvider } from 'features/darkTheme/components/ThemeProvider';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps, FC, useState } from 'react';
 import { SidebarProps } from 'components/Sidebar/types';
 
 import HomeIcon from 'shared/assets/icons/Home.svg';
@@ -18,13 +18,6 @@ const meta = {
     parameters: {
         layout: 'fullscreen',
     },
-    decorators: [
-        (Story) => (
-            <ThemeProvider>
-                <Story />
-            </ThemeProvider>
-        ),
-    ],
     render: (args) => <SidebarWrapper args={args} />,
 } satisfies Meta<StoryProps>;
 
@@ -32,18 +25,46 @@ export default meta;
 
 type Story = StoryObj<StoryProps>;
 
-export const Default: Story = {};
+export const DarkTheme: Story = {
+    decorators: [
+        (Story) => (
+            <ThemeProvider initialTheme="dark">
+                <Story />
+            </ThemeProvider>
+        ),
+    ],
+    render: (args) => <SidebarWrapper args={args} />,
+};
+
+export const LightTheme: Story = {
+    decorators: [
+        (Story) => (
+            <ThemeProvider initialTheme="light">
+                <Story />
+            </ThemeProvider>
+        ),
+    ],
+    render: (args) => <SidebarWrapper args={args} />,
+};
 
 interface SidebarWrapperProps {
     args: SidebarProps;
 }
 
 const SidebarWrapper: FC<SidebarWrapperProps> = ({ args }) => {
+    const [currentKey, setCurrentKey] = useState(0);
+
+    const handleCurrentKeyChange = (newKey: number) => {
+        setCurrentKey(newKey);
+    };
+
     return (
         <>
             <Sidebar
                 headerIcon={<BoxIcon />}
                 headerText="This is menu"
+                selectedKey={currentKey}
+                onChange={handleCurrentKeyChange}
                 menuItems={[
                     { key: 0, icon: <HomeIcon />, label: 'Home' },
                     { key: 1, icon: <ChartIcon />, label: 'Charts' },

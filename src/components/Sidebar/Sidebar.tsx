@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import { SidebarProps } from './types';
@@ -20,7 +20,7 @@ export const Sidebar: FC<SidebarProps> = ({
     const [isExpanded, setIsExpanded] = useState(true);
 
     const [currentChoice, setCurrentChoice] = useState(
-        selectedKey ?? menuItems[0].key ?? 0,
+        selectedKey ?? menuItems[0]?.key ?? 0,
     );
 
     const handleButtonClick = () => {
@@ -31,6 +31,10 @@ export const Sidebar: FC<SidebarProps> = ({
         setCurrentChoice(newKey);
         onChange?.(newKey);
     };
+
+    useEffect(() => {
+        setCurrentChoice(selectedKey);
+    }, [selectedKey]);
 
     return (
         <div className={classNames('sidebar', `sidebar-${theme}`, className)}>
@@ -78,6 +82,7 @@ export const Sidebar: FC<SidebarProps> = ({
             </div>
             <div className="sidebarFooter">
                 <Switch
+                    value={theme === 'dark'}
                     theme="secondary"
                     onChange={toggleDarkTheme}
                     shape="circle"

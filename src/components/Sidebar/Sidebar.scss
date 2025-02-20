@@ -36,12 +36,14 @@
                 flex-shrink: 0;
             }
 
-            .headerIconWrapper > * {
-                width: 35px;
-                height: 45px;
+            .headerIconWrapper {
+                > * {
+                    width: 35px;
+                    height: 45px;
+                }
 
                 &.expanded {
-                    margin-right: 5px;
+                    margin-right: 10px;
                 }
             }
 

@@ -14,6 +14,8 @@
 
     border-radius: 0 sb.$borderRadius sb.$borderRadius 0;
 
+    flex-shrink: 0;
+
     &-light {
         background-color: sb.$lightThemeBg;
         color: sb.$lightThemeColor;

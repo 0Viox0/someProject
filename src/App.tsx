@@ -7,8 +7,8 @@ import './index.scss';
 export const App = () => {
     return (
         <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route path="admin">
+            <Route path="/">
+                <Route path="admin" element={<Layout />}>
                     <Route path="users" element={<UserPage />} />
                     <Route path="posts" element={<UserPostsPage />} />
                     <Route path="posts/:id" element={<PostPage />} />

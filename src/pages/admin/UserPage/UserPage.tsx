@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import classNames from 'classnames';
 import { Table } from 'components/Table';
 import { TableProps } from 'components/Table/types';
@@ -99,4 +100,8 @@ export const UserPage = () => {
             />
         </div>
     );
+=======
+export const UserPage = () => {
+    return <div>UserPage</div>;
+>>>>>>> 6ebe1ad (feat: do basic layout and create files)
 };

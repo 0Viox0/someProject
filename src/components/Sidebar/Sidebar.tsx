@@ -5,6 +5,7 @@ import { SidebarProps } from './types';
 import ArrowIcon from 'shared/assets/icons/Arrow.svg';
 import { MenuItem } from './MenuItem/MenuItem';
 import { Switch } from 'components/Switch';
+import { useNavigate } from 'react-router';
 
 import './Sidebar.scss';
 
@@ -19,6 +20,8 @@ export const Sidebar: FC<SidebarProps> = ({
     const { theme, toggleDarkTheme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(true);
 
+    const navigate = useNavigate();
+
     const [currentChoice, setCurrentChoice] = useState(
         selectedKey ?? menuItems[0]?.key ?? 0,
     );
@@ -29,6 +32,13 @@ export const Sidebar: FC<SidebarProps> = ({
 
     const handleMenuItemClick = (newKey: number) => {
         setCurrentChoice(newKey);
+
+        if (menuItems[newKey].route) {
+            navigate(menuItems[newKey].route);
+        }
+
+        menuItems[newKey].action?.();
+
         onChange?.(newKey);
     };
 

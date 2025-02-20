@@ -4,6 +4,8 @@ export interface MenuItem {
     key: number;
     icon: ReactNode;
     label: string;
+    route?: string;
+    action?: () => void;
 }
 
 export interface SidebarProps {

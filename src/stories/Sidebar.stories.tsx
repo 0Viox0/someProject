@@ -66,7 +66,12 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ args }) => {
                 selectedKey={currentKey}
                 onChange={handleCurrentKeyChange}
                 menuItems={[
-                    { key: 0, icon: <BoxIcon />, label: 'Home' },
+                    {
+                        key: 0,
+                        icon: <BoxIcon />,
+                        label: 'Home',
+                        route: 'something',
+                    },
                     { key: 1, icon: <ChartIcon />, label: 'Charts' },
                     { key: 2, icon: <ChartStockIcon />, label: 'Stats' },
                     { key: 3, icon: <BubbleIcon />, label: 'More' },

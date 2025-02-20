@@ -13,3 +13,7 @@ export interface DarkLightThemeBgWrapperProps {
 export interface DarkLightThemeBgWrapperProps {
     children: ReactNode;
 }
+
+export interface DarkLightThemeBgWrapperProps {
+    children: ReactNode;
+}

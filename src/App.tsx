@@ -1,59 +1,18 @@
-import { Sidebar } from 'components/Sidebar/Sidebar';
-
-import HomeIcon from 'shared/assets/icons/Home.svg';
-import BubbleIcon from 'shared/assets/icons/Bubble.svg';
-import ChartIcon from 'shared/assets/icons/Chart.svg';
-import ChartStockIcon from 'shared/assets/icons/ChartStock.svg';
-import BoxIcon from 'shared/assets/icons/Box.svg';
-import { Outlet, Route, Routes } from 'react-router';
+import { Route, Routes } from 'react-router';
+import { PostPage, UserPage, UserPostsPage } from 'pages/admin';
+import { Layout } from 'components/Layout';
 
 import './index.scss';
 
 export const App = () => {
     return (
         <Routes>
-            <Route
-                path="/"
-                element={
-                    <>
-                        <Sidebar
-                            headerIcon={<HomeIcon />}
-                            headerText="This is menu"
-                            menuItems={[
-                                {
-                                    key: 0,
-                                    icon: <BoxIcon />,
-                                    label: 'Home',
-                                    route: '/something',
-                                },
-                                {
-                                    key: 1,
-                                    icon: <ChartIcon />,
-                                    label: 'Charts',
-                                    route: '/another',
-                                },
-                                {
-                                    key: 2,
-                                    icon: <ChartStockIcon />,
-                                    label: 'Stats',
-                                    route: '/hehe',
-                                },
-                                {
-                                    key: 3,
-                                    icon: <BubbleIcon />,
-                                    label: 'More',
-                                    route: '/third',
-                                },
-                            ]}
-                        />
-                        <Outlet />
-                    </>
-                }
-            >
-                <Route path="something" element={<p>something</p>} />
-                <Route path="another" element={<p>another</p>} />
-                <Route path="hehe" element={<p>hehe</p>} />
-                <Route path="third" element={<p>third</p>} />
+            <Route path="/">
+                <Route path="admin" element={<Layout />}>
+                    <Route path="users" element={<UserPage />} />
+                    <Route path="posts" element={<UserPostsPage />} />
+                    <Route path="posts/:id" element={<PostPage />} />
+                </Route>
             </Route>
         </Routes>
     );

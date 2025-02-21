@@ -58,7 +58,7 @@ $borderRadius: 5px;
             border: none;
             background-color: transparent;
 
-            color: variables.$textColor;
+            color: inherit;
 
             &:disabled {
                 opacity: 0.5;

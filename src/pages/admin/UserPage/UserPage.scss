@@ -1,0 +1,26 @@
+.userPage {
+    margin-left: 50px;
+
+    &.dark {
+        color: white;
+    }
+
+    &.light {
+        color: black;
+    }
+
+    .userPageHeader {
+        font-size: 3rem;
+        font-weight: bold;
+
+        margin-top: 30px;
+    }
+
+    .userSearchInput {
+        margin-top: 30px;
+    }
+
+    .userList {
+        margin-top: 30px;
+    }
+}

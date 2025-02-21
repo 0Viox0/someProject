@@ -12,6 +12,7 @@ export const Table = <T,>({
     theme = 'primary',
     pageLimit,
     className,
+    onRouteClick,
 }: TableProps<T>) => {
     const [currentPageNumber, setCurrentPageNumber] = useState(1);
 
@@ -40,7 +41,7 @@ export const Table = <T,>({
                             pageLimit
                                 ? (currentPageNumber - 1) * pageLimit +
                                       pageLimit
-                                : -1,
+                                : dataSource.length,
                         )
                         .map((row, rowIndex) => (
                             <tr
@@ -49,6 +50,7 @@ export const Table = <T,>({
                                     `border-top-${theme}`,
                                     `hover-${theme}`,
                                 )}
+                                onClick={() => onRouteClick?.(row)}
                             >
                                 {columns.map((col, index) => (
                                     <td

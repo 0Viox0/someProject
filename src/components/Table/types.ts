@@ -28,4 +28,5 @@ export interface TableProps<T> extends BaseComponentProps {
     className?: string;
     /** Optional page limit for pagination */
     pageLimit?: number;
+    onRouteClick?: (rowData: T) => void;
 }

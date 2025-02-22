@@ -8,6 +8,7 @@ export const buildResolvers = (): Configuration['resolve'] => {
             features: '/src/features',
             pages: '/src/pages',
             shared: '/src/shared',
+            '@redux': '/src/redux',
         },
     };
 };

@@ -1,20 +1,18 @@
-<<<<<<< HEAD
 import classNames from 'classnames';
+import { fetchUsersAsync } from '@redux/users/thunk';
+import { Loader } from 'components/Loader';
 import { Table } from 'components/Table';
 import { TableProps } from 'components/Table/types';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
-
-import './UserPage.scss';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useAppDispatch, useAppSelector } from 'shared/hooks';
+import { UserForTable } from './types';
+import { mapUsersToTableData } from './utils';
+import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
 import { Input } from 'components/Input';
 import { text } from 'shared/text/text';
 
-interface UserForTable {
-    username: string;
-    name: string;
-    email: string;
-    city: string;
-    company: string;
-}
+import './UserPage.scss';
 
 export const UserPage = () => {
     const columns: TableProps<UserForTable>['columns'] = [
@@ -40,68 +38,55 @@ export const UserPage = () => {
         },
     ];
 
-    const dataSource: TableProps<UserForTable>['dataSource'] = [
-        {
-            name: 'Leanne Graham',
-            username: 'Bret',
-            email: 'Sincere@april.biz',
-            city: 'Gwenborough',
-            company: 'Romaguera-Crona',
-        },
-        {
-            name: 'Ervin Howell',
-            username: 'Antonette',
-            email: 'Shanna@melissa.tv',
-            city: 'Wisokyburgh',
-            company: 'Deckow-Crist',
-        },
-        {
-            name: 'Clementine Bauch',
-            username: 'Samantha',
-            email: 'Nathan@yesenia.net',
-            city: 'McKenziehaven',
-            company: 'Romaguera-Jacobson',
-        },
-        {
-            name: 'Clementine Bauch',
-            username: 'Samantha',
-            email: 'Nathan@yesenia.net',
-            city: 'McKenziehaven',
-            company: 'Romaguera-Jacobson',
-        },
-        {
-            name: 'Clementine Bauch',
-            username: 'Samantha',
-            email: 'Nathan@yesenia.net',
-            city: 'McKenziehaven',
-            company: 'Romaguera-Jacobson',
-        },
-    ];
-
     const { theme } = useTheme();
+    const dispatch = useAppDispatch();
+    const { isError, isLoading, users } = useAppSelector(
+        (state) => state.users,
+    );
+    const [inputValue, setInputValue] = useState('');
+    const debouncedInputValue = useDebouncedValue(inputValue, 200);
 
-    const handleRowClick = (rowData: UserForTable) => {};
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    useEffect(() => {
+        console.log('we are fetching users');
+        dispatch(fetchUsersAsync(debouncedInputValue));
+    }, [debouncedInputValue, dispatch]);
+
+    const handleRowClick = (rowData: UserForTable) => {
+        console.log(rowData);
+    };
 
     return (
         <div className={classNames('userPage', theme)}>
             <h2 className="userPageHeader">{text.userListHeader}</h2>
             <Input
+                value={inputValue}
+                onChange={handleInputChange}
                 label="Search"
                 placeholder={text.enterTheUsername}
                 className="userSearchInput"
             />
-            <Table
-                className="userList"
-                columns={columns}
-                dataSource={dataSource}
-                theme="secondary"
-                onRouteClick={handleRowClick}
-                pageLimit={5}
-            />
+            {isError ? (
+                <div className="error">Users were not found</div>
+            ) : isLoading || !users.length ? (
+                <Loader
+                    className="userLoader"
+                    text={text.loadingUsers}
+                    animationSeed={300}
+                />
+            ) : (
+                <Table
+                    className="userList"
+                    columns={columns}
+                    dataSource={mapUsersToTableData(users)}
+                    theme="secondary"
+                    onRouteClick={handleRowClick}
+                    pageLimit={5}
+                />
+            )}
         </div>
     );
-=======
-export const UserPage = () => {
-    return <div>UserPage</div>;
->>>>>>> 6ebe1ad (feat: do basic layout and create files)
 };

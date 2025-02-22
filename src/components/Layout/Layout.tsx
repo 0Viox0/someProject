@@ -18,7 +18,7 @@ import './Layout.scss';
 
 export const Layout = () => {
     const menuItems: SidebarProps['menuItems'] = [
-        { key: 0, icon: <UsersIcon />, label: 'Users', route: 'admin/users' },
+        { key: 0, icon: <UsersIcon />, label: 'Users', route: '/admin/users' },
         { key: 1, icon: <ChartIcon />, label: 'Charts' },
         { key: 2, icon: <ChartStockIcon />, label: 'Stats' },
         { key: 3, icon: <BubbleIcon />, label: 'More' },

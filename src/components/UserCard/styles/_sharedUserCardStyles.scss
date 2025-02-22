@@ -1,0 +1,19 @@
+$darkModeBg: rgba(206, 230, 251, 0.48);
+$lightModeBg: rgba(167, 167, 167, 0.48);
+
+@mixin userInfoCardBg {
+    border-radius: 11px;
+    padding: 13px;
+
+    display: inline-block;
+
+    color: black;
+
+    &.light {
+        background-color: $lightModeBg;
+    }
+
+    &.dark {
+        background-color: $darkModeBg;
+    }
+}

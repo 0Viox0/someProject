@@ -1,0 +1,68 @@
+.userCard {
+    padding: 30px;
+    border-radius: 33px;
+    box-shadow: 4px 4px 10.5px -1px rgba(0, 0, 0, 0.25);
+
+    &.light {
+        color: black;
+        background: linear-gradient(
+            to bottom,
+            rgba(153, 152, 150, 0.42),
+            #fffdfa
+        );
+    }
+
+    &.dark {
+        color: white;
+        background: linear-gradient(to bottom, #52566f, #222329);
+    }
+
+    .userCardHeader {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+
+        font-size: 1.87rem;
+
+        .headerName {
+            font-weight: lighter;
+            margin-right: 10px;
+        }
+
+        .akaSign {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 0.4rem;
+            color: rgba($color: #fff, $alpha: 0.6);
+        }
+
+        .headerUsername {
+            margin-left: 5px;
+            color: rgba($color: #fff, $alpha: 0.6);
+        }
+    }
+
+    .userInfoWrapper {
+        margin: 40px 0;
+
+        > *:not(:last-child) {
+            margin-bottom: 13px;
+        }
+    }
+
+    .infoCardsWrapper {
+        display: flex;
+        justify-content: space-between;
+
+        > *:not(:last-child) {
+            margin-right: 11px;
+        }
+
+        .rightInfoCardsWrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+    }
+}

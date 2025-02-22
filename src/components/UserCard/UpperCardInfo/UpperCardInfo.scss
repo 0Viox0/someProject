@@ -1,0 +1,38 @@
+.userInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .iconInfoWrapper {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+
+        .iconWrapper {
+            margin-right: 17px;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        .infoContent {
+            font-size: 1.25rem;
+        }
+    }
+
+    .copyIcon {
+        width: 30px;
+        height: 30px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .checkIcon {
+        width: 20px;
+        height: 20px;
+    }
+}

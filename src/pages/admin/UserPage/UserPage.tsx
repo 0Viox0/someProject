@@ -51,7 +51,6 @@ export const UserPage = () => {
     };
 
     useEffect(() => {
-        console.log('we are fetching users');
         dispatch(fetchUsersAsync(debouncedInputValue));
     }, [debouncedInputValue, dispatch]);
 
@@ -70,7 +69,7 @@ export const UserPage = () => {
                 className="userSearchInput"
             />
             {isError ? (
-                <div className="error">Users were not found</div>
+                <div className="error">{text.usersNotFound}</div>
             ) : isLoading || !users.length ? (
                 <Loader
                     className="userLoader"

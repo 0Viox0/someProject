@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router';
 import { selectFetchedUsers } from '@redux/users/selectors';
 
 import './UserPage.scss';
+import { selectFetchedUsers } from '@redux/users/selectors';
 
 export const UserPage = () => {
     const columns: TableProps<UserForTable>['columns'] = [

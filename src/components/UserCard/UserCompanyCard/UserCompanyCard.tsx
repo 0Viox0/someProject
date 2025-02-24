@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import { UserCompanyCardProps } from '../type';
 import { text } from 'shared/text/text';
-import ChartIcon from 'shared/assets/icons/ChartStock.svg';
 import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
+import ChartIcon from 'shared/assets/icons/ChartStock.svg';
 
 import './UserCompanyCard.scss';
 

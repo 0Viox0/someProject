@@ -20,8 +20,10 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
         <div className={classNames('userCard', theme)}>
             <div className="userCardHeader">
                 <h3 className="headerName">{user.name}</h3>
-                <div className="akaSign">@</div>
-                <span className="headerUsername">{user.username}</span>
+                <div className={classNames('akaSign', theme)}>@</div>
+                <span className={classNames('headerUsername', theme)}>
+                    {user.username}
+                </span>
             </div>
             <div className="userInfoWrapper">
                 <UpperCardInfo icon={<EmailIcon />} info={user.email} />
@@ -32,7 +34,9 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
                 <UserAddressCard userAddress={user.address} />
                 <div className="rightInfoCardsWrapper">
                     <UserCompanyCard userCompany={user.company} />
-                    <Button>{text.viewPosts}</Button>
+                    <Button className="viewPostsButton">
+                        {text.viewPosts}
+                    </Button>
                 </div>
             </div>
         </div>

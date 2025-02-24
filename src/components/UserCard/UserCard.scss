@@ -35,11 +35,19 @@
             align-items: center;
             line-height: 0.4rem;
             color: rgba($color: #fff, $alpha: 0.6);
+
+            &.light {
+                color: rgba($color: #000, $alpha: 0.6);
+            }
         }
 
         .headerUsername {
             margin-left: 5px;
             color: rgba($color: #fff, $alpha: 0.6);
+
+            &.light {
+                color: rgba($color: #000, $alpha: 0.6);
+            }
         }
     }
 
@@ -63,6 +71,10 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+
+            .viewPostsButton {
+                margin-top: 10px;
+            }
         }
     }
 }

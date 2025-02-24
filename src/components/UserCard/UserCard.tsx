@@ -13,17 +13,23 @@ import classNames from 'classnames';
 
 import './UserCard.scss';
 
-export const UserCard: FC<UserCardProps> = ({ user }) => {
+export const UserCard: FC<UserCardProps> = ({
+    user,
+    className,
+    onViewPostsButtonClick,
+}) => {
     const { theme } = useTheme();
 
     return (
-        <div className={classNames('userCard', theme)}>
+        <div className={classNames('userCard', theme, className)}>
             <div className="userCardHeader">
                 <h3 className="headerName">{user.name}</h3>
-                <div className={classNames('akaSign', theme)}>@</div>
-                <span className={classNames('headerUsername', theme)}>
-                    {user.username}
-                </span>
+                <div className="headerUsernameWrapper">
+                    <span className={classNames('akaSign', theme)}>@</span>
+                    <span className={classNames('headerUsername', theme)}>
+                        {user.username}
+                    </span>
+                </div>
             </div>
             <div className="userInfoWrapper">
                 <UpperCardInfo icon={<EmailIcon />} info={user.email} />
@@ -34,7 +40,10 @@ export const UserCard: FC<UserCardProps> = ({ user }) => {
                 <UserAddressCard userAddress={user.address} />
                 <div className="rightInfoCardsWrapper">
                     <UserCompanyCard userCompany={user.company} />
-                    <Button className="viewPostsButton">
+                    <Button
+                        className="viewPostsButton"
+                        onClick={onViewPostsButtonClick}
+                    >
                         {text.viewPosts}
                     </Button>
                 </div>

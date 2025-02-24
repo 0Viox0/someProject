@@ -4,6 +4,8 @@
 .tableWrapper {
     max-width: fit-content;
 
+    flex-shrink: 0;
+
     .table {
         border-collapse: collapse;
 

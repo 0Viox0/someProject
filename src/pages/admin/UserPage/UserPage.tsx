@@ -11,6 +11,10 @@ import { mapUsersToTableData } from './utils';
 import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
 import { Input } from 'components/Input';
 import { text } from 'shared/text/text';
+import { User } from '@redux/users/types';
+import { UserCard } from 'components/UserCard';
+import { useNavigate } from 'react-router';
+import { selectFetchedUsers } from '@redux/users/selectors';
 
 import './UserPage.scss';
 
@@ -29,10 +33,6 @@ export const UserPage = () => {
             title: 'Email',
         },
         {
-            key: 'city',
-            title: 'City',
-        },
-        {
             key: 'company',
             title: 'Company',
         },
@@ -40,11 +40,11 @@ export const UserPage = () => {
 
     const { theme } = useTheme();
     const dispatch = useAppDispatch();
-    const { isError, isLoading, users } = useAppSelector(
-        (state) => state.users,
-    );
+    const { isError, isLoading, users } = useAppSelector(selectFetchedUsers);
     const [inputValue, setInputValue] = useState('');
     const debouncedInputValue = useDebouncedValue(inputValue, 200);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const navigate = useNavigate();
 
     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
         setInputValue(event.target.value);
@@ -56,6 +56,13 @@ export const UserPage = () => {
 
     const handleRowClick = (rowData: UserForTable) => {
         console.log(rowData);
+        setSelectedUser(
+            users.find((user) => user.username === rowData.username),
+        );
+    };
+
+    const handleViewPostsButtonClick = () => {
+        navigate(`/admin/posts?username=${selectedUser.username}`);
     };
 
     return (
@@ -68,24 +75,33 @@ export const UserPage = () => {
                 placeholder={text.enterTheUsername}
                 className="userSearchInput"
             />
-            {isError ? (
-                <div className="error">{text.usersNotFound}</div>
-            ) : isLoading || !users.length ? (
-                <Loader
-                    className="userLoader"
-                    text={text.loadingUsers}
-                    animationSeed={300}
-                />
-            ) : (
-                <Table
-                    className="userList"
-                    columns={columns}
-                    dataSource={mapUsersToTableData(users)}
-                    theme="secondary"
-                    onRouteClick={handleRowClick}
-                    pageLimit={5}
-                />
-            )}
+            <div className="tableUserCardWrapper">
+                {isError ? (
+                    <div className="error">{text.usersNotFound}</div>
+                ) : isLoading || !users.length ? (
+                    <Loader
+                        className="userLoader"
+                        text={text.loadingUsers}
+                        animationSeed={300}
+                    />
+                ) : (
+                    <Table
+                        className="userList"
+                        columns={columns}
+                        dataSource={mapUsersToTableData(users)}
+                        theme="secondary"
+                        onRouteClick={handleRowClick}
+                        pageLimit={5}
+                    />
+                )}
+                {selectedUser && (
+                    <UserCard
+                        className="userCard"
+                        user={selectedUser}
+                        onViewPostsButtonClick={handleViewPostsButtonClick}
+                    />
+                )}
+            </div>
         </div>
     );
 };

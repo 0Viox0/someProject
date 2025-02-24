@@ -15,13 +15,13 @@ export const UserAddressCard: FC<UserAddressCardProps> = ({ userAddress }) => {
             <div className="addressCardHeader">
                 <div className="basicAddressWrapper">
                     <h3 className="cityName">{userAddress.city}</h3>
-                    <div className="streetWrapper">
-                        <span className="streetName">{userAddress.street}</span>
-                        <span className="streetText">{text.streetShort}</span>
-                    </div>
-                    <div className="suiteWrapper">{userAddress.suite}</div>
+                    <HomeIcon className="homeIcon" />
                 </div>
-                <HomeIcon className="homeIcon" />
+                <div className="streetWrapper">
+                    <span className="streetName">{userAddress.street}</span>
+                    <span className="streetText">{text.streetShort}</span>
+                </div>
+                <div className="suiteWrapper">{userAddress.suite}</div>
             </div>
             <div className="zipWrapper">
                 <span>{text.zip}</span>

@@ -6,12 +6,10 @@ $streetSecondaryColor: #2e2e2e;
     @include uc.userInfoCardBg();
 
     .addressCardHeader {
-        display: flex;
-        justify-content: start;
-        align-items: start;
-
         .basicAddressWrapper {
-            margin-right: 17px;
+            display: flex;
+            justify-content: start;
+            align-items: center;
 
             .cityName {
                 font-size: 1.25rem;
@@ -44,6 +42,10 @@ $streetSecondaryColor: #2e2e2e;
             width: 32px;
             height: 32px;
             color: #33363f;
+
+            flex-shrink: 0;
+
+            margin-left: 10px;
         }
     }
 

@@ -20,34 +20,41 @@
     .userCardHeader {
         display: flex;
         justify-content: start;
-        align-items: center;
+        align-items: start;
+        flex-direction: column;
 
         font-size: 1.87rem;
+
+        .headerUsernameWrapper {
+            display: flex;
+
+            .akaSign {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                line-height: 0.4rem;
+                color: rgba($color: #fff, $alpha: 0.6);
+                font-size: 1.6rem;
+
+                &.light {
+                    color: rgba($color: #000, $alpha: 0.6);
+                }
+            }
+
+            .headerUsername {
+                margin-left: 5px;
+                color: rgba($color: #fff, $alpha: 0.6);
+                font-size: 1.6rem;
+
+                &.light {
+                    color: rgba($color: #000, $alpha: 0.6);
+                }
+            }
+        }
 
         .headerName {
             font-weight: lighter;
             margin-right: 10px;
-        }
-
-        .akaSign {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            line-height: 0.4rem;
-            color: rgba($color: #fff, $alpha: 0.6);
-
-            &.light {
-                color: rgba($color: #000, $alpha: 0.6);
-            }
-        }
-
-        .headerUsername {
-            margin-left: 5px;
-            color: rgba($color: #fff, $alpha: 0.6);
-
-            &.light {
-                color: rgba($color: #000, $alpha: 0.6);
-            }
         }
     }
 

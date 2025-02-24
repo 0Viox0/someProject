@@ -8,7 +8,6 @@ export const mapUsersToTableData = (users: User[]): UserForTable[] => {
                 username: user.username,
                 name: user.name,
                 email: user.email,
-                city: user.address.city,
                 company: user.company.name,
             }) satisfies UserForTable,
     );

@@ -51,6 +51,7 @@
     "sass": "^1.83.4",
     "sass-loader": "^16.0.4",
     "storybook": "^8.5.3",
+    "storybook-addon-remix-react-router": "^4.0.1",
     "style-loader": "^4.0.0",
     "ts-loader": "^9.5.2",
     "ts-node": "^10.9.2",

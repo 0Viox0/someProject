@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import { SidebarProps } from './types';
@@ -30,21 +30,30 @@ export const Sidebar: FC<SidebarProps> = ({
         setIsExpanded((prevState) => !prevState);
     };
 
-    const handleMenuItemClick = (newKey: number) => {
-        setCurrentChoice(newKey);
+    const handleMenuItemClick = useCallback(
+        (newKey: number) => {
+            setCurrentChoice(newKey);
 
-        if (menuItems[newKey].route) {
-            navigate(menuItems[newKey].route);
-        }
+            if (menuItems[newKey].route) {
+                navigate(menuItems[newKey].route);
+            }
 
-        menuItems[newKey].action?.();
+            menuItems[newKey].action?.();
 
-        onChange?.(newKey);
-    };
+            onChange?.(newKey);
+        },
+        [menuItems, navigate, onChange],
+    );
+
+    const ranOnce = useRef<boolean>(false);
 
     useEffect(() => {
-        setCurrentChoice(selectedKey);
-    }, [selectedKey]);
+        if (!ranOnce.current && currentChoice !== undefined) {
+            handleMenuItemClick(currentChoice);
+
+            ranOnce.current = true;
+        }
+    }, [handleMenuItemClick, currentChoice]);
 
     return (
         <div className={classNames('sidebar', `sidebar-${theme}`, className)}>

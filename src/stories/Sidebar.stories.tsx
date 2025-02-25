@@ -3,6 +3,11 @@ import { Sidebar } from 'components/Sidebar/Sidebar';
 import { ThemeProvider } from 'features/darkTheme/components/ThemeProvider';
 import { ComponentProps, FC, useState } from 'react';
 import { SidebarProps } from 'components/Sidebar/types';
+import {
+    withRouter,
+    reactRouterParameters,
+} from 'storybook-addon-remix-react-router';
+import { action } from '@storybook/addon-actions';
 
 import HomeIcon from 'shared/assets/icons/Home.svg';
 import BubbleIcon from 'shared/assets/icons/Bubble.svg';
@@ -17,7 +22,11 @@ const meta = {
     title: 'components/Sidebar',
     parameters: {
         layout: 'fullscreen',
+        reactRouter: reactRouterParameters({
+            routing: { path: '/something' },
+        }),
     },
+    decorators: [withRouter],
     render: (args) => <SidebarWrapper args={args} />,
 } satisfies Meta<StoryProps>;
 
@@ -58,23 +67,40 @@ const SidebarWrapper: FC<SidebarWrapperProps> = ({ args }) => {
         setCurrentKey(newKey);
     };
 
+    const handleMockAction = action('menu item was clicked');
+
     return (
         <>
             <Sidebar
                 headerIcon={<HomeIcon />}
                 headerText="This is menu"
-                selectedKey={currentKey}
-                onChange={handleCurrentKeyChange}
+                // selectedKey={currentKey}
+                // onChange={handleCurrentKeyChange}
                 menuItems={[
                     {
                         key: 0,
                         icon: <BoxIcon />,
                         label: 'Home',
-                        route: 'something',
+                        route: '/something',
+                        action: handleMockAction,
                     },
-                    { key: 1, icon: <ChartIcon />, label: 'Charts' },
-                    { key: 2, icon: <ChartStockIcon />, label: 'Stats' },
-                    { key: 3, icon: <BubbleIcon />, label: 'More' },
+                    {
+                        key: 1,
+                        icon: <ChartIcon />,
+                        label: 'Charts',
+                        action: handleMockAction,
+                    },
+                    {
+                        key: 2,
+                        icon: <ChartStockIcon />,
+                        label: 'Stats',
+                    },
+                    {
+                        key: 3,
+                        icon: <BubbleIcon />,
+                        label: 'More',
+                        action: handleMockAction,
+                    },
                 ]}
                 {...args}
             />

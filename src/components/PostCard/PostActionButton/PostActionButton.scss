@@ -1,0 +1,64 @@
+@use 'shared/styles/_variables.scss' as v;
+@use 'sass:color';
+
+.circle {
+    padding: 5px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #888383;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &.transparent {
+        background-color: none;
+
+        &:hover {
+            background-color: rgba($color: #ddd, $alpha: 0.5);
+        }
+    }
+
+    &.info {
+        background-color: v.$infoColor;
+        color: black;
+
+        &:hover {
+            background-color: color.scale(
+                $color: v.$infoColor,
+                $lightness: 20%
+            );
+        }
+    }
+
+    &.danger {
+        background-color: v.$dangerColor;
+        color: black;
+
+        &:hover {
+            background-color: color.scale(
+                $color: v.$dangerColor,
+                $lightness: 20%
+            );
+        }
+    }
+
+    .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > * {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}

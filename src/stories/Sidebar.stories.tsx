@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from 'components/Sidebar/Sidebar';
 import { ThemeProvider } from 'features/darkTheme/components/ThemeProvider';
-import { ComponentProps, FC } from 'react';
+import { ComponentProps } from 'react';
 import { MemoryRouter, Outlet, Route, Routes } from 'react-router';
 
 import HomeIcon from 'shared/assets/icons/Home.svg';
@@ -26,7 +26,7 @@ const meta = {
                         path="/"
                         element={
                             <>
-                                <SidebarWrapper />
+                                <Story />
                                 <Outlet />
                             </>
                         }
@@ -54,6 +54,7 @@ export const DarkTheme: Story = {
             </ThemeProvider>
         ),
     ],
+    render: () => <SidebarWrapper />,
 };
 
 export const LightTheme: Story = {
@@ -64,9 +65,10 @@ export const LightTheme: Story = {
             </ThemeProvider>
         ),
     ],
+    render: () => <SidebarWrapper />,
 };
 
-const SidebarWrapper: FC = () => {
+const SidebarWrapper = () => {
     return (
         <Sidebar
             headerIcon={<HomeIcon />}

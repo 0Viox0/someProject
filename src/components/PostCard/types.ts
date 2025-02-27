@@ -1,10 +1,5 @@
+import { Post } from '@redux/userPosts/types';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
-
-export type Post = {
-    title: string;
-    content: string;
-    author: string;
-};
 
 export interface PostCardProps {
     post: Post;

@@ -8,4 +8,5 @@ export const text = {
     zip: 'ZIP:',
     streetShort: 'st.',
     companyHeading: 'Company',
+    userPosts: 'User posts',
 };

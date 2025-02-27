@@ -1,13 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from 'components/Sidebar/Sidebar';
 import { ThemeProvider } from 'features/darkTheme/components/ThemeProvider';
-import { ComponentProps, FC, useState } from 'react';
-import { SidebarProps } from 'components/Sidebar/types';
-import {
-    withRouter,
-    reactRouterParameters,
-} from 'storybook-addon-remix-react-router';
-import { action } from '@storybook/addon-actions';
+import { ComponentProps, FC } from 'react';
+import { MemoryRouter, Outlet, Route, Routes } from 'react-router';
 
 import HomeIcon from 'shared/assets/icons/Home.svg';
 import BubbleIcon from 'shared/assets/icons/Bubble.svg';
@@ -22,12 +17,29 @@ const meta = {
     title: 'components/Sidebar',
     parameters: {
         layout: 'fullscreen',
-        reactRouter: reactRouterParameters({
-            routing: { path: '/something' },
-        }),
     },
-    decorators: [withRouter],
-    render: (args) => <SidebarWrapper args={args} />,
+    decorators: [
+        (Story) => (
+            <MemoryRouter initialEntries={['/something']}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <>
+                                <SidebarWrapper />
+                                <Outlet />
+                            </>
+                        }
+                    >
+                        <Route path="something" element={<p>something</p>} />
+                        <Route path="another" element={<p>another</p>} />
+                        <Route path="hehe" element={<p>hehe</p>} />
+                        <Route path="third" element={<p>third</p>} />
+                    </Route>
+                </Routes>
+            </MemoryRouter>
+        ),
+    ],
 } satisfies Meta<StoryProps>;
 
 export default meta;
@@ -42,7 +54,6 @@ export const DarkTheme: Story = {
             </ThemeProvider>
         ),
     ],
-    render: (args) => <SidebarWrapper args={args} />,
 };
 
 export const LightTheme: Story = {
@@ -53,57 +64,39 @@ export const LightTheme: Story = {
             </ThemeProvider>
         ),
     ],
-    render: (args) => <SidebarWrapper args={args} />,
 };
 
-interface SidebarWrapperProps {
-    args: SidebarProps;
-}
-
-const SidebarWrapper: FC<SidebarWrapperProps> = ({ args }) => {
-    const [currentKey, setCurrentKey] = useState(0);
-
-    const handleCurrentKeyChange = (newKey: number) => {
-        setCurrentKey(newKey);
-    };
-
-    const handleMockAction = action('menu item was clicked');
-
+const SidebarWrapper: FC = () => {
     return (
-        <>
-            <Sidebar
-                headerIcon={<HomeIcon />}
-                headerText="This is menu"
-                // selectedKey={currentKey}
-                // onChange={handleCurrentKeyChange}
-                menuItems={[
-                    {
-                        key: 0,
-                        icon: <BoxIcon />,
-                        label: 'Home',
-                        route: '/something',
-                        action: handleMockAction,
-                    },
-                    {
-                        key: 1,
-                        icon: <ChartIcon />,
-                        label: 'Charts',
-                        action: handleMockAction,
-                    },
-                    {
-                        key: 2,
-                        icon: <ChartStockIcon />,
-                        label: 'Stats',
-                    },
-                    {
-                        key: 3,
-                        icon: <BubbleIcon />,
-                        label: 'More',
-                        action: handleMockAction,
-                    },
-                ]}
-                {...args}
-            />
-        </>
+        <Sidebar
+            headerIcon={<HomeIcon />}
+            headerText="This is menu"
+            menuItems={[
+                {
+                    key: 0,
+                    icon: <BoxIcon />,
+                    label: 'Home',
+                    route: '/something',
+                },
+                {
+                    key: 1,
+                    icon: <ChartIcon />,
+                    label: 'Charts',
+                    route: '/another',
+                },
+                {
+                    key: 2,
+                    icon: <ChartStockIcon />,
+                    label: 'Stats',
+                    route: '/hehe',
+                },
+                {
+                    key: 3,
+                    icon: <BubbleIcon />,
+                    label: 'More',
+                    route: '/third',
+                },
+            ]}
+        />
     );
 };

@@ -2,29 +2,25 @@ import { FC } from 'react';
 import { MenuItemProps } from '../types';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import classNames from 'classnames';
+import { Link, useMatch } from 'react-router';
 
 import './MenuItem.scss';
 
 export const MenuItem: FC<MenuItemProps> = ({
     icon,
     isExpanded,
-    menuItemId,
-    currentKey,
-    onMenuItemClick,
+    route,
     children,
 }) => {
     const { theme } = useTheme();
-
-    const handleClick = () => {
-        onMenuItemClick(menuItemId);
-    };
+    const match = useMatch(route);
 
     return (
-        <div
+        <Link
+            to={route}
             className={classNames('menuItemWrapper', theme, {
-                highlight: currentKey === menuItemId,
+                highlight: match,
             })}
-            onClick={handleClick}
         >
             <span
                 className={classNames('iconWrapper', {
@@ -35,6 +31,6 @@ export const MenuItem: FC<MenuItemProps> = ({
                 {icon}
             </span>
             {isExpanded && <div>{children}</div>}
-        </div>
+        </Link>
     );
 };

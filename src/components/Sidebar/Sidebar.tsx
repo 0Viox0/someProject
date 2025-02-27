@@ -1,11 +1,10 @@
-import { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import classNames from 'classnames';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import { SidebarProps } from './types';
 import ArrowIcon from 'shared/assets/icons/Arrow.svg';
 import { MenuItem } from './MenuItem/MenuItem';
 import { Switch } from 'components/Switch';
-import { useNavigate } from 'react-router';
 
 import './Sidebar.scss';
 
@@ -14,46 +13,13 @@ export const Sidebar: FC<SidebarProps> = ({
     headerText,
     menuItems,
     className,
-    selectedKey,
-    onChange,
 }) => {
     const { theme, toggleDarkTheme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(true);
 
-    const navigate = useNavigate();
-
-    const [currentChoice, setCurrentChoice] = useState(
-        selectedKey ?? menuItems[0]?.key ?? 0,
-    );
-
     const handleButtonClick = () => {
         setIsExpanded((prevState) => !prevState);
     };
-
-    const handleMenuItemClick = useCallback(
-        (newKey: number) => {
-            setCurrentChoice(newKey);
-
-            if (menuItems[newKey].route) {
-                navigate(menuItems[newKey].route);
-            }
-
-            menuItems[newKey].action?.();
-
-            onChange?.(newKey);
-        },
-        [menuItems, navigate, onChange],
-    );
-
-    const ranOnce = useRef<boolean>(false);
-
-    useEffect(() => {
-        if (!ranOnce.current && currentChoice !== undefined) {
-            handleMenuItemClick(currentChoice);
-
-            ranOnce.current = true;
-        }
-    }, [handleMenuItemClick, currentChoice]);
 
     return (
         <div className={classNames('sidebar', `sidebar-${theme}`, className)}>
@@ -91,9 +57,8 @@ export const Sidebar: FC<SidebarProps> = ({
                             key={item.key}
                             icon={item.icon}
                             isExpanded={isExpanded}
-                            currentKey={currentChoice}
                             menuItemId={item.key}
-                            onMenuItemClick={handleMenuItemClick}
+                            route={item.route}
                         >
                             {item.label}
                         </MenuItem>

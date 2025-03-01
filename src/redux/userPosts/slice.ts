@@ -1,14 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PostsState } from './types';
-import { postsThunk } from './thunk';
-import { build } from 'vite';
+import { fetchPostsAsync } from './thunk';
 
 const initialState: PostsState = {
     posts: [],
     isLoading: false,
     isError: false,
-    page: 0,
-    limit: 20,
 };
 
 export const postsSlice = createSlice({
@@ -16,15 +13,21 @@ export const postsSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(postsThunk.pending, (state) => {
+        builder.addCase(fetchPostsAsync.pending, (state) => {
+            state.isError = false;
             state.isLoading = true;
         });
-        builder.addCase(postsThunk.fulfilled, (state) => {
+        builder.addCase(fetchPostsAsync.fulfilled, (state, data) => {
             state.isLoading = false;
+            state.isError = false;
+
+            state.posts = [...state.posts, ...data.payload];
         });
-        builder.addCase(postsThunk.rejected, (state) => {
+        builder.addCase(fetchPostsAsync.rejected, (state) => {
             state.isLoading = false;
             state.isError = true;
         });
     },
 });
+
+export default postsSlice.reducer;

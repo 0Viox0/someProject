@@ -1,3 +1,5 @@
+@use 'shared/styles/variables' as v;
+
 .userPostPage {
     margin-left: 50px;
 
@@ -14,5 +16,31 @@
         font-weight: bold;
 
         margin-top: 30px;
+    }
+
+    .filtersWrapper {
+        margin-top: 49px;
+
+        > *:not(:last-child) {
+            margin-bottom: 20px;
+        }
+
+        .filterHeader {
+            font-size: 1.75rem;
+            font-weight: normal;
+        }
+    }
+
+    .postsContainer {
+        margin-top: 60px;
+
+        > * {
+            margin-bottom: 40px;
+        }
+
+        .error {
+            font-size: 1.3rem;
+            color: v.$dangerColor;
+        }
     }
 }

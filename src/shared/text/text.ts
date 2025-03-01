@@ -9,4 +9,13 @@ export const text = {
     streetShort: 'st.',
     companyHeading: 'Company',
     userPosts: 'User posts',
+    filter: 'Filters',
+    applyFilters: 'Apply filters',
+    postName: 'Post name',
+    enterPostName: 'Enter post name',
+    postAuthor: 'Post author',
+    enterPostAuthor: "Enter post author's username",
+    noPostsAvailable: 'No posts available',
+    fetchingPosts: 'Finding posts',
+    loadMore: 'Load more',
 };

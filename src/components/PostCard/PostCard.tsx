@@ -22,7 +22,7 @@ export const PostCard: FC<PostCardProps> = ({
         <div className={classNames('postWrapper', theme)}>
             <div className="actualPostWrapper">
                 <h3 className="postHeading">{post.title}</h3>
-                <p className="postContent">{post.content}</p>
+                <p className="postContent">{post.body}</p>
                 <span className="author">{post.author}</span>
             </div>
             <div className="buttonsWrapper">

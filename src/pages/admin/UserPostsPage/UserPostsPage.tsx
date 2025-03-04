@@ -3,13 +3,15 @@ import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
 import { Input } from 'components/Input';
 import { Button } from 'components/Button';
-import { FormEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PostFilterParams } from './types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
 import { fetchPostsAsync } from '@redux/userPosts/thunk';
 import { Loader } from 'components/Loader';
 import { PostCard } from 'components/PostCard';
+import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
+import { resetPosts } from '@redux/userPosts/slice';
 
 import './UserPostsPage.scss';
 
@@ -21,10 +23,9 @@ export const UserPostsPage = () => {
     });
     const { isError, isLoading, posts } = useAppSelector(selectPosts);
     const dispatch = useAppDispatch();
-
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-    };
+    const [page, setPage] = useState(1);
+    const limit = 20;
+    const debouncedFormValues = useDebouncedValue(formValues, 200);
 
     const handleFilterChange = <T extends keyof PostFilterParams>(
         filter: T,
@@ -36,14 +37,35 @@ export const UserPostsPage = () => {
         }));
     };
 
+    const handleFetchMorePosts = () => {
+        dispatch(
+            fetchPostsAsync({
+                page: page + 1,
+                limit,
+                author: debouncedFormValues.postAuthorFilter,
+                title: debouncedFormValues.postNameFilter,
+            }),
+        );
+        setPage((prevPage) => ++prevPage);
+    };
+
     useEffect(() => {
-        dispatch(fetchPostsAsync({ page: 0, limit: 10 }));
-    }, [dispatch]);
+        dispatch(resetPosts());
+        setPage(1);
+        dispatch(
+            fetchPostsAsync({
+                page: 0,
+                limit,
+                author: debouncedFormValues.postAuthorFilter,
+                title: debouncedFormValues.postNameFilter,
+            }),
+        );
+    }, [debouncedFormValues, dispatch]);
 
     return (
         <div className={classNames('userPostPage', theme)}>
             <h2 className="userPostsHeader">{text.userPosts}</h2>
-            <form className="filtersWrapper" onSubmit={handleSubmit}>
+            <div className="filtersWrapper">
                 <h3 className="filterHeader">{text.filter}</h3>
                 <Input
                     label={text.postName}
@@ -61,10 +83,9 @@ export const UserPostsPage = () => {
                         handleFilterChange('postAuthorFilter', e.target.value)
                     }
                 />
-                <Button type="submit">{text.applyFilters}</Button>
-            </form>
+            </div>
             <div className="postsContainer">
-                {isLoading || !posts.length ? (
+                {isLoading && !posts.length ? (
                     <Loader text={text.fetchingPosts} />
                 ) : isError ? (
                     <div className="error">{text.noPostsAvailable}</div>
@@ -73,7 +94,12 @@ export const UserPostsPage = () => {
                         {posts.map((post) => (
                             <PostCard key={post.id} post={post} />
                         ))}
-                        <Button>{text.loadMore}</Button>
+                        <Button
+                            loading={isLoading}
+                            onClick={handleFetchMorePosts}
+                        >
+                            {text.loadMore}
+                        </Button>
                     </>
                 )}
             </div>

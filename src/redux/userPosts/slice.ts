@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { PostsState } from './types';
 import { fetchPostsAsync } from './thunk';
 
@@ -11,7 +11,11 @@ const initialState: PostsState = {
 export const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {},
+    reducers: {
+        resetPosts: (state) => {
+            state.posts = [];
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(fetchPostsAsync.pending, (state) => {
             state.isError = false;
@@ -30,4 +34,5 @@ export const postsSlice = createSlice({
     },
 });
 
+export const { resetPosts } = postsSlice.actions;
 export default postsSlice.reducer;

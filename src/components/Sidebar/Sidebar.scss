@@ -11,7 +11,10 @@ $borderRadius: 10px;
     flex-direction: column;
 
     width: auto;
-    min-height: 100vh;
+    height: 100vh;
+
+    position: sticky;
+    top: 0px;
 
     border-radius: 0 $borderRadius $borderRadius 0;
 

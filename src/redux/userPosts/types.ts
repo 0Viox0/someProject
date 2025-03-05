@@ -10,4 +10,18 @@ export interface PostsState {
     posts: Post[];
     isLoading: boolean;
     isError: boolean;
+    errorMessage: string;
+}
+
+export type PostCreationDto = {
+    title: string;
+    body: string;
+    writtenBy: string;
+};
+
+export interface FetchPostsParams {
+    page: number;
+    limit: number;
+    title?: string;
+    userId?: string | number;
 }

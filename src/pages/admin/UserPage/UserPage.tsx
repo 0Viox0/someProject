@@ -63,7 +63,7 @@ export const UserPage = () => {
     };
 
     const handleViewPostsButtonClick = () => {
-        navigate(`/admin/posts?username=${selectedUser.username}`);
+        navigate(`/admin/posts?userId=${selectedUser.id}`);
     };
 
     return (

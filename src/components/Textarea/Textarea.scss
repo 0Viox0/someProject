@@ -1,0 +1,33 @@
+@use 'shared/styles/_variables.scss' as v;
+@use 'sass:color';
+
+.textarea {
+    padding: 10px;
+
+    @each $color, $value in v.$baseColorsMap {
+        &-#{$color} {
+            background-color: color.scale($color: $value, $alpha: -60%);
+            border-color: #{$color};
+            outline: none;
+
+            &:focus-within {
+                outline: 1px
+                    solid
+                    color.scale($color: $value, $lightness: -30%);
+                border-radius: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 8px;
+                background-color: color.scale($color: $value, $lightness: -30%);
+            }
+        }
+    }
+
+    &::-webkit-scrollbar {
+        appearance: none;
+        width: 5px;
+        height: 100%;
+        background-color: transparent;
+    }
+}

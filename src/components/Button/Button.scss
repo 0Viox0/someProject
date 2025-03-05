@@ -54,7 +54,7 @@
 
     @each $type, $color in variables.$baseColorsMap {
         &-#{$type} {
-            background-color: $color;
+            background-color: $color !important;
 
             &:disabled {
                 @include disabledButtonBg($color);

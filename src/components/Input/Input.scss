@@ -50,7 +50,7 @@ $borderRadius: 5px;
 
         .error {
             text-wrap: nowrap;
-            color: color.scale($color: red, $lightness: 60%);
+            color: color.scale($color: #600, $lightness: 20%);
         }
 
         .input {

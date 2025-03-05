@@ -1,47 +1,60 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from 'shared/utils/axiosInstance';
-import { Post } from './types';
+import { FetchPostsParams, Post, PostCreationDto } from './types';
 import { User } from '@redux/users/types';
-
-export interface FetchPostsParams {
-    page?: number;
-    limit?: number;
-    title?: string;
-    author?: string;
-}
 
 export const fetchPostsAsync = createAsyncThunk(
     'fetchPosts',
-    async ({ page, limit, title = '', author = '' }: FetchPostsParams) => {
+    async ({ page, limit, title = '', userId = '' }: FetchPostsParams) => {
         try {
             const response = await axiosInstance.get<Post[]>(
-                `/posts?_page=${page}&_limit=${limit}`,
+                `/posts?_limit=${limit}&_page=${page}&title_like=${title}&userId=${userId}`,
             );
 
             const userResponse = await axiosInstance.get<User[]>('/users');
 
-            const getUserById = (id: number) => {
-                return userResponse.data.find((user) => user.id === id)
-                    .username;
-            };
+            const getUsernameById = (userId: number) =>
+                userResponse.data.find((user) => user.id === userId).username;
 
-            const posts = response.data.map((post) => ({
+            return response.data.map((post) => ({
                 ...post,
-                author: `By @${getUserById(post.userId)}`,
+                author: `By @${getUsernameById(post.userId)}`,
             }));
+        } catch {
+            throw new Error('could not fetch posts');
+        }
+    },
+);
 
-            return posts.filter(
-                (post) =>
-                    post.title
-                        .toLocaleLowerCase()
-                        .includes(title.toLocaleLowerCase()) &&
-                    post.author
-                        .toLocaleLowerCase()
-                        .includes(author.toLocaleLowerCase()),
+export const createPostAsync = createAsyncThunk(
+    'createPost',
+    async (post: PostCreationDto, { rejectWithValue }) => {
+        try {
+            const userResponse = await axiosInstance.get<User[]>('/users');
+
+            const postAuthor = userResponse.data.find(
+                (user) => user.username === post.writtenBy,
             );
+
+            if (!postAuthor) {
+                return rejectWithValue('this username does not exist');
+            }
+
+            const postResponse = await axiosInstance.post('/posts', {
+                title: post.title,
+                body: post.body,
+                userId: postAuthor.id,
+            });
+
+            if (postResponse.status < 200 || postResponse.status >= 300) {
+                return rejectWithValue(
+                    'post was not created, something went wrong',
+                );
+            }
+
+            return postResponse.data;
         } catch (err) {
-            console.log(err);
-            throw Error('there was an error fetching post');
+            return rejectWithValue(err);
         }
     },
 );

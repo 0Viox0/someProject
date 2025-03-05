@@ -11,21 +11,32 @@ import { fetchPostsAsync } from '@redux/userPosts/thunk';
 import { Loader } from 'components/Loader';
 import { PostCard } from 'components/PostCard';
 import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
+import { useSearchParams } from 'react-router';
 import { resetPosts } from '@redux/userPosts/slice';
+import { Select } from 'components/Select';
+import { fetchUsersAsync } from '@redux/users/thunk';
+import { selectFetchedUsers } from '@redux/users/selectors';
+import { SelectProps } from 'components/Select/types';
+import { NewPostButtonWrapper } from './NewPostButtonWrapper';
 
 import './UserPostsPage.scss';
 
 export const UserPostsPage = () => {
     const { theme } = useTheme();
+    const [searchParams] = useSearchParams();
     const [formValues, setFormValues] = useState<PostFilterParams>({
         postNameFilter: '',
-        postAuthorFilter: '',
+        postAuthorFilter: searchParams.get('userId'),
     });
-    const { isError, isLoading, posts } = useAppSelector(selectPosts);
+    const { isError, errorMessage, isLoading, posts } =
+        useAppSelector(selectPosts);
+    const { isLoading: areUsersLoading, users } =
+        useAppSelector(selectFetchedUsers);
     const dispatch = useAppDispatch();
     const [page, setPage] = useState(1);
-    const limit = 20;
+    const limit = 5;
     const debouncedFormValues = useDebouncedValue(formValues, 200);
+    const [userOptions, setUserOptions] = useState<SelectProps['options']>([]);
 
     const handleFilterChange = <T extends keyof PostFilterParams>(
         filter: T,
@@ -40,54 +51,88 @@ export const UserPostsPage = () => {
     const handleFetchMorePosts = () => {
         dispatch(
             fetchPostsAsync({
-                page: page + 1,
                 limit,
-                author: debouncedFormValues.postAuthorFilter,
+                page: page + 1,
+                userId: debouncedFormValues.postAuthorFilter,
                 title: debouncedFormValues.postNameFilter,
             }),
         );
-        setPage((prevPage) => ++prevPage);
+        setPage((prevPage) => prevPage + 1);
     };
 
     useEffect(() => {
         dispatch(resetPosts());
-        setPage(1);
+        setPage(0);
         dispatch(
             fetchPostsAsync({
                 page: 0,
                 limit,
-                author: debouncedFormValues.postAuthorFilter,
+                userId: debouncedFormValues.postAuthorFilter,
                 title: debouncedFormValues.postNameFilter,
             }),
         );
-    }, [debouncedFormValues, dispatch]);
+        dispatch(fetchUsersAsync(''));
+    }, [
+        debouncedFormValues.postAuthorFilter,
+        debouncedFormValues.postNameFilter,
+        dispatch,
+    ]);
+
+    useEffect(() => {
+        if (users) {
+            setUserOptions(
+                users.map((user) => ({
+                    label: user.username,
+                    value: user.id,
+                })),
+            );
+        }
+    }, [users]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('userId', formValues.postAuthorFilter);
+
+        history.replaceState(
+            null,
+            '',
+            `${location.pathname}?${searchParams.toString()}`,
+        );
+    }, [formValues.postAuthorFilter]);
 
     return (
         <div className={classNames('userPostPage', theme)}>
             <h2 className="userPostsHeader">{text.userPosts}</h2>
-            <div className="filtersWrapper">
-                <h3 className="filterHeader">{text.filter}</h3>
-                <Input
-                    label={text.postName}
-                    value={formValues.postNameFilter}
-                    placeholder={text.enterPostName}
-                    onChange={(e) =>
-                        handleFilterChange('postNameFilter', e.target.value)
-                    }
-                />
-                <Input
-                    label={text.postAuthor}
-                    value={formValues.postAuthorFilter}
-                    placeholder={text.enterPostAuthor}
-                    onChange={(e) =>
-                        handleFilterChange('postAuthorFilter', e.target.value)
-                    }
-                />
+            <div className="postControlsWrapper">
+                <div className="filtersWrapper">
+                    <h3 className="filterHeader">{text.filter}</h3>
+                    <Input
+                        label={text.postName}
+                        value={formValues.postNameFilter}
+                        placeholder={text.enterPostName}
+                        onChange={(e) =>
+                            handleFilterChange('postNameFilter', e.target.value)
+                        }
+                    />
+                    <Select
+                        className="select"
+                        selectedValue={+formValues.postAuthorFilter}
+                        options={userOptions}
+                        disabled={areUsersLoading}
+                        onChange={(newValue) =>
+                            handleFilterChange(
+                                'postAuthorFilter',
+                                newValue as string,
+                            )
+                        }
+                    />
+                </div>
+                <NewPostButtonWrapper />
             </div>
             <div className="postsContainer">
                 {isLoading && !posts.length ? (
                     <Loader text={text.fetchingPosts} />
-                ) : isError ? (
+                ) : (isError && !errorMessage) || !posts.length ? (
                     <div className="error">{text.noPostsAvailable}</div>
                 ) : (
                     <>

@@ -18,21 +18,31 @@
         margin-top: 30px;
     }
 
-    .filtersWrapper {
+    .postControlsWrapper {
         margin-top: 49px;
 
-        > *:not(:last-child) {
-            margin-bottom: 20px;
-        }
+        display: flex;
+        justify-content: start;
+        align-items: center;
 
-        .filterHeader {
-            font-size: 1.75rem;
-            font-weight: normal;
+        .filtersWrapper {
+            > *:not(:last-child) {
+                margin-bottom: 20px;
+            }
+
+            .filterHeader {
+                font-size: 1.75rem;
+                font-weight: normal;
+            }
+
+            .select {
+                max-width: 200px;
+            }
         }
     }
 
     .postsContainer {
-        margin-top: 60px;
+        margin-top: 40px;
 
         > * {
             margin-bottom: 40px;

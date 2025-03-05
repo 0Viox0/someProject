@@ -18,4 +18,13 @@ export const text = {
     noPostsAvailable: 'No posts available',
     fetchingPosts: 'Finding posts',
     loadMore: 'Load more',
+    newPost: 'New post',
+
+    CREATE_MODAL: {
+        heading: 'Create the post',
+        title: 'Title: ',
+        content: 'Content: ',
+        create: 'Create',
+        writtenBy: 'Written by',
+    },
 };

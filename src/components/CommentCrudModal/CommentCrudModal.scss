@@ -1,0 +1,16 @@
+.commentModalInput {
+    margin-bottom: 10px;
+}
+
+.createModalTextarea {
+    width: 97%;
+    height: 150px;
+}
+
+.commentCreateModalInputsWrapper {
+    margin-left: 15px;
+
+    .createModalTextarea {
+        resize: none;
+    }
+}

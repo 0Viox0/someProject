@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import { PostCardProps } from './types';
-import { PostActionButton } from './PostActionButton/PostActionButton';
 import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
+import { PostActionButton } from 'components/PostActionButton';
 
 import CommentIcon from 'shared/assets/icons/Comment.svg';
 import EditIcon from 'shared/assets/icons/Edit.svg';

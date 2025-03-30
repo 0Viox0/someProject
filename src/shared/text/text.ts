@@ -37,4 +37,23 @@ export const text = {
         yes: 'yes',
         no: 'no',
     },
+    POST_PAGE: {
+        heading: 'Post',
+        invalidPostId: 'Could not find post',
+        writtenBy: 'Written by',
+    },
+    COMMENTS_SECTION: {
+        heading: 'Comments',
+        newComment: 'New comment',
+        deleteComment: 'Delete comment',
+        areYouSure: 'Are you sure you want to delete comment?',
+        editComment: 'Edit comment',
+        edit: 'edit',
+        delete: 'delete',
+        title: 'Name:',
+        email: 'Email:',
+        content: 'Content: ',
+        create: 'Create',
+        noCommentsFound: 'No comments found',
+    },
 };

@@ -19,9 +19,21 @@ export type PostCreationDto = {
     writtenBy: string;
 };
 
+export type PostEditDto = {
+    postToChangeId: number;
+    newPost: Post;
+};
+
 export interface FetchPostsParams {
     page: number;
     limit: number;
     title?: string;
     userId?: string | number;
 }
+
+export type PostCreateResponseType = {
+    body: string;
+    id: number;
+    title: string;
+    userId: number;
+};

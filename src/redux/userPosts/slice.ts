@@ -1,11 +1,11 @@
-import {
-    createSlice,
-    isFulfilled,
-    isPending,
-    isRejected,
-} from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import { PostsState } from './types';
-import { createPostAsync, fetchPostsAsync } from './thunk';
+import {
+    createPostAsync,
+    editPost,
+    fetchPostsAsync,
+    removePost,
+} from './thunk';
 
 const initialState: PostsState = {
     posts: [],
@@ -25,13 +25,40 @@ export const postsSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchPostsAsync.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.errorMessage = '';
                 state.posts = [...state.posts, ...action.payload];
             })
             .addCase(createPostAsync.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.errorMessage = '';
                 state.posts.push(action.payload);
             })
+            .addCase(editPost.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.errorMessage = '';
+                state.posts = state.posts.map((post) =>
+                    post.id === action.payload.id ? action.payload : post,
+                );
+            })
+            .addCase(removePost.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isError = false;
+                state.errorMessage = '';
+                state.posts = state.posts.filter(
+                    (post) => post.id !== action.payload.deletedPostId,
+                );
+            })
             .addMatcher(
-                isPending(fetchPostsAsync, createPostAsync),
+                isPending(
+                    fetchPostsAsync,
+                    createPostAsync,
+                    editPost,
+                    removePost,
+                ),
                 (state) => {
                     state.isLoading = true;
                     state.isError = false;
@@ -39,19 +66,16 @@ export const postsSlice = createSlice({
                 },
             )
             .addMatcher(
-                isRejected(fetchPostsAsync, createPostAsync),
+                isRejected(
+                    fetchPostsAsync,
+                    createPostAsync,
+                    editPost,
+                    removePost,
+                ),
                 (state, action) => {
                     state.isLoading = false;
                     state.isError = true;
                     state.errorMessage = action.payload as string;
-                },
-            )
-            .addMatcher(
-                isFulfilled(fetchPostsAsync, createPostAsync),
-                (state) => {
-                    state.isLoading = false;
-                    state.isError = false;
-                    state.errorMessage = '';
                 },
             );
     },

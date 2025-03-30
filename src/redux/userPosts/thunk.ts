@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { axiosInstance } from 'shared/utils/axiosInstance';
-import { FetchPostsParams, Post, PostCreationDto } from './types';
+import {
+    FetchPostsParams,
+    Post,
+    PostCreateResponseType,
+    PostCreationDto,
+    PostEditDto,
+} from './types';
 import { User } from '@redux/users/types';
 
 export const fetchPostsAsync = createAsyncThunk(
@@ -18,7 +24,7 @@ export const fetchPostsAsync = createAsyncThunk(
 
             return response.data.map((post) => ({
                 ...post,
-                author: `By @${getUsernameById(post.userId)}`,
+                author: `${getUsernameById(post.userId)}`,
             }));
         } catch {
             throw new Error('could not fetch posts');
@@ -40,11 +46,12 @@ export const createPostAsync = createAsyncThunk(
                 return rejectWithValue('this username does not exist');
             }
 
-            const postResponse = await axiosInstance.post('/posts', {
-                title: post.title,
-                body: post.body,
-                userId: postAuthor.id,
-            });
+            const postResponse =
+                await axiosInstance.post<PostCreateResponseType>('/posts', {
+                    title: post.title,
+                    body: post.body,
+                    userId: postAuthor.id,
+                });
 
             if (postResponse.status < 200 || postResponse.status >= 300) {
                 return rejectWithValue(
@@ -52,9 +59,52 @@ export const createPostAsync = createAsyncThunk(
                 );
             }
 
-            return postResponse.data;
+            const returnResponse: Post = {
+                id: postResponse.data.id,
+                author: post.writtenBy,
+                body: postResponse.data.body,
+                title: postResponse.data.title,
+                userId: postResponse.data.userId,
+            };
+
+            return returnResponse;
         } catch (err) {
             return rejectWithValue(err);
         }
+    },
+);
+
+export const editPost = createAsyncThunk(
+    'posts/editPost',
+    async (postEditDto: PostEditDto, { rejectWithValue }) => {
+        try {
+            const user = await axiosInstance.get<User>(
+                `users/${postEditDto.newPost.userId}`,
+            );
+
+            if (user.data.username !== postEditDto.newPost.author) {
+                return rejectWithValue(
+                    `user with name ${postEditDto.newPost.author} doesn't exist`,
+                );
+            }
+
+            const response = await axiosInstance.put<Post>(
+                `posts/${postEditDto.postToChangeId}`,
+                postEditDto.newPost,
+            );
+
+            return response.data;
+        } catch (err) {
+            return rejectWithValue(err);
+        }
+    },
+);
+
+export const removePost = createAsyncThunk(
+    'posts/removePost',
+    async (postId: number) => {
+        await axiosInstance.delete(`posts/${postId}`);
+
+        return { deletedPostId: postId };
     },
 );

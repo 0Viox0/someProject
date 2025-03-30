@@ -1,11 +1,15 @@
 import { Post } from '@redux/userPosts/types';
 import { ButtonHTMLAttributes, ReactNode } from 'react';
 
+export interface ActionFunction {
+    (post: Post): void;
+}
+
 export interface PostCardProps {
     post: Post;
-    onEdit?: () => void;
-    onDelete?: () => void;
-    onViewComments?: () => void;
+    onEdit?: ActionFunction;
+    onDelete?: ActionFunction;
+    onViewComments?: ActionFunction;
 }
 
 export interface PostActionButtonProps

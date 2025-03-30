@@ -23,25 +23,25 @@ export const PostCard: FC<PostCardProps> = ({
             <div className="actualPostWrapper">
                 <h3 className="postHeading">{post.title}</h3>
                 <p className="postContent">{post.body}</p>
-                <span className="author">{post.author}</span>
+                <span className="author">By @{post.author}</span>
             </div>
             <div className="buttonsWrapper">
                 <div className="upperButtonWrapper">
                     <PostActionButton
                         icon={<EditIcon />}
                         colorTheme="transparent"
-                        onClick={onEdit}
+                        onClick={() => onEdit(post)}
                     />
                     <PostActionButton
                         icon={<TrashIcon />}
                         colorTheme="danger"
-                        onClick={onDelete}
+                        onClick={() => onDelete(post)}
                     />
                 </div>
                 <PostActionButton
                     icon={<CommentIcon />}
                     colorTheme="info"
-                    onClick={onViewComments}
+                    onClick={() => onViewComments(post)}
                 />
             </div>
         </div>

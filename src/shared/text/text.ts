@@ -27,4 +27,14 @@ export const text = {
         create: 'Create',
         writtenBy: 'Written by',
     },
+    EDIT_MODAL: {
+        heading: 'Edit the post',
+        actionButtonText: 'Edit',
+    },
+    DELETE_MODAL: {
+        heading: 'Delete post',
+        warningText: 'Are you sure you want to delete the post?',
+        yes: 'yes',
+        no: 'no',
+    },
 };

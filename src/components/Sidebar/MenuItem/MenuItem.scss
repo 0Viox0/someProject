@@ -32,12 +32,15 @@
     }
 
     .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        margin-left: 2px;
+        margin-right: 0px;
+
         &.expanded {
             margin-right: 10px;
-        }
-
-        &.collapsed {
-            margin: auto;
         }
 
         & > * {

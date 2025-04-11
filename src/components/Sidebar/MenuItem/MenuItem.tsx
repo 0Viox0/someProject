@@ -25,7 +25,6 @@ export const MenuItem: FC<MenuItemProps> = ({
             <span
                 className={classNames('iconWrapper', {
                     expanded: isExpanded,
-                    collapsed: !isExpanded,
                 })}
             >
                 {icon}

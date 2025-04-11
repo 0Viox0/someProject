@@ -31,10 +31,10 @@ const meta = {
                             </>
                         }
                     >
-                        <Route path="something" element={<p>something</p>} />
-                        <Route path="another" element={<p>another</p>} />
-                        <Route path="hehe" element={<p>hehe</p>} />
-                        <Route path="third" element={<p>third</p>} />
+                        <Route path="something" element={<></>} />
+                        <Route path="another" element={<></>} />
+                        <Route path="hehe" element={<></>} />
+                        <Route path="third" element={<></>} />
                     </Route>
                 </Routes>
             </MemoryRouter>

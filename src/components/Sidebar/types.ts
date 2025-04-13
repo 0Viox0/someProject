@@ -9,9 +9,9 @@ export interface MenuItem {
 
 export interface SidebarProps {
     /** Icon for the header of the sidebar */
-    headerIcon?: ReactNode;
+    headerIcon: ReactNode;
     /** Text for the header of the sidebar */
-    headerText?: string;
+    headerText: string;
     /** Menu items for the sidebar */
     menuItems?: MenuItem[];
     /** Some additional styles */

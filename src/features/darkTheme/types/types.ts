@@ -4,5 +4,4 @@ export type Theme = 'light' | 'dark';
 
 export interface ThemeProviderProps {
     children: ReactNode;
-    initialTheme?: Theme;
 }

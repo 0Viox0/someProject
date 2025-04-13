@@ -19,3 +19,23 @@ $baseColorsMap: (
     info: $infoColor,
     danger: $dangerColor,
 );
+
+html[data-theme='light'] {
+    --sidebarBgColor: #e2e5e7;
+    --oppositeSidebarBgColor: #101827;
+
+    --sidebarTextColor: #101827;
+    --oppositeSidebarTextColor: #e8e9ea;
+
+    --highlightColor: #d2d4dc;
+}
+
+html[data-theme='dark'] {
+    --sidebarBgColor: #101827;
+    --oppositeSidebarBgColor: #e2e5e7;
+
+    --sidebarTextColor: #e8e9ea;
+    --oppositeSidebarTextColor: #101827;
+
+    --highlightColor: #384151;
+}

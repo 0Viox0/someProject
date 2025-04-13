@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { MenuItemProps } from '../types';
-import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import classNames from 'classnames';
 import { Link, useMatch } from 'react-router';
 
@@ -12,13 +11,12 @@ export const MenuItem: FC<MenuItemProps> = ({
     route,
     children,
 }) => {
-    const { theme } = useTheme();
     const match = useMatch(route);
 
     return (
         <Link
             to={route}
-            className={classNames('menuItemWrapper', theme, {
+            className={classNames('menuItemWrapper', {
                 highlight: match,
             })}
         >

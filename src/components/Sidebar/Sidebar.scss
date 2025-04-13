@@ -1,5 +1,6 @@
-@use './styles/variables' as sb;
 @use 'sass:color';
+
+$borderRadius: 10px;
 
 @mixin collapseButtonTransition() {
     transition: transform 0.2s linear;
@@ -12,19 +13,12 @@
     width: auto;
     min-height: 100vh;
 
-    border-radius: 0 sb.$borderRadius sb.$borderRadius 0;
+    border-radius: 0 $borderRadius $borderRadius 0;
 
     flex-shrink: 0;
 
-    &-light {
-        background-color: sb.$lightThemeBg;
-        color: sb.$lightThemeColor;
-    }
-
-    &-dark {
-        background-color: sb.$darkThemeBg;
-        color: sb.$darkThemeColor;
-    }
+    background-color: var(--sidebarBgColor);
+    color: var(--sidebarTextColor);
 
     .sidebarHeaderWrapper {
         .sidebarHeader {
@@ -65,19 +59,7 @@
             margin-bottom: 13px;
             height: 1.7px;
 
-            &.light {
-                background-color: color.scale(
-                    $color: sb.$lightThemeColor,
-                    $alpha: -80%
-                );
-            }
-
-            &.dark {
-                background-color: color.scale(
-                    $color: sb.$darkThemeColor,
-                    $alpha: -80%
-                );
-            }
+            background-color: var(--highlightColor);
 
             border-radius: 10px;
 
@@ -106,24 +88,11 @@
                     height: 20px;
                 }
 
-                &.light {
-                    background-color: sb.$darkThemeBg;
-                    color: sb.$darkThemeColor;
+                background-color: var(--oppositeSidebarBgColor);
+                color: var(--oppositeSidebarTextColor);
 
-                    &:hover {
-                        cursor: pointer;
-                        background-color: #444;
-                    }
-                }
-
-                &.dark {
-                    background-color: sb.$lightThemeBg;
-                    color: sb.$lightThemeColor;
-
-                    &:hover {
-                        cursor: pointer;
-                        background-color: #ddd;
-                    }
+                &:hover {
+                    cursor: pointer;
                 }
 
                 .icon-expanded {

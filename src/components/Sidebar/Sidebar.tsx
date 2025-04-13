@@ -14,7 +14,7 @@ export const Sidebar: FC<SidebarProps> = ({
     menuItems,
     className,
 }) => {
-    const { theme, toggleDarkTheme } = useTheme();
+    const { theme, toggleTheme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(true);
 
     const handleButtonClick = () => {
@@ -22,7 +22,7 @@ export const Sidebar: FC<SidebarProps> = ({
     };
 
     return (
-        <div className={classNames('sidebar', `sidebar-${theme}`, className)}>
+        <div className={classNames('sidebar', className)}>
             <div className="sidebarHeaderWrapper">
                 <div className="sidebarHeader">
                     <span
@@ -36,9 +36,9 @@ export const Sidebar: FC<SidebarProps> = ({
                         <span className="headerTextWrapper">{headerText}</span>
                     )}
                 </div>
-                <div className={classNames('line', theme)}>
+                <div className={classNames('line')}>
                     <button
-                        className={classNames('sidebarToggleButton', theme)}
+                        className={classNames('sidebarToggleButton')}
                         onClick={handleButtonClick}
                     >
                         <ArrowIcon
@@ -68,7 +68,7 @@ export const Sidebar: FC<SidebarProps> = ({
                 <Switch
                     value={theme === 'dark'}
                     theme="secondary"
-                    onChange={toggleDarkTheme}
+                    onChange={toggleTheme}
                     shape="circle"
                     label={isExpanded && 'Dark theme'}
                 />

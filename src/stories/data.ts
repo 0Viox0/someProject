@@ -1,6 +1,6 @@
 import { TableProps } from 'components/Table/types';
 
-interface City {
+export interface City {
     city: string;
     country: string;
     population: number;

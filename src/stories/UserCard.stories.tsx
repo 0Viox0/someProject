@@ -49,7 +49,7 @@ export const DarkTheme: Story = {
     args: {},
     decorators: [
         (Story) => (
-            <ThemeProvider initialTheme="dark">
+            <ThemeProvider>
                 <Story />
             </ThemeProvider>
         ),
@@ -60,7 +60,7 @@ export const LightTheme: Story = {
     args: {},
     decorators: [
         (Story) => (
-            <ThemeProvider initialTheme="light">
+            <ThemeProvider>
                 <Story />
             </ThemeProvider>
         ),

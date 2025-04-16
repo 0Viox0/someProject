@@ -84,15 +84,15 @@ $borderRadius: 10px;
                 border: none;
                 outline: none;
 
+                background-color: var(--oppositeSidebarBgColor);
+                color: var(--oppositeSidebarTextColor);
+
                 & > * {
                     flex-shrink: 0;
 
                     width: 20px;
                     height: 20px;
                 }
-
-                background-color: var(--oppositeSidebarBgColor);
-                color: var(--oppositeSidebarTextColor);
 
                 &:hover {
                     cursor: pointer;

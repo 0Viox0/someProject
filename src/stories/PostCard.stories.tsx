@@ -36,7 +36,7 @@ type Story = StoryObj<StoryProps>;
 export const DarkTheme: Story = {
     decorators: [
         (Story) => (
-            <ThemeProvider initialTheme="dark">
+            <ThemeProvider>
                 <Story />
             </ThemeProvider>
         ),
@@ -45,7 +45,7 @@ export const DarkTheme: Story = {
 export const LightTheme: Story = {
     decorators: [
         (Story) => (
-            <ThemeProvider initialTheme="light">
+            <ThemeProvider>
                 <Story />
             </ThemeProvider>
         ),

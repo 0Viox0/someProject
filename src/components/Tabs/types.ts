@@ -10,7 +10,10 @@ export type Item = {
 };
 
 export interface TabsProps extends BaseComponentProps {
+    /** Tabs of this Component */
     items: Item[];
+    /** The tab key that will be shown and focused by default */
     defaultActiveKey?: Item['key'];
+    /** Some additional classes */
     className?: string;
 }

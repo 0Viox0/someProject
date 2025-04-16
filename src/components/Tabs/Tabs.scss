@@ -1,4 +1,4 @@
-@use 'shared/styles/variables' as v;
+@use 'shared/styles/variables.scss' as v;
 @use 'sass:color';
 
 .tabs-wrapper {
@@ -10,6 +10,13 @@
 
         justify-content: start;
         align-items: center;
+
+        .iconWrapper {
+            display: grid;
+            place-content: center;
+
+            margin-right: 10px;
+        }
 
         .arrow {
             &:hover {

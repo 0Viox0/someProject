@@ -56,4 +56,10 @@ export const text = {
         create: 'Create',
         noCommentsFound: 'No comments found',
     },
+    HOME_PAGE: {
+        pageHeading: 'Home',
+        info: 'This is the main page of an admin dashboard',
+        youCanStartWith: 'You can start by pressing the button below ;)',
+        goToUser: 'View all users',
+    },
 };

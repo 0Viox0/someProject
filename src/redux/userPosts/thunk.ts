@@ -13,9 +13,16 @@ export const fetchPostsAsync = createAsyncThunk(
     'fetchPosts',
     async ({ page, limit, title = '', userId = '' }: FetchPostsParams) => {
         try {
-            const response = await axiosInstance.get<Post[]>(
-                `/posts?_limit=${limit}&_page=${page}&title_like=${title}&userId=${userId}`,
-            );
+            let response;
+            if (userId === '-1') {
+                response = await axiosInstance.get<Post[]>(
+                    `/posts?_limit=${limit}&_page=${page}`,
+                );
+            } else {
+                response = await axiosInstance.get<Post[]>(
+                    `/posts?_limit=${limit}&_page=${page}&title_like=${title}&userId=${userId}`,
+                );
+            }
 
             const userResponse = await axiosInstance.get<User[]>('/users');
 

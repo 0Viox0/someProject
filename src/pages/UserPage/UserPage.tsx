@@ -55,6 +55,12 @@ export const UserPage = () => {
     };
 
     useEffect(() => {
+        if (isLoading || isError) {
+            setSelectedUser(null);
+        }
+    }, [isError, isLoading]);
+
+    useEffect(() => {
         dispatch(fetchUsersAsync(debouncedInputValue));
     }, [debouncedInputValue, dispatch]);
 
@@ -66,7 +72,7 @@ export const UserPage = () => {
     };
 
     const handleViewPostsButtonClick = () => {
-        navigate(`/admin/posts?userId=${selectedUser.id}`);
+        navigate(`/posts?userId=${selectedUser.id}`);
     };
 
     return (

@@ -17,14 +17,18 @@ import { PostsControls } from './PostsControls/PostsControls';
 import { Modal } from 'components/Modal';
 
 import './UserPostsPage.scss';
+import { selectFetchedUsers } from '@redux/users/selectors';
 
 export const UserPostsPage = () => {
     const { theme } = useTheme();
     const [searchParams, setSearchParams] = useSearchParams();
 
+    const { users } = useAppSelector(selectFetchedUsers);
+
     const [formValues, setFormValues] = useState<PostFilterParams>({
         postNameFilter: '',
-        postAuthorFilter: searchParams.get('userId'),
+        postAuthorFilter:
+            searchParams.get('userId') ?? users?.[0]?.id.toString() ?? '-1',
     });
     const debouncedFormValues = useDebouncedValue(formValues, 200);
 

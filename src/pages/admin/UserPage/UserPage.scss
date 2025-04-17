@@ -3,6 +3,8 @@
 .userPage {
     margin-left: 50px;
 
+    flex: 1 1 auto;
+
     &.dark {
         color: white;
     }
@@ -24,6 +26,7 @@
 
     .tableUserCardWrapper {
         display: flex;
+        width: 100%;
 
         .userCard {
             margin: 0px 30px;

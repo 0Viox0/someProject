@@ -4,6 +4,7 @@ import { MouseEvent } from 'react';
 export interface UserCardProps {
     user: User;
     className?: string;
+    onClose: () => void;
     onViewPostsButtonClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 

@@ -50,6 +50,10 @@ export const UserPage = () => {
         setInputValue(event.target.value);
     };
 
+    const handleUserCardClose = () => {
+        setSelectedUser(null);
+    };
+
     useEffect(() => {
         dispatch(fetchUsersAsync(debouncedInputValue));
     }, [debouncedInputValue, dispatch]);
@@ -97,6 +101,7 @@ export const UserPage = () => {
                 {selectedUser && (
                     <UserCard
                         className="userCard"
+                        onClose={handleUserCardClose}
                         user={selectedUser}
                         onViewPostsButtonClick={handleViewPostsButtonClick}
                     />

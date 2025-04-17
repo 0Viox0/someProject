@@ -3,6 +3,11 @@
     border-radius: 33px;
     box-shadow: 4px 4px 10.5px -1px rgba(0, 0, 0, 0.25);
 
+    flex-shrink: 0;
+
+    width: 402px;
+    overflow: hidden;
+
     &.light {
         color: black;
         background: linear-gradient(
@@ -24,6 +29,37 @@
         flex-direction: column;
 
         font-size: 1.87rem;
+
+        .userCardHeader-headerNameWrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .icon {
+                flex-shrink: 0;
+
+                width: 40px;
+                height: 40px;
+
+                stroke-width: 2px;
+
+                background-color: rgba($color: #000000, $alpha: 0);
+                border-radius: 50%;
+                padding: 5px;
+
+                &:hover {
+                    cursor: pointer;
+                    scale: 1.05;
+
+                    background-color: rgba($color: #777, $alpha: 0.4);
+                }
+
+                &:active {
+                    scale: 1;
+                }
+            }
+        }
 
         .headerUsernameWrapper {
             display: flex;
@@ -53,6 +89,12 @@
         }
 
         .headerName {
+            width: 100%;
+
+            text-wrap: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+
             font-weight: lighter;
             margin-right: 10px;
         }
@@ -69,10 +111,6 @@
     .infoCardsWrapper {
         display: flex;
         justify-content: space-between;
-
-        > *:not(:last-child) {
-            margin-right: 11px;
-        }
 
         .rightInfoCardsWrapper {
             display: flex;

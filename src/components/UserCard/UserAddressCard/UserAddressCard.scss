@@ -5,36 +5,39 @@ $streetSecondaryColor: #2e2e2e;
 .addressCard {
     @include uc.userInfoCardBg();
 
+    width: 200px;
+    flex-shrink: 0;
+
     .addressCardHeader {
         .basicAddressWrapper {
             display: flex;
-            justify-content: start;
+            justify-content: space-between;
             align-items: center;
 
             .cityName {
                 font-size: 1.25rem;
                 font-weight: lighter;
             }
+        }
 
-            .streetWrapper {
-                color: $streetSecondaryColor;
+        .suiteWrapper {
+            color: $streetSecondaryColor;
+            line-height: 0.9rem;
+        }
 
-                line-height: 0.9rem;
+        .streetWrapper {
+            color: $streetSecondaryColor;
 
-                margin-top: 7px;
+            line-height: 0.9rem;
 
-                .streetName {
-                    margin-right: 6px;
-                }
+            margin-top: 7px;
 
-                .streetText {
-                    font-size: 0.9rem;
-                }
+            .streetName {
+                margin-right: 6px;
             }
 
-            .suiteWrapper {
-                color: $streetSecondaryColor;
-                line-height: 0.9rem;
+            .streetText {
+                font-size: 0.9rem;
             }
         }
 

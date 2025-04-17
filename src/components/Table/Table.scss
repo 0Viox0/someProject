@@ -2,12 +2,14 @@
 @use 'sass:color';
 
 .tableWrapper {
-    max-width: fit-content;
-
-    flex-shrink: 0;
+    width: 96%;
 
     .table {
         border-collapse: collapse;
+
+        width: 100%;
+
+        table-layout: fixed;
 
         th {
             @each $value, $color in v.$baseColorsMap {
@@ -53,6 +55,8 @@
         }
 
         td {
+            word-break: break-all;
+
             @each $value, $color in v.$baseColorsMap {
                 &.border-left-#{$value}:not(:first-child) {
                     border-left: 1px solid $color;

@@ -69,7 +69,7 @@ export const CommentsSectionWrapper = () => {
             <CommentCrudModal
                 isOpen={isModalOpen}
                 onCancel={handleCancel}
-                title={text.COMMENTS_SECTION.editComment}
+                title={text.COMMENTS_SECTION.newComment}
                 onAction={handleCreateNewCommentAction}
                 isLoading={isCreatingLoading}
                 footerButtonText={text.COMMENTS_SECTION.create}

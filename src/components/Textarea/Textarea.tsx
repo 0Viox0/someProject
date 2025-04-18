@@ -7,12 +7,16 @@ import './Textarea.scss';
 export const Textarea: FC<TextareaProps> = ({
     theme = 'secondary',
     className,
+    error,
     ...props
 }) => {
     return (
-        <textarea
-            className={classNames('textarea', `textarea-${theme}`, className)}
-            {...props}
-        ></textarea>
+        <div className={`${className}`}>
+            <textarea
+                className={classNames('textarea', `textarea-${theme}`)}
+                {...props}
+            ></textarea>
+            <span className="error">{error}</span>
+        </div>
     );
 };

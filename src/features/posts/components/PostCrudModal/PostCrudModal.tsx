@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Post } from '@redux/userPosts/types';
 import { Modal } from 'components/Modal';
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { Textarea } from 'components/Textarea';
 import { text } from 'shared/text/text';
-import { FormValues } from 'features/posts/types/types';
+import { FormErrors, FormValues } from 'features/posts/types/types';
 import { useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
 
@@ -28,11 +28,21 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
     onCancel,
     predefinedPost,
 }) => {
+    const initialFormErrors: Readonly<FormErrors> = useMemo(
+        () => ({
+            titleError: '',
+            bodyError: '',
+            writteByError: '',
+        }),
+        [],
+    );
+
     const [formValue, setFormValue] = useState<FormValues>({
         title: predefinedPost?.title ?? '',
         body: predefinedPost?.body ?? '',
         writtenBy: predefinedPost?.author.split(/[\s@]+/).at(-1) ?? '',
     });
+    const [formErrors, setFormErrors] = useState<FormErrors>(initialFormErrors);
 
     const { errorMessage, isLoading } = useAppSelector(selectPosts);
 
@@ -51,6 +61,8 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
     };
 
     const handleAction = () => {
+        setFormErrors(initialFormErrors);
+
         const newPost: Post = {
             id: predefinedPost?.id ?? -1,
             userId: predefinedPost?.userId ?? -1,
@@ -59,7 +71,29 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
             body: formValue.body,
         };
 
-        onAction(newPost);
+        const errors: FormErrors = { ...initialFormErrors };
+        let isError = false;
+
+        if (!newPost.title) {
+            isError = true;
+            errors.titleError = text.MODAL_ERRORS.POSTS.titleEmpty;
+        }
+
+        if (!newPost.body) {
+            isError = true;
+            errors.bodyError = text.MODAL_ERRORS.POSTS.bodyEmpty;
+        }
+
+        if (!newPost.author) {
+            isError = true;
+            errors.writteByError = text.MODAL_ERRORS.POSTS.authorEmpty;
+        }
+
+        setFormErrors(errors);
+
+        if (!isError) {
+            onAction(newPost);
+        }
     };
 
     useEffect(() => {
@@ -71,6 +105,17 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
             });
         }
     }, [predefinedPost]);
+
+    useEffect(() => {
+        if (!isOpen) {
+            setFormValue({
+                title: predefinedPost?.title ?? '',
+                body: predefinedPost?.body ?? '',
+                writtenBy: predefinedPost?.author ?? '',
+            });
+            setFormErrors(initialFormErrors);
+        }
+    }, [initialFormErrors, isOpen, predefinedPost]);
 
     return (
         <Modal
@@ -98,6 +143,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
                     variant="filled"
                     theme="info"
                     label={text.CREATE_MODAL.title}
+                    error={formErrors.titleError}
                 />
                 <Textarea
                     value={formValue.body}
@@ -105,6 +151,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
                         handleFormValueChange('body', event.target.value)
                     }
                     className="createModalTextarea"
+                    error={formErrors.bodyError}
                 />
                 <Input
                     value={formValue.writtenBy}
@@ -114,7 +161,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
                     variant="outlined"
                     theme="secondary"
                     label={text.CREATE_MODAL.writtenBy}
-                    error={errorMessage}
+                    error={formErrors.writteByError || errorMessage}
                 />
             </div>
         </Modal>

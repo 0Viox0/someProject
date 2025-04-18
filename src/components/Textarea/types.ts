@@ -4,5 +4,6 @@ import { BaseComponentProps } from 'shared/types/types';
 export interface TextareaProps
     extends TextareaHTMLAttributes<HTMLTextAreaElement>,
         Pick<BaseComponentProps, 'theme'> {
+    error?: string;
     className?: string;
 }

@@ -1,11 +1,15 @@
 import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { Modal } from 'components/Modal';
-import { FC, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { Comment } from '@redux/post/types';
 import { text } from 'shared/text/text';
 import { Textarea } from 'components/Textarea';
-import { CommentCrudModalProps, CommentFormValues } from './types';
+import {
+    CommentCrudModalProps,
+    CommentFormErros,
+    CommentFormValues,
+} from './types';
 
 import './CommentCrudModal.scss';
 
@@ -18,12 +22,23 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
     footerButtonText,
     isLoading,
 }) => {
+    const initialFormErrors: Readonly<CommentFormErros> = useMemo(
+        () => ({
+            nameError: '',
+            bodyError: '',
+            emailError: '',
+        }),
+        [],
+    );
+
     const [commentFormValues, setCommentFormValues] =
         useState<CommentFormValues>({
             name: predefinedComment?.name ?? '',
             email: predefinedComment?.email ?? '',
             commentBody: predefinedComment?.body ?? '',
         });
+    const [commentFormErrors, setcommentFormErrors] =
+        useState<CommentFormErros>(initialFormErrors);
 
     const handleCommentFormValuesChange = <T extends keyof CommentFormValues>(
         param: T,
@@ -43,8 +58,46 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             body: commentFormValues.commentBody,
         };
 
-        onAction(newComment);
+        let isError = false;
+        const errors: CommentFormErros = { ...initialFormErrors };
+
+        if (!newComment.name) {
+            errors.nameError = text.MODAL_ERRORS.COMMENTS.nameEmpty;
+            isError = true;
+        }
+
+        if (!newComment.body) {
+            errors.bodyError = text.MODAL_ERRORS.COMMENTS.bodyEmpty;
+            isError = true;
+        }
+
+        const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!newComment.email) {
+            isError = true;
+            errors.emailError = text.MODAL_ERRORS.COMMENTS.emailEmpty;
+        } else if (!emailValidationRegex.test(newComment.email)) {
+            isError = true;
+            errors.emailError = text.MODAL_ERRORS.COMMENTS.emailInvalid;
+        }
+
+        setcommentFormErrors(errors);
+
+        if (!isError) {
+            onAction(newComment);
+        }
     };
+
+    useEffect(() => {
+        if (!isOpen) {
+            setCommentFormValues({
+                name: predefinedComment?.name ?? '',
+                commentBody: predefinedComment?.body ?? '',
+                email: predefinedComment?.email ?? '',
+            });
+            setcommentFormErrors(initialFormErrors);
+        }
+    }, [initialFormErrors, isOpen, predefinedComment]);
 
     return (
         <Modal
@@ -76,6 +129,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
                     variant="filled"
                     theme="info"
                     label={text.COMMENTS_SECTION.title}
+                    error={commentFormErrors.nameError}
                 />
                 <Input
                     className="commentModalInput"
@@ -89,6 +143,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
                     variant="filled"
                     theme="info"
                     label={text.COMMENTS_SECTION.email}
+                    error={commentFormErrors.emailError}
                 />
                 <Textarea
                     value={commentFormValues.commentBody}
@@ -99,6 +154,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
                         )
                     }
                     className="createModalTextarea"
+                    error={commentFormErrors.bodyError}
                 />
             </div>
         </Modal>

@@ -17,18 +17,14 @@ import { PostsControls } from './PostsControls/PostsControls';
 import { Modal } from 'components/Modal';
 
 import './UserPostsPage.scss';
-import { selectFetchedUsers } from '@redux/users/selectors';
 
 export const UserPostsPage = () => {
     const { theme } = useTheme();
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const { users } = useAppSelector(selectFetchedUsers);
-
     const [formValues, setFormValues] = useState<PostFilterParams>({
         postNameFilter: '',
-        postAuthorFilter:
-            searchParams.get('userId') ?? users?.[0]?.id.toString() ?? '-1',
+        postAuthorFilter: searchParams.get('userId') ?? '',
     });
     const debouncedFormValues = useDebouncedValue(formValues, 200);
 
@@ -113,7 +109,7 @@ export const UserPostsPage = () => {
     };
 
     const handlePostViewComments = (postId: number) => {
-        navigate(`/admin/posts/${postId}`);
+        navigate(`/posts/${postId}`);
     };
 
     return (

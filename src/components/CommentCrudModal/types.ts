@@ -15,3 +15,9 @@ export type CommentFormValues = {
     email: string;
     commentBody: string;
 };
+
+export type CommentFormErros = {
+    nameError: string;
+    emailError: string;
+    bodyError: string;
+};

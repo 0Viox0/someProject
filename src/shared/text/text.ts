@@ -20,6 +20,19 @@ export const text = {
     loadMore: 'Load more',
     newPost: 'New post',
 
+    MODAL_ERRORS: {
+        POSTS: {
+            bodyEmpty: 'Post content cannot be empty',
+            titleEmpty: 'Title of the post cannot be empty',
+            authorEmpty: 'Author cannot be empty',
+        },
+        COMMENTS: {
+            nameEmpty: 'Name of the author cannot be empty',
+            bodyEmpty: 'Comment cannot be empty',
+            emailEmpty: 'Email cannot be empty',
+            emailInvalid: 'Email is invalid',
+        },
+    },
     CREATE_MODAL: {
         heading: 'Create the post',
         title: 'Title: ',

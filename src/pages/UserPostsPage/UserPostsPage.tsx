@@ -40,6 +40,7 @@ export const UserPostsPage = () => {
         null,
     );
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [noMorePosts, setNoMorePosts] = useState(false);
 
     const navigate = useNavigate();
 
@@ -53,8 +54,8 @@ export const UserPostsPage = () => {
         }));
     };
 
-    const handleFetchMorePosts = () => {
-        dispatch(
+    const handleFetchMorePosts = async () => {
+        const resultAction = await dispatch(
             fetchPostsAsync({
                 limit,
                 page: page + 1,
@@ -62,6 +63,15 @@ export const UserPostsPage = () => {
                 title: debouncedFormValues.postNameFilter,
             }),
         );
+
+        if (fetchPostsAsync.fulfilled.match(resultAction)) {
+            const posts = resultAction.payload;
+
+            if (posts.length < limit) {
+                setNoMorePosts(true);
+            }
+        }
+
         setPage((prevPage) => prevPage + 1);
     };
 
@@ -117,6 +127,7 @@ export const UserPostsPage = () => {
             <h2 className="userPostsHeader">{text.userPosts}</h2>
             <PostsControls
                 setPage={setPage}
+                setNoMorePosts={setNoMorePosts}
                 paginationLimit={limit}
                 formValues={formValues}
                 handleFilterChange={handleFilterChange}
@@ -124,7 +135,8 @@ export const UserPostsPage = () => {
             <div className="postsContainer">
                 {isLoading && !posts.length ? (
                     <Loader text={text.fetchingPosts} />
-                ) : (isError && !errorMessage) || !posts.length ? (
+                ) : ((isError && !errorMessage) || !posts.length) &&
+                  noMorePosts ? (
                     <div className="error">{text.noPostsAvailable}</div>
                 ) : (
                     <>
@@ -139,12 +151,18 @@ export const UserPostsPage = () => {
                                 }
                             />
                         ))}
-                        <Button
-                            loading={isLoading}
-                            onClick={handleFetchMorePosts}
-                        >
-                            {text.loadMore}
-                        </Button>
+                        {!noMorePosts ? (
+                            <Button
+                                loading={isLoading}
+                                onClick={handleFetchMorePosts}
+                            >
+                                {text.loadMore}
+                            </Button>
+                        ) : (
+                            <div className="noPostsLeft">
+                                {text.noMorePosts}
+                            </div>
+                        )}
                     </>
                 )}
             </div>

@@ -19,6 +19,7 @@ export const text = {
     fetchingPosts: 'Finding posts',
     loadMore: 'Load more',
     newPost: 'New post',
+    noMorePosts: 'You have reached the end, there are no more posts',
 
     MODAL_ERRORS: {
         POSTS: {

@@ -16,6 +16,7 @@ export type PostControls = {
     formValues: PostFilterParams;
     handleFilterChange: PostFilterHandleFunction;
     setPage: Dispatch<React.SetStateAction<number>>;
+    setNoMorePosts: Dispatch<React.SetStateAction<boolean>>;
     paginationLimit: number;
 };
 
@@ -23,6 +24,7 @@ export const PostsControls: FC<PostControls> = ({
     formValues,
     handleFilterChange,
     setPage,
+    setNoMorePosts,
     paginationLimit,
 }) => {
     const { isLoading, users } = useAppSelector(selectFetchedUsers);
@@ -44,6 +46,8 @@ export const PostsControls: FC<PostControls> = ({
     useEffect(() => {
         dispatch(resetPosts());
         setPage(0);
+        setNoMorePosts(false);
+
         dispatch(
             fetchPostsAsync({
                 page: 0,
@@ -53,12 +57,15 @@ export const PostsControls: FC<PostControls> = ({
             }),
         );
 
+        setPage((prevPage) => prevPage + 1);
+
         dispatch(fetchUsersAsync(''));
     }, [
         debouncedFormValues.postAuthorFilter,
         debouncedFormValues.postNameFilter,
         dispatch,
         paginationLimit,
+        setNoMorePosts,
         setPage,
     ]);
 

@@ -26,13 +26,7 @@
                 }
 
                 .commentEmail {
-                    &.light {
-                        color: #7d7d7d;
-                    }
-
-                    &.dark {
-                        color: #bbbaba;
-                    }
+                    color: var(--commentEmailColor);
                 }
             }
         }

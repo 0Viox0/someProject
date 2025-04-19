@@ -5,13 +5,7 @@
 
     flex: 1 1 auto;
 
-    &.dark {
-        color: white;
-    }
-
-    &.light {
-        color: black;
-    }
+    color: var(--textColor);
 
     .userPageHeader {
         font-size: 3rem;

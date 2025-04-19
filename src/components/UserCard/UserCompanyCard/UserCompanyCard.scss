@@ -9,14 +9,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    &.dark {
-        background-color: uc.$darkModeBg;
-    }
-
-    &.light {
-        background-color: uc.$lightModeBg;
-    }
-
     .companyCardHeader {
         display: flex;
         justify-content: space-between;

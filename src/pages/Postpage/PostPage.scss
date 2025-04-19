@@ -1,13 +1,7 @@
 .userPostPage {
     margin-left: 50px;
 
-    &.dark {
-        color: white;
-    }
-
-    &.light {
-        color: black;
-    }
+    color: var(--textColor);
 
     .userPostHeader {
         font-size: 3rem;

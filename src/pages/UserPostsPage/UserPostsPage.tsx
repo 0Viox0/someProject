@@ -1,5 +1,4 @@
 import { text } from 'shared/text/text';
-import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { useEffect, useState } from 'react';
@@ -19,7 +18,6 @@ import { Modal } from 'components/Modal';
 import './UserPostsPage.scss';
 
 export const UserPostsPage = () => {
-    const { theme } = useTheme();
     const [searchParams, setSearchParams] = useSearchParams();
 
     const [formValues, setFormValues] = useState<PostFilterParams>({
@@ -123,7 +121,7 @@ export const UserPostsPage = () => {
     };
 
     return (
-        <div className={classNames('userPostPage', theme)}>
+        <div className={classNames('userPostPage')}>
             <h2 className="userPostsHeader">{text.userPosts}</h2>
             <PostsControls
                 setPage={setPage}

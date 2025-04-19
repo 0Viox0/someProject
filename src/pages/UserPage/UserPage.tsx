@@ -3,7 +3,6 @@ import { fetchUsersAsync } from '@redux/users/thunk';
 import { Loader } from 'components/Loader';
 import { Table } from 'components/Table';
 import { TableProps } from 'components/Table/types';
-import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { UserForTable } from './types';
@@ -38,7 +37,6 @@ export const UserPage = () => {
         },
     ];
 
-    const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const { isError, isLoading, users } = useAppSelector(selectFetchedUsers);
     const [inputValue, setInputValue] = useState('');
@@ -76,7 +74,7 @@ export const UserPage = () => {
     };
 
     return (
-        <div className={classNames('userPage', theme)}>
+        <div className={classNames('userPage')}>
             <h2 className="userPageHeader">{text.userListHeader}</h2>
             <Input
                 value={inputValue}

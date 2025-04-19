@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { Comment } from '@redux/post/types';
 import classNames from 'classnames';
-import { useTheme } from 'features/darkTheme';
 import { PostActionButton } from 'components/PostActionButton';
 import { useAppDispatch } from 'shared/hooks';
 import { Button } from 'components/Button';
@@ -20,7 +19,6 @@ export type CommentProps = {
 };
 
 export const CommentCard: FC<CommentProps> = ({ comment }) => {
-    const { theme } = useTheme();
     const dispatch = useAppDispatch();
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
     const [isEditingCommentModalOpen, setIsEditingCommentModalOpen] =
@@ -73,7 +71,7 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
                     <div className="profilePicture"></div>
                     <div className="commentUserIdentity">
                         <div className="commentUsername">{comment.name}</div>
-                        <div className={classNames('commentEmail', theme)}>
+                        <div className={classNames('commentEmail')}>
                             {comment.email}
                         </div>
                     </div>

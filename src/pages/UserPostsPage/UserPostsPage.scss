@@ -5,13 +5,7 @@
 
     width: 800px;
 
-    &.dark {
-        color: white;
-    }
-
-    &.light {
-        color: black;
-    }
+    color: var(--textColor);
 
     .userPostsHeader {
         font-size: 3rem;

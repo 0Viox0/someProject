@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { PostCardProps } from './types';
-import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
 import { PostActionButton } from 'components/PostActionButton';
 
@@ -16,10 +15,8 @@ export const PostCard: FC<PostCardProps> = ({
     onEdit,
     onViewComments,
 }) => {
-    const { theme } = useTheme();
-
     return (
-        <div className={classNames('postWrapper', theme)}>
+        <div className={classNames('postWrapper')}>
             <div className="actualPostWrapper">
                 <h3 className="postHeading">{post.title}</h3>
                 <p className="postContent">{post.body}</p>

@@ -1,8 +1,8 @@
 import { text } from 'shared/text/text';
 import { Button } from 'components/Button';
+import { useNavigate } from 'react-router';
 
 import './Home.scss';
-import { useNavigate } from 'react-router';
 
 export const Home = () => {
     const navigate = useNavigate();

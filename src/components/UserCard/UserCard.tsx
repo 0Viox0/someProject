@@ -8,7 +8,6 @@ import { UserAddressCard } from './UserAddressCard';
 import { UserCompanyCard } from './UserCompanyCard';
 import { Button } from 'components/Button';
 import { text } from 'shared/text/text';
-import { useTheme } from 'features/darkTheme';
 import classNames from 'classnames';
 import CloseIcon from 'shared/assets/icons/CloseIcon.svg';
 
@@ -20,18 +19,16 @@ export const UserCard: FC<UserCardProps> = ({
     onClose,
     onViewPostsButtonClick,
 }) => {
-    const { theme } = useTheme();
-
     return (
-        <div className={classNames('userCard', theme, className)}>
+        <div className={classNames('userCard', className)}>
             <div className="userCardHeader">
                 <div className="userCardHeader-headerNameWrapper">
                     <h3 className="headerName">{user.name}</h3>
                     <CloseIcon className="icon" onClick={onClose} />
                 </div>
                 <div className="headerUsernameWrapper">
-                    <span className={classNames('akaSign', theme)}>@</span>
-                    <span className={classNames('headerUsername', theme)}>
+                    <span className={classNames('akaSign')}>@</span>
+                    <span className={classNames('headerUsername')}>
                         {user.username}
                     </span>
                 </div>

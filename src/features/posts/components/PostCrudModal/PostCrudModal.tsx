@@ -6,8 +6,9 @@ import { Input } from 'components/Input';
 import { Textarea } from 'components/Textarea';
 import { text } from 'shared/text/text';
 import { FormErrors, FormValues } from 'features/posts/types/types';
-import { useAppSelector } from 'shared/hooks';
+import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
+import { clearError } from '@redux/userPosts/slice';
 
 import './PostCrudModal.scss';
 
@@ -45,6 +46,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
     const [formErrors, setFormErrors] = useState<FormErrors>(initialFormErrors);
 
     const { errorMessage, isLoading } = useAppSelector(selectPosts);
+    const dispatch = useAppDispatch();
 
     const handleFormValueChange = <T extends keyof FormValues>(
         filter: T,
@@ -114,8 +116,9 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
                 writtenBy: predefinedPost?.author ?? '',
             });
             setFormErrors(initialFormErrors);
+            dispatch(clearError());
         }
-    }, [initialFormErrors, isOpen, predefinedPost]);
+    }, [dispatch, initialFormErrors, isOpen, predefinedPost]);
 
     return (
         <Modal

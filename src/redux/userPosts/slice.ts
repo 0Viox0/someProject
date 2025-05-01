@@ -21,6 +21,9 @@ export const postsSlice = createSlice({
         resetPosts: (state) => {
             state.posts = [];
         },
+        clearError: (state) => {
+            state.errorMessage = '';
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -81,5 +84,5 @@ export const postsSlice = createSlice({
     },
 });
 
-export const { resetPosts } = postsSlice.actions;
+export const { resetPosts, clearError } = postsSlice.actions;
 export default postsSlice.reducer;

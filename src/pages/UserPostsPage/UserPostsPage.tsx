@@ -104,6 +104,7 @@ export const UserPostsPage = () => {
     };
 
     const handleEditAction = async (post: Post) => {
+        setCurrentChosenPost(post);
         const resultAction = await dispatch(
             editPost({
                 newPost: post,

@@ -11,6 +11,9 @@
 
     border: 1px solid #888383;
 
+    height: 40px;
+    width: 40px;
+
     &:hover {
         cursor: pointer;
     }
@@ -20,34 +23,10 @@
     }
 
     &.transparent {
-        background-color: none;
+        background-color: white;
 
         &:hover {
             background-color: rgba($color: #ddd, $alpha: 0.5);
-        }
-    }
-
-    &.info {
-        background-color: v.$infoColor;
-        color: black;
-
-        &:hover {
-            background-color: color.scale(
-                $color: v.$infoColor,
-                $lightness: 20%
-            );
-        }
-    }
-
-    &.danger {
-        background-color: v.$dangerColor;
-        color: black;
-
-        &:hover {
-            background-color: color.scale(
-                $color: v.$dangerColor,
-                $lightness: 20%
-            );
         }
     }
 

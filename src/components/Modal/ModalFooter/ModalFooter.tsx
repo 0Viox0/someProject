@@ -20,7 +20,7 @@ export const ModalFooter: FC<ModalFooterProps> = ({
                 <>
                     {onCancel && (
                         <button
-                            className="button cancel-button"
+                            className="modalFooterButton cancel-button"
                             onClick={onCancel}
                         >
                             {cancelText}
@@ -29,9 +29,9 @@ export const ModalFooter: FC<ModalFooterProps> = ({
                     {onOk && (
                         <button
                             className={classNames(
-                                'button',
+                                'modalFooterButton',
                                 'okButton',
-                                `button-${theme}`,
+                                `footerButton-${theme}`,
                             )}
                             onClick={onOk}
                         >

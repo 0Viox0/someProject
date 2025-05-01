@@ -108,7 +108,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             footer={
                 <Button
                     theme="info"
-                    size="small"
+                    size="big"
                     onClick={handleAction}
                     loading={isLoading}
                 >

@@ -27,10 +27,8 @@ export const UserCard: FC<UserCardProps> = ({
                     <CloseIcon className="icon" onClick={onClose} />
                 </div>
                 <div className="headerUsernameWrapper">
-                    <span className={classNames('akaSign')}>@</span>
-                    <span className={classNames('headerUsername')}>
-                        {user.username}
-                    </span>
+                    <span className={'akaSign'}>@</span>
+                    <span className={'headerUsername'}>{user.username}</span>
                 </div>
             </div>
             <div className="userInfoWrapper">

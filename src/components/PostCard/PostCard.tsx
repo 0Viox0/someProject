@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { PostCardProps } from './types';
-import classNames from 'classnames';
-import { PostActionButton } from 'components/PostActionButton';
+import { IconButton } from 'components/IconButton';
 
 import CommentIcon from 'shared/assets/icons/Comment.svg';
 import EditIcon from 'shared/assets/icons/Edit.svg';
@@ -16,7 +15,7 @@ export const PostCard: FC<PostCardProps> = ({
     onViewComments,
 }) => {
     return (
-        <div className={classNames('postWrapper')}>
+        <div className={'postWrapper'}>
             <div className="actualPostWrapper">
                 <h3 className="postHeading">{post.title}</h3>
                 <p className="postContent">{post.body}</p>
@@ -24,18 +23,18 @@ export const PostCard: FC<PostCardProps> = ({
             </div>
             <div className="buttonsWrapper">
                 <div className="upperButtonWrapper">
-                    <PostActionButton
+                    <IconButton
                         icon={<EditIcon />}
                         colorTheme="transparent"
                         onClick={() => onEdit(post)}
                     />
-                    <PostActionButton
+                    <IconButton
                         icon={<TrashIcon />}
                         colorTheme="danger"
                         onClick={() => onDelete(post)}
                     />
                 </div>
-                <PostActionButton
+                <IconButton
                     icon={<CommentIcon />}
                     colorTheme="info"
                     onClick={() => onViewComments(post)}

@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
 import { Comment } from '@redux/post/types';
-import classNames from 'classnames';
-import { PostActionButton } from 'components/PostActionButton';
+import { IconButton } from 'components/IconButton';
 import { useAppDispatch } from 'shared/hooks';
 import { Button } from 'components/Button';
 import { Modal } from 'components/Modal';
@@ -21,12 +20,11 @@ export type CommentProps = {
 export const CommentCard: FC<CommentProps> = ({ comment }) => {
     const dispatch = useAppDispatch();
     const [isDeleteModalOpen, setDeleteModalOpen] = useState(false);
-    const [isEditingCommentModalOpen, setIsEditingCommentModalOpen] =
-        useState(false);
+    const [isEditingModalOpen, setIsEditingModalOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleEditComment = () => {
-        setIsEditingCommentModalOpen(true);
+        setIsEditingModalOpen(true);
     };
 
     const handleEditCommentAction = async (newComment: Comment) => {
@@ -37,7 +35,7 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
         );
 
         if (editComment.fulfilled.match(resultAction)) {
-            setIsEditingCommentModalOpen(false);
+            setIsEditingModalOpen(false);
         }
 
         setIsLoading(false);
@@ -61,28 +59,26 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
 
     const handleCancel = () => {
         setDeleteModalOpen(false);
-        setIsEditingCommentModalOpen(false);
+        setIsEditingModalOpen(false);
     };
 
     return (
         <div className="commentWrapper">
             <div className="commentHeading">
                 <div className="commentHeadingUserWrapper">
-                    <div className="profilePicture"></div>
+                    <div className="profilePicture" />
                     <div className="commentUserIdentity">
                         <div className="commentUsername">{comment.name}</div>
-                        <div className={classNames('commentEmail')}>
-                            {comment.email}
-                        </div>
+                        <div className="commentEmail">{comment.email}</div>
                     </div>
                 </div>
                 <div className="commentCardActionButtonsWrapper">
-                    <PostActionButton
+                    <IconButton
                         icon={<EditIcon />}
                         colorTheme="transparent"
                         onClick={handleEditComment}
                     />
-                    <PostActionButton
+                    <IconButton
                         icon={<TrashIcon />}
                         colorTheme="danger"
                         onClick={handleDeleteComment}
@@ -99,7 +95,7 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
                     <div className="deleteModalFooterButtonsWrapper">
                         <Button
                             theme="info"
-                            size="small"
+                            size="big"
                             onClick={handleDeleteAction}
                             loading={isLoading}
                         >
@@ -107,7 +103,7 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
                         </Button>
                         <Button
                             theme="primary"
-                            size="small"
+                            size="big"
                             onClick={handleCancel}
                             disabled={isLoading}
                         >
@@ -123,7 +119,7 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
                 </div>
             </Modal>
             <CommentCrudModal
-                isOpen={isEditingCommentModalOpen}
+                isOpen={isEditingModalOpen}
                 onCancel={handleCancel}
                 title={text.COMMENTS_SECTION.editComment}
                 onAction={handleEditCommentAction}

@@ -1,5 +1,4 @@
 import { text } from 'shared/text/text';
-import classNames from 'classnames';
 import { Button } from 'components/Button';
 import { useEffect, useState } from 'react';
 import { PostFilterParams } from './types';
@@ -122,7 +121,7 @@ export const UserPostsPage = () => {
     };
 
     return (
-        <div className={classNames('userPostPage')}>
+        <div className={'userPostPage'}>
             <h2 className="userPostsHeader">{text.userPosts}</h2>
             <PostsControls
                 setPage={setPage}
@@ -152,6 +151,7 @@ export const UserPostsPage = () => {
                         ))}
                         {!noMorePosts ? (
                             <Button
+                                size="big"
                                 loading={isLoading}
                                 onClick={handleFetchMorePosts}
                             >
@@ -182,7 +182,7 @@ export const UserPostsPage = () => {
                     <div className="deleteModalFooterButtonsWrapper">
                         <Button
                             theme="info"
-                            size="small"
+                            size="big"
                             onClick={handleDeleteAction}
                             loading={isLoading}
                         >
@@ -190,7 +190,7 @@ export const UserPostsPage = () => {
                         </Button>
                         <Button
                             theme="primary"
-                            size="small"
+                            size="big"
                             onClick={handleCancel}
                             disabled={isLoading}
                         >

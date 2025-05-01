@@ -2,13 +2,12 @@ import { FC } from 'react';
 import { UserAddressCardProps } from '../type';
 import { text } from 'shared/text/text';
 import HomeIcon from 'shared/assets/icons/Home.svg';
-import classNames from 'classnames';
 
 import './UserAddressCard.scss';
 
 export const UserAddressCard: FC<UserAddressCardProps> = ({ userAddress }) => {
     return (
-        <div className={classNames('addressCard')}>
+        <div className={'addressCard'}>
             <div className="addressCardHeader">
                 <div className="basicAddressWrapper">
                     <h3 className="cityName">{userAddress.city}</h3>

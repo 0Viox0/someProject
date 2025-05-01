@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { fetchUsersAsync } from '@redux/users/thunk';
 import { Loader } from 'components/Loader';
 import { Table } from 'components/Table';
@@ -74,7 +73,7 @@ export const UserPage = () => {
     };
 
     return (
-        <div className={classNames('userPage')}>
+        <div className={'userPage'}>
             <h2 className="userPageHeader">{text.userListHeader}</h2>
             <Input
                 value={inputValue}

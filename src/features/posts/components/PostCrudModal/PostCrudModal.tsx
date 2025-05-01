@@ -129,7 +129,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
             footer={
                 <Button
                     theme="info"
-                    size="small"
+                    size="big"
                     onClick={handleAction}
                     loading={isLoading}
                 >

@@ -1,0 +1,19 @@
+.notFoundPageWrapper {
+    color: var(--textColor);
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .notFoundHeading {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+}

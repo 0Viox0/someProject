@@ -1,0 +1,28 @@
+.errorBoundaryWrapper {
+    color: var(--textColor);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    .errorBoundaryHeader {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .errorBoundarySecondaryText {
+        margin-bottom: 30px;
+    }
+
+    .errorBoundaryButtonsWrapper {
+        display: flex;
+        > *:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}

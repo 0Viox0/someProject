@@ -30,7 +30,7 @@ export const Button: FC<ButtonProps> = ({
                 <span
                     className={classNames('iconWrapper', {
                         rotateIcon: loading,
-                        [iconPositionArg]: loading || icon,
+                        [iconPositionArg]: (loading || icon) && children,
                     })}
                 >
                     {loading ? (
@@ -50,7 +50,7 @@ export const Button: FC<ButtonProps> = ({
             {...props}
         >
             {renderIcon('left')}
-            <span className="text">{children}</span>
+            {children && <span className="text">{children}</span>}
             {renderIcon('right')}
         </button>
     );

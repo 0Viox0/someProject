@@ -76,4 +76,13 @@ export const text = {
         youCanStartWith: 'You can start by pressing the button below ;)',
         goToUser: 'View all users',
     },
+    ERROR_BOUNDARY_PAGE: {
+        somethingWentWrong: 'Something went wrong',
+        someUnexpectedErrorHasOccured: 'Some unexpected error has occured',
+        reloadThePage: 'Reload the page',
+        goToHomePage: 'Go to home page',
+    },
+    NOT_FOUND_PAGE: {
+        thisPageWas: "This page doesn't exist :(",
+    },
 };

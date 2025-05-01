@@ -15,7 +15,7 @@ $buttonBorderRadius: 7px;
     justify-content: space-between;
     align-items: center;
 
-    .button {
+    .modalFooterButton {
         border: none;
         background-color: transparent;
         outline: none;
@@ -53,24 +53,21 @@ $buttonBorderRadius: 7px;
         color: white;
 
         @each $value, $color in v.$baseColorsMap {
-            &.button-#{$value} {
-                background-color: color.scale(
-                    $color: $color,
-                    $lightness: -20%
-                ) !important;
+            &.footerButton-#{$value} {
+                background-color: color.scale($color: $color, $lightness: -20%);
 
                 &:hover {
                     background-color: color.scale(
                         $color: $color,
                         $lightness: -40%
-                    ) !important;
+                    );
                 }
 
                 &:active {
                     background-color: color.scale(
                         $color: $color,
                         $lightness: -20%
-                    ) !important;
+                    );
                 }
             }
         }

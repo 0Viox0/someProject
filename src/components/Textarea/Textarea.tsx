@@ -11,7 +11,7 @@ export const Textarea: FC<TextareaProps> = ({
     ...props
 }) => {
     return (
-        <div className={`${className}`}>
+        <div className={className}>
             <textarea
                 className={classNames('textarea', `textarea-${theme}`)}
                 {...props}

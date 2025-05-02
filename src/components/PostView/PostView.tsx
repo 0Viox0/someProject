@@ -36,13 +36,19 @@ export const PostView = () => {
         }
     }, [dispatch, post]);
 
-    return isError ? (
-        <div className="postViewErrorMessage">
-            {text.POST_PAGE.invalidPostId}
-        </div>
-    ) : isLoading || !post ? (
-        <Loader className="postViewLoader" />
-    ) : (
+    if (isError) {
+        return (
+            <div className="postViewErrorMessage">
+                {text.POST_PAGE.invalidPostId}
+            </div>
+        );
+    }
+
+    if (isLoading || !post) {
+        return <Loader className="postViewLoader" />;
+    }
+
+    return (
         <div className="fullPostWrapper">
             <h2 className="postTitle">{post.title}</h2>
             <p className="postContent">{post.body}</p>

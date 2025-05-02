@@ -5,11 +5,8 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { Comment } from '@redux/post/types';
 import { text } from 'shared/text/text';
 import { Textarea } from 'components/Textarea';
-import {
-    CommentCrudModalProps,
-    CommentFormErros,
-    CommentFormValues,
-} from './types';
+import { CommentCrudModalProps, CommentFormValues } from './types';
+import { CommentFormErros, validateEntity } from 'features/validation';
 
 import './CommentCrudModal.scss';
 
@@ -37,7 +34,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             email: predefinedComment?.email ?? '',
             commentBody: predefinedComment?.body ?? '',
         });
-    const [commentFormErrors, setcommentFormErrors] =
+    const [commentFormErrors, setCommentFormErrors] =
         useState<CommentFormErros>(initialFormErrors);
 
     const handleCommentFormValuesChange = <T extends keyof CommentFormValues>(
@@ -58,30 +55,9 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             body: commentFormValues.commentBody,
         };
 
-        let isError = false;
-        const errors: CommentFormErros = { ...initialFormErrors };
+        const { errors, isError } = validateEntity(newComment);
 
-        if (!newComment.name) {
-            errors.nameError = text.MODAL_ERRORS.COMMENTS.nameEmpty;
-            isError = true;
-        }
-
-        if (!newComment.body) {
-            errors.bodyError = text.MODAL_ERRORS.COMMENTS.bodyEmpty;
-            isError = true;
-        }
-
-        const emailValidationRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        if (!newComment.email) {
-            isError = true;
-            errors.emailError = text.MODAL_ERRORS.COMMENTS.emailEmpty;
-        } else if (!emailValidationRegex.test(newComment.email)) {
-            isError = true;
-            errors.emailError = text.MODAL_ERRORS.COMMENTS.emailInvalid;
-        }
-
-        setcommentFormErrors(errors);
+        setCommentFormErrors(errors);
 
         if (!isError) {
             onAction(newComment);
@@ -95,7 +71,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
                 commentBody: predefinedComment?.body ?? '',
                 email: predefinedComment?.email ?? '',
             });
-            setcommentFormErrors(initialFormErrors);
+            setCommentFormErrors(initialFormErrors);
         }
     }, [initialFormErrors, isOpen, predefinedComment]);
 

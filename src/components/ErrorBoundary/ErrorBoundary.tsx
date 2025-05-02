@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ReactNode } from 'react';
 import { text } from 'shared/text/text';
 import { Button } from 'components/Button';
 
@@ -23,10 +23,6 @@ export class ErrorBoundary extends Component<
 
     static getDerivedStateFromError(): ErrorBoundaryState {
         return { hasError: true };
-    }
-
-    componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-        console.error('Uncaught error:', error, errorInfo);
     }
 
     handleReloadPageClick() {

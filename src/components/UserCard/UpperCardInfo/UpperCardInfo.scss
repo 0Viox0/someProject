@@ -22,19 +22,26 @@
         }
     }
 
-    .copyIcon {
-        width: 30px;
-        height: 30px;
+    .iconButtonWrapper {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: white;
 
-        &:hover {
-            cursor: pointer;
+        .copyIcon {
+            width: 30px;
+            height: 30px;
+
+            &:hover {
+                cursor: pointer;
+            }
         }
-    }
 
-    .checkIcon {
-        width: 30px;
-        height: 30px;
+        .checkIcon {
+            width: 30px;
+            height: 30px;
 
-        padding: 5px;
+            padding: 5px;
+        }
     }
 }

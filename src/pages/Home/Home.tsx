@@ -14,12 +14,10 @@ export const Home = () => {
     return (
         <div className="homePage">
             <h2 className="homePageHeader">{text.HOME_PAGE.pageHeading}</h2>
-            <p className="additionalInfo">
-                <div>{text.HOME_PAGE.info}</div>
-                <div className="lowerText">
-                    {text.HOME_PAGE.youCanStartWith}
-                </div>
-            </p>
+            <div className="additionalInfo">
+                <p>{text.HOME_PAGE.info}</p>
+                <p className="lowerText">{text.HOME_PAGE.youCanStartWith}</p>
+            </div>
             <Button onClick={handleButtonClick} className="actionButton">
                 {text.HOME_PAGE.goToUser}
             </Button>

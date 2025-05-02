@@ -1,55 +1,28 @@
 import { fetchUsersAsync } from '@redux/users/thunk';
 import { Loader } from 'components/Loader';
 import { Table } from 'components/Table';
-import { TableProps } from 'components/Table/types';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, ReactNode, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { UserForTable } from './types';
 import { mapUsersToTableData } from './utils';
-import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
+import { useDebounce } from 'shared/hooks/useDebounce';
 import { Input } from 'components/Input';
 import { text } from 'shared/text/text';
 import { User } from '@redux/users/types';
 import { UserCard } from 'components/UserCard';
 import { useNavigate } from 'react-router';
 import { selectFetchedUsers } from '@redux/users/selectors';
+import { columns } from './constants';
 
 import './UserPage.scss';
 
 export const UserPage = () => {
-    const columns: TableProps<UserForTable>['columns'] = [
-        {
-            key: 'username',
-            title: 'Username',
-        },
-        {
-            key: 'name',
-            title: 'Name',
-        },
-        {
-            key: 'email',
-            title: 'Email',
-        },
-        {
-            key: 'company',
-            title: 'Company',
-        },
-    ];
-
     const dispatch = useAppDispatch();
     const { isError, isLoading, users } = useAppSelector(selectFetchedUsers);
     const [inputValue, setInputValue] = useState('');
-    const debouncedInputValue = useDebouncedValue(inputValue, 200);
+    const debouncedInputValue = useDebounce(inputValue, 200);
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
     const navigate = useNavigate();
-
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setInputValue(event.target.value);
-    };
-
-    const handleUserCardClose = () => {
-        setSelectedUser(null);
-    };
 
     useEffect(() => {
         if (isLoading || isError) {
@@ -61,8 +34,15 @@ export const UserPage = () => {
         dispatch(fetchUsersAsync(debouncedInputValue));
     }, [debouncedInputValue, dispatch]);
 
+    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setInputValue(event.target.value);
+    };
+
+    const handleUserCardClose = () => {
+        setSelectedUser(null);
+    };
+
     const handleRowClick = (rowData: UserForTable) => {
-        console.log(rowData);
         setSelectedUser(
             users.find((user) => user.username === rowData.username),
         );
@@ -71,6 +51,31 @@ export const UserPage = () => {
     const handleViewPostsButtonClick = () => {
         navigate(`/posts?userId=${selectedUser.id}`);
     };
+
+    let content: ReactNode = null;
+
+    if (isError) {
+        content = <div className="error">{text.usersNotFound}</div>;
+    } else if (isLoading || !users.length) {
+        content = (
+            <Loader
+                className="userLoader"
+                text={text.loadingUsers}
+                animationSeed={300}
+            />
+        );
+    } else {
+        content = (
+            <Table
+                className="userList"
+                columns={columns}
+                dataSource={mapUsersToTableData(users)}
+                theme="secondary"
+                onRouteClick={handleRowClick}
+                pageLimit={5}
+            />
+        );
+    }
 
     return (
         <div className={'userPage'}>
@@ -83,24 +88,7 @@ export const UserPage = () => {
                 className="userSearchInput"
             />
             <div className="tableUserCardWrapper">
-                {isError ? (
-                    <div className="error">{text.usersNotFound}</div>
-                ) : isLoading || !users.length ? (
-                    <Loader
-                        className="userLoader"
-                        text={text.loadingUsers}
-                        animationSeed={300}
-                    />
-                ) : (
-                    <Table
-                        className="userList"
-                        columns={columns}
-                        dataSource={mapUsersToTableData(users)}
-                        theme="secondary"
-                        onRouteClick={handleRowClick}
-                        pageLimit={5}
-                    />
-                )}
+                {content}
                 {selectedUser && (
                     <UserCard
                         className="userCard"

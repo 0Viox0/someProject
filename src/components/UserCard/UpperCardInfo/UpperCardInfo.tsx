@@ -23,11 +23,13 @@ export const UpperCardInfo: FC<UpperCardInfoProps> = ({ icon, info }) => {
                 <span className="iconWrapper">{icon}</span>
                 <span className="infoContent">{info}</span>
             </div>
-            {!isCopied ? (
-                <CopyIcon onClick={handleCopyClick} className="copyIcon" />
-            ) : (
-                <CheckIcon className="checkIcon" />
-            )}
+            <button className="iconButtonWrapper" onClick={handleCopyClick}>
+                {!isCopied ? (
+                    <CopyIcon className="copyIcon" />
+                ) : (
+                    <CheckIcon className="checkIcon" />
+                )}
+            </button>
         </div>
     );
 };

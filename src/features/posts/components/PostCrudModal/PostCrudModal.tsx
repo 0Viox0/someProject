@@ -5,10 +5,11 @@ import { Button } from 'components/Button';
 import { Input } from 'components/Input';
 import { Textarea } from 'components/Textarea';
 import { text } from 'shared/text/text';
-import { FormErrors, FormValues } from 'features/posts/types/types';
+import { FormValues } from 'features/posts/types/types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
 import { clearError } from '@redux/userPosts/slice';
+import { PostFormErrors, validateEntity } from 'features/validation';
 
 import './PostCrudModal.scss';
 
@@ -29,7 +30,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
     onCancel,
     predefinedPost,
 }) => {
-    const initialFormErrors: Readonly<FormErrors> = useMemo(
+    const initialFormErrors: Readonly<PostFormErrors> = useMemo(
         () => ({
             titleError: '',
             bodyError: '',
@@ -43,10 +44,33 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
         body: predefinedPost?.body ?? '',
         writtenBy: predefinedPost?.author.split(/[\s@]+/).at(-1) ?? '',
     });
-    const [formErrors, setFormErrors] = useState<FormErrors>(initialFormErrors);
+    const [formErrors, setFormErrors] =
+        useState<PostFormErrors>(initialFormErrors);
 
     const { errorMessage, isLoading } = useAppSelector(selectPosts);
     const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        if (predefinedPost) {
+            setFormValue({
+                title: predefinedPost.title,
+                body: predefinedPost.body,
+                writtenBy: predefinedPost.author.split(/[\s@]+/).at(-1),
+            });
+        }
+    }, [predefinedPost]);
+
+    useEffect(() => {
+        if (!isOpen) {
+            setFormValue({
+                title: predefinedPost?.title ?? '',
+                body: predefinedPost?.body ?? '',
+                writtenBy: predefinedPost?.author ?? '',
+            });
+            setFormErrors(initialFormErrors);
+            dispatch(clearError());
+        }
+    }, [dispatch, initialFormErrors, isOpen, predefinedPost]);
 
     const handleFormValueChange = <T extends keyof FormValues>(
         filter: T,
@@ -73,23 +97,7 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
             body: formValue.body,
         };
 
-        const errors: FormErrors = { ...initialFormErrors };
-        let isError = false;
-
-        if (!newPost.title) {
-            isError = true;
-            errors.titleError = text.MODAL_ERRORS.POSTS.titleEmpty;
-        }
-
-        if (!newPost.body) {
-            isError = true;
-            errors.bodyError = text.MODAL_ERRORS.POSTS.bodyEmpty;
-        }
-
-        if (!newPost.author) {
-            isError = true;
-            errors.writteByError = text.MODAL_ERRORS.POSTS.authorEmpty;
-        }
+        const { errors, isError } = validateEntity(newPost);
 
         setFormErrors(errors);
 
@@ -97,28 +105,6 @@ export const PostCrudModal: FC<PostCrudModalProps> = ({
             onAction(newPost);
         }
     };
-
-    useEffect(() => {
-        if (predefinedPost) {
-            setFormValue({
-                title: predefinedPost.title,
-                body: predefinedPost.body,
-                writtenBy: predefinedPost.author.split(/[\s@]+/).at(-1),
-            });
-        }
-    }, [predefinedPost]);
-
-    useEffect(() => {
-        if (!isOpen) {
-            setFormValue({
-                title: predefinedPost?.title ?? '',
-                body: predefinedPost?.body ?? '',
-                writtenBy: predefinedPost?.author ?? '',
-            });
-            setFormErrors(initialFormErrors);
-            dispatch(clearError());
-        }
-    }, [dispatch, initialFormErrors, isOpen, predefinedPost]);
 
     return (
         <Modal

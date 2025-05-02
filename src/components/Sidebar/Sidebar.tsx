@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { useTheme } from 'features/darkTheme/hooks/useTheme';
 import { SidebarProps } from './types';
@@ -16,6 +16,21 @@ export const Sidebar: FC<SidebarProps> = ({
 }) => {
     const { theme, toggleTheme } = useTheme();
     const [isExpanded, setIsExpanded] = useState(true);
+
+    useEffect(() => {
+        const handleResize = () => {
+            if (window.innerWidth < 1000) {
+                setIsExpanded(false);
+            }
+        };
+
+        handleResize();
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     const handleButtonClick = () => {
         setIsExpanded((prevState) => !prevState);

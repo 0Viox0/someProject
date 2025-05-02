@@ -22,13 +22,14 @@ export const UserCard: FC<UserCardProps> = ({
     return (
         <div className={classNames('userCard', className)}>
             <div className="userCardHeader">
-                <div className="userCardHeader-headerNameWrapper">
+                <div className="userCardheaderNameWrapper">
                     <h3 className="headerName">{user.name}</h3>
-                    <CloseIcon className="icon" onClick={onClose} />
+                    <button className="userCardCloseButton" onClick={onClose}>
+                        <CloseIcon className="icon" />
+                    </button>
                 </div>
                 <div className="headerUsernameWrapper">
-                    <span className={'akaSign'}>@</span>
-                    <span className={'headerUsername'}>{user.username}</span>
+                    <span className="headerUsername">@ {user.username}</span>
                 </div>
             </div>
             <div className="userInfoWrapper">

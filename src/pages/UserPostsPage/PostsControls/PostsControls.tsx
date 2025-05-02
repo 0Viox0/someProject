@@ -10,7 +10,7 @@ import { SelectProps } from 'components/Select/types';
 import { resetPosts } from '@redux/userPosts/slice';
 import { fetchPostsAsync } from '@redux/userPosts/thunk';
 import { fetchUsersAsync } from '@redux/users/thunk';
-import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
+import { useDebounce } from 'shared/hooks/useDebounce';
 
 export type PostControls = {
     formValues: PostFilterParams;
@@ -30,7 +30,7 @@ export const PostsControls: FC<PostControls> = ({
     const { isLoading, users } = useAppSelector(selectFetchedUsers);
     const [userOptions, setUserOptions] = useState<SelectProps['options']>([]);
     const dispatch = useAppDispatch();
-    const debouncedFormValues = useDebouncedValue(formValues, 200);
+    const debouncedFormValues = useDebounce(formValues, 200);
 
     useEffect(() => {
         if (users) {

@@ -40,6 +40,10 @@ html[data-theme='light'] {
     --userCardInfoBg: rgba(167, 167, 167, 0.48);
     --postCardBg: #fff;
     --commentEmailColor: #7d7d7d;
+
+    body {
+        background-color: white;
+    }
 }
 
 html[data-theme='dark'] {
@@ -58,4 +62,8 @@ html[data-theme='dark'] {
     --userCardInfoBg: rgba(206, 230, 251, 0.48);
     --postCardBg: #52566f;
     --commentEmailColor: #bbbaba;
+
+    body {
+        background-color: #222329;
+    }
 }

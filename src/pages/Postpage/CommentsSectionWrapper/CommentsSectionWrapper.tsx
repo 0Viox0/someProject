@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPost } from '@redux/post/selectors';
 import { Loader } from 'components/Loader';
 import { CommentCrudModal } from 'components/CommentCrudModal';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Comment, CommentCreationDto } from '@redux/post/types';
 import { createComment } from '@redux/post/thunk';
 
@@ -43,6 +43,22 @@ export const CommentsSectionWrapper = () => {
         setIsCreatingLoading(false);
     };
 
+    let commentContent: ReactNode = null;
+
+    if (isLoading || !comments) {
+        commentContent = <Loader />;
+    } else if (!comments.length) {
+        commentContent = (
+            <div className="commentSectionErrorMessage">
+                {text.COMMENTS_SECTION.noCommentsFound}
+            </div>
+        );
+    } else {
+        commentContent = comments.map((comment) => (
+            <CommentCard key={comment.id} comment={comment} />
+        ));
+    }
+
     return (
         <>
             <div className="commentsHeading">
@@ -53,19 +69,7 @@ export const CommentsSectionWrapper = () => {
                     {text.COMMENTS_SECTION.newComment}
                 </Button>
             </div>
-            <div className="postSectionCommentsWrapper">
-                {isLoading || !comments ? (
-                    <Loader />
-                ) : !comments.length ? (
-                    <div className="commentSectionErrorMessage">
-                        {text.COMMENTS_SECTION.noCommentsFound}
-                    </div>
-                ) : (
-                    comments.map((comment) => (
-                        <CommentCard key={comment.id} comment={comment} />
-                    ))
-                )}
-            </div>
+            <div className="postSectionCommentsWrapper">{commentContent}</div>
             <CommentCrudModal
                 isOpen={isModalOpen}
                 onCancel={handleCancel}

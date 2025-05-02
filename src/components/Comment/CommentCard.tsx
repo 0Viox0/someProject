@@ -2,11 +2,10 @@ import { FC, useState } from 'react';
 import { Comment } from '@redux/post/types';
 import { IconButton } from 'components/IconButton';
 import { useAppDispatch } from 'shared/hooks';
-import { Button } from 'components/Button';
-import { Modal } from 'components/Modal';
 import { text } from 'shared/text/text';
 import { deleteComment, editComment } from '@redux/post/thunk';
 import { CommentCrudModal } from 'components/CommentCrudModal';
+import { ConfirmModal } from 'features/posts/components';
 
 import EditIcon from 'shared/assets/icons/Edit.svg';
 import TrashIcon from 'shared/assets/icons/Trash.svg';
@@ -86,38 +85,14 @@ export const CommentCard: FC<CommentProps> = ({ comment }) => {
                 </div>
             </div>
             <p className="commentItself">{comment.body}</p>
-            <Modal
+            <ConfirmModal
                 isOpen={isDeleteModalOpen}
                 onCancel={handleCancel}
-                theme="danger"
+                onOk={handleDeleteAction}
                 title={text.COMMENTS_SECTION.deleteComment}
-                footer={
-                    <div className="deleteModalFooterButtonsWrapper">
-                        <Button
-                            theme="info"
-                            size="big"
-                            onClick={handleDeleteAction}
-                            loading={isLoading}
-                        >
-                            {text.DELETE_MODAL.yes}
-                        </Button>
-                        <Button
-                            theme="primary"
-                            size="big"
-                            onClick={handleCancel}
-                            disabled={isLoading}
-                        >
-                            {text.DELETE_MODAL.no}
-                        </Button>
-                    </div>
-                }
-            >
-                <div className="warningTextWrapper">
-                    <div className="modalDeleteWarningText">
-                        {text.COMMENTS_SECTION.areYouSure}
-                    </div>
-                </div>
-            </Modal>
+                secondaryText={text.COMMENTS_SECTION.areYouSure}
+                isLoadingButtons={isLoading}
+            />
             <CommentCrudModal
                 isOpen={isEditingModalOpen}
                 onCancel={handleCancel}

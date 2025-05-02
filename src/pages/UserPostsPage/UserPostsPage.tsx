@@ -1,20 +1,21 @@
 import { text } from 'shared/text/text';
 import { Button } from 'components/Button';
-import { useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { PostFilterParams } from './types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
 import { editPost, fetchPostsAsync, removePost } from '@redux/userPosts/thunk';
 import { Loader } from 'components/Loader';
 import { PostCard } from 'components/PostCard';
-import { useDebouncedValue } from 'shared/hooks/useDebouncedValue';
+import { useDebounce } from 'shared/hooks/useDebounce';
 import { useNavigate, useSearchParams } from 'react-router';
-import { PostCrudModal } from 'features/posts/components';
+import { ConfirmModal, PostCrudModal } from 'features/posts/components';
 import { Post } from '@redux/userPosts/types';
 import { PostsControls } from './PostsControls/PostsControls';
-import { Modal } from 'components/Modal';
 
 import './UserPostsPage.scss';
+
+const POST_LIMIT = 5;
 
 export const UserPostsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -23,12 +24,11 @@ export const UserPostsPage = () => {
         postNameFilter: '',
         postAuthorFilter: searchParams.get('userId') ?? '',
     });
-    const debouncedFormValues = useDebouncedValue(formValues, 200);
+    const debouncedFormValues = useDebounce(formValues, 200);
 
     const { isError, errorMessage, isLoading, posts } =
         useAppSelector(selectPosts);
     const [page, setPage] = useState(1);
-    const limit = 5;
 
     const dispatch = useAppDispatch();
 
@@ -40,6 +40,13 @@ export const UserPostsPage = () => {
     const [noMorePosts, setNoMorePosts] = useState(false);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        setSearchParams((prevValue) => {
+            prevValue.set('userId', formValues.postAuthorFilter);
+            return prevValue;
+        });
+    }, [formValues.postAuthorFilter, setSearchParams]);
 
     const handleFilterChange = <T extends keyof PostFilterParams>(
         filter: T,
@@ -54,7 +61,7 @@ export const UserPostsPage = () => {
     const handleFetchMorePosts = async () => {
         const resultAction = await dispatch(
             fetchPostsAsync({
-                limit,
+                limit: POST_LIMIT,
                 page: page + 1,
                 userId: debouncedFormValues.postAuthorFilter,
                 title: debouncedFormValues.postNameFilter,
@@ -64,20 +71,13 @@ export const UserPostsPage = () => {
         if (fetchPostsAsync.fulfilled.match(resultAction)) {
             const posts = resultAction.payload;
 
-            if (posts.length < limit) {
+            if (posts.length < POST_LIMIT) {
                 setNoMorePosts(true);
             }
         }
 
         setPage((prevPage) => prevPage + 1);
     };
-
-    useEffect(() => {
-        setSearchParams((prevValue) => {
-            prevValue.set('userId', formValues.postAuthorFilter);
-            return prevValue;
-        });
-    }, [formValues.postAuthorFilter, setSearchParams]);
 
     const handleCancel = () => {
         setIsModalOpen(false);
@@ -120,51 +120,58 @@ export const UserPostsPage = () => {
         navigate(`/posts/${postId}`);
     };
 
+    let postContent: ReactNode;
+
+    if (isLoading && !posts.length) {
+        postContent = <Loader text={text.fetchingPosts} />;
+    } else if (((isError && !errorMessage) || !posts.length) && noMorePosts) {
+        postContent = <div className="error">{text.noPostsAvailable}</div>;
+    } else {
+        postContent = (
+            <>
+                {posts.map((post) => (
+                    <PostCard
+                        key={post.id}
+                        post={post}
+                        onEdit={() => handlePostEdit(post)}
+                        onDelete={() => handlePostDelete(post)}
+                        onViewComments={() => handlePostViewComments(post.id)}
+                    />
+                ))}
+                {!noMorePosts ? (
+                    <Button
+                        size="big"
+                        loading={isLoading}
+                        onClick={handleFetchMorePosts}
+                    >
+                        {text.loadMore}
+                    </Button>
+                ) : (
+                    <div className="noPostsLeft">{text.noMorePosts}</div>
+                )}
+            </>
+        );
+    }
+
     return (
         <div className={'userPostPage'}>
             <h2 className="userPostsHeader">{text.userPosts}</h2>
             <PostsControls
                 setPage={setPage}
                 setNoMorePosts={setNoMorePosts}
-                paginationLimit={limit}
+                paginationLimit={POST_LIMIT}
                 formValues={formValues}
                 handleFilterChange={handleFilterChange}
             />
-            <div className="postsContainer">
-                {isLoading && !posts.length ? (
-                    <Loader text={text.fetchingPosts} />
-                ) : ((isError && !errorMessage) || !posts.length) &&
-                  noMorePosts ? (
-                    <div className="error">{text.noPostsAvailable}</div>
-                ) : (
-                    <>
-                        {posts.map((post) => (
-                            <PostCard
-                                key={post.id}
-                                post={post}
-                                onEdit={() => handlePostEdit(post)}
-                                onDelete={() => handlePostDelete(post)}
-                                onViewComments={() =>
-                                    handlePostViewComments(post.id)
-                                }
-                            />
-                        ))}
-                        {!noMorePosts ? (
-                            <Button
-                                size="big"
-                                loading={isLoading}
-                                onClick={handleFetchMorePosts}
-                            >
-                                {text.loadMore}
-                            </Button>
-                        ) : (
-                            <div className="noPostsLeft">
-                                {text.noMorePosts}
-                            </div>
-                        )}
-                    </>
-                )}
-            </div>
+            <div className="postsContainer">{postContent}</div>
+            <ConfirmModal
+                isOpen={isDeleteModalOpen}
+                onCancel={handleCancel}
+                onOk={handleDeleteAction}
+                isLoadingButtons={isLoading}
+                title={text.DELETE_MODAL.heading}
+                secondaryText={text.DELETE_MODAL.warningText}
+            />
             <PostCrudModal
                 isOpen={isModalOpen}
                 title={text.EDIT_MODAL.heading}
@@ -173,38 +180,6 @@ export const UserPostsPage = () => {
                 onCancel={handleCancel}
                 predefinedPost={currentChosenPost}
             />
-            <Modal
-                isOpen={isDeleteModalOpen}
-                onCancel={handleCancel}
-                theme="danger"
-                title={text.DELETE_MODAL.heading}
-                footer={
-                    <div className="deleteModalFooterButtonsWrapper">
-                        <Button
-                            theme="info"
-                            size="big"
-                            onClick={handleDeleteAction}
-                            loading={isLoading}
-                        >
-                            {text.DELETE_MODAL.yes}
-                        </Button>
-                        <Button
-                            theme="primary"
-                            size="big"
-                            onClick={handleCancel}
-                            disabled={isLoading}
-                        >
-                            {text.DELETE_MODAL.no}
-                        </Button>
-                    </div>
-                }
-            >
-                <div className="warningTextWrapper">
-                    <div className="modalDeleteWarningText">
-                        {text.DELETE_MODAL.warningText}
-                    </div>
-                </div>
-            </Modal>
         </div>
     );
 };

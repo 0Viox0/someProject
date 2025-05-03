@@ -37,6 +37,17 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
     const [commentFormErrors, setCommentFormErrors] =
         useState<CommentFormErros>(initialFormErrors);
 
+    useEffect(() => {
+        if (!isOpen) {
+            setCommentFormValues({
+                name: predefinedComment?.name ?? '',
+                commentBody: predefinedComment?.body ?? '',
+                email: predefinedComment?.email ?? '',
+            });
+            setCommentFormErrors(initialFormErrors);
+        }
+    }, [initialFormErrors, isOpen, predefinedComment]);
+
     const handleCommentFormValuesChange = <T extends keyof CommentFormValues>(
         param: T,
         value: CommentFormValues[T],
@@ -63,17 +74,6 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             onAction(newComment);
         }
     };
-
-    useEffect(() => {
-        if (!isOpen) {
-            setCommentFormValues({
-                name: predefinedComment?.name ?? '',
-                commentBody: predefinedComment?.body ?? '',
-                email: predefinedComment?.email ?? '',
-            });
-            setCommentFormErrors(initialFormErrors);
-        }
-    }, [initialFormErrors, isOpen, predefinedComment]);
 
     return (
         <Modal

@@ -120,38 +120,43 @@ export const UserPostsPage = () => {
         navigate(`/posts/${postId}`);
     };
 
-    let postContent: ReactNode;
-
-    if (isLoading && !posts.length) {
-        postContent = <Loader text={text.fetchingPosts} />;
-    } else if (((isError && !errorMessage) || !posts.length) && noMorePosts) {
-        postContent = <div className="error">{text.noPostsAvailable}</div>;
-    } else {
-        postContent = (
-            <>
-                {posts.map((post) => (
-                    <PostCard
-                        key={post.id}
-                        post={post}
-                        onEdit={() => handlePostEdit(post)}
-                        onDelete={() => handlePostDelete(post)}
-                        onViewComments={() => handlePostViewComments(post.id)}
-                    />
-                ))}
-                {!noMorePosts ? (
-                    <Button
-                        size="big"
-                        loading={isLoading}
-                        onClick={handleFetchMorePosts}
-                    >
-                        {text.loadMore}
-                    </Button>
-                ) : (
-                    <div className="noPostsLeft">{text.noMorePosts}</div>
-                )}
-            </>
-        );
-    }
+    const renderPostContent = () => {
+        if (isLoading && !posts.length) {
+            return <Loader text={text.fetchingPosts} />;
+        } else if (
+            ((isError && !errorMessage) || !posts.length) &&
+            noMorePosts
+        ) {
+            return <div className="error">{text.noPostsAvailable}</div>;
+        } else {
+            return (
+                <>
+                    {posts.map((post) => (
+                        <PostCard
+                            key={post.id}
+                            post={post}
+                            onEdit={() => handlePostEdit(post)}
+                            onDelete={() => handlePostDelete(post)}
+                            onViewComments={() =>
+                                handlePostViewComments(post.id)
+                            }
+                        />
+                    ))}
+                    {!noMorePosts ? (
+                        <Button
+                            size="big"
+                            loading={isLoading}
+                            onClick={handleFetchMorePosts}
+                        >
+                            {text.loadMore}
+                        </Button>
+                    ) : (
+                        <div className="noPostsLeft">{text.noMorePosts}</div>
+                    )}
+                </>
+            );
+        }
+    };
 
     return (
         <div className={'userPostPage'}>
@@ -163,7 +168,7 @@ export const UserPostsPage = () => {
                 formValues={formValues}
                 handleFilterChange={handleFilterChange}
             />
-            <div className="postsContainer">{postContent}</div>
+            <div className="postsContainer">{renderPostContent()}</div>
             <ConfirmModal
                 isOpen={isDeleteModalOpen}
                 onCancel={handleCancel}

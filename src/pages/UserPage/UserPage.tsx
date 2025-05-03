@@ -52,30 +52,30 @@ export const UserPage = () => {
         navigate(`/posts?userId=${selectedUser.id}`);
     };
 
-    let content: ReactNode = null;
-
-    if (isError) {
-        content = <div className="error">{text.usersNotFound}</div>;
-    } else if (isLoading || !users.length) {
-        content = (
-            <Loader
-                className="userLoader"
-                text={text.loadingUsers}
-                animationSeed={300}
-            />
-        );
-    } else {
-        content = (
-            <Table
-                className="userList"
-                columns={columns}
-                dataSource={mapUsersToTableData(users)}
-                theme="secondary"
-                onRouteClick={handleRowClick}
-                pageLimit={5}
-            />
-        );
-    }
+    const renderContent = () => {
+        if (isError) {
+            return <div className="error">{text.usersNotFound}</div>;
+        } else if (isLoading || !users.length) {
+            return (
+                <Loader
+                    className="userLoader"
+                    text={text.loadingUsers}
+                    animationSeed={300}
+                />
+            );
+        } else {
+            return (
+                <Table
+                    className="userList"
+                    columns={columns}
+                    dataSource={mapUsersToTableData(users)}
+                    theme="secondary"
+                    onRouteClick={handleRowClick}
+                    pageLimit={5}
+                />
+            );
+        }
+    };
 
     return (
         <div className={'userPage'}>
@@ -88,7 +88,7 @@ export const UserPage = () => {
                 className="userSearchInput"
             />
             <div className="tableUserCardWrapper">
-                {content}
+                {renderContent()}
                 {selectedUser && (
                     <UserCard
                         className="userCard"

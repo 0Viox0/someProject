@@ -1,3 +1,4 @@
 export { NewPostButtonWrapper } from './NewPostButtonWrapper';
 export { PostCrudModal } from './PostCrudModal';
-export { ConfirmModal } from './ConfirmModal';
+export { PostView } from './PostView';
+export { PostsList } from './PostsList';

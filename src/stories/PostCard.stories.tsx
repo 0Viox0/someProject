@@ -1,8 +1,8 @@
-import { Post } from '@redux/userPosts/types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { fn } from '@storybook/test';
 import { PostCard } from 'components/PostCard';
 import { ThemeProvider } from 'modules/darkTheme';
+import { Post } from 'modules/posts/types/types';
 import { ComponentProps } from 'react';
 
 type StoryProps = ComponentProps<typeof PostCard>;

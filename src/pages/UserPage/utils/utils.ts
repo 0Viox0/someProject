@@ -1,4 +1,4 @@
-import { User } from '@redux/users/types';
+import { User } from 'modules/user';
 import { UserForTable } from '../types/types';
 
 export const mapUsersToTableData = (users: User[]): UserForTable[] => {

@@ -1,4 +1,4 @@
-import { User } from '@redux/users/types';
+import { User } from 'modules/user';
 import { MouseEvent } from 'react';
 
 export interface UserCardProps {

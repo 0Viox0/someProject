@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { text } from 'shared/text/text';
 import { useAppDispatch } from 'shared/hooks';
-import { createPostAsync } from '@redux/userPosts/thunk';
 import { PostCrudModal } from '../PostCrudModal';
-import { Post } from '@redux/userPosts/types';
 import { Button } from 'ui';
+import { createPostAsync } from 'modules/posts/store/userPosts/thunk';
+import { Post } from 'modules/posts/types/types';
 
 import './NewPostButtonWrapper.scss';
 

@@ -1,12 +1,11 @@
 import { FC, useEffect, useMemo, useState } from 'react';
-import { Post } from '@redux/userPosts/types';
 import { text } from 'shared/text/text';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
-import { selectPosts } from '@redux/userPosts/selectors';
-import { clearError } from '@redux/userPosts/slice';
 import { Modal, Button, Input, Textarea } from 'ui';
-import { FormValues } from 'modules/posts/types/types';
+import { FormValues, Post } from 'modules/posts/types/types';
 import { PostFormErrors, validateEntity } from 'modules/validation';
+import { selectPosts } from 'modules/posts/store/userPosts/selectors';
+import { clearError } from 'modules/posts/store/userPosts/slice';
 
 import './PostCrudModal.scss';
 

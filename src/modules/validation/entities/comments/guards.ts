@@ -1,4 +1,4 @@
-import { Comment } from '@redux/post/types';
+import { Comment } from 'modules/posts/store/post/types';
 
 const dummyComment: Comment = {
     body: '',

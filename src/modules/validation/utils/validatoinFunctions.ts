@@ -1,8 +1,8 @@
-import { Comment } from '@redux/post/types';
 import { ValidateResultComment, ValidateResultPost } from '../types/types';
-import { Post } from '@redux/userPosts/types';
 import { isComment, validateComment } from '../entities/comments';
 import { isPost, validatePost } from '../entities/posts';
+import { Comment } from 'modules/posts/store/post/types';
+import { Post } from 'modules/posts/types/types';
 
 export function validateEntity(entity: Comment): ValidateResultComment;
 export function validateEntity(entity: Post): ValidateResultPost;

@@ -1,4 +1,4 @@
-import { Post } from '@redux/userPosts/types';
+import { Post } from 'modules/posts/types/types';
 
 const dummyPost: Post = {
     author: '',

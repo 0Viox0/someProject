@@ -1,6 +1,5 @@
 import { Dispatch, FC, useEffect, useState } from 'react';
 import { text } from 'shared/text/text';
-import { PostFilterHandleFunction, PostFilterParams } from '../types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectFetchedUsers } from '@redux/users/selectors';
 import { resetPosts } from '@redux/userPosts/slice';
@@ -10,8 +9,12 @@ import { useDebounce } from 'shared/hooks/useDebounce';
 import { SelectProps } from 'ui/Select/types';
 import { Input, Select } from 'ui';
 import { NewPostButtonWrapper } from 'modules/posts/components';
+import {
+    PostFilterHandleFunction,
+    PostFilterParams,
+} from 'modules/PostsList/types/types';
 
-export type PostControls = {
+export type PostsControls = {
     formValues: PostFilterParams;
     handleFilterChange: PostFilterHandleFunction;
     setPage: Dispatch<React.SetStateAction<number>>;
@@ -19,7 +22,7 @@ export type PostControls = {
     paginationLimit: number;
 };
 
-export const PostsControls: FC<PostControls> = ({
+export const PostsControls: FC<PostsControls> = ({
     formValues,
     handleFilterChange,
     setPage,

@@ -1,0 +1,1 @@
+export { PostsControls } from './PostsControls';

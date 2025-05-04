@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Loader, Button } from 'ui';
 import { CommentCard } from '../CommentCard';
 import { CommentCrudModal } from '../CommentCrudModal';
-import { selectPost } from 'modules/posts/store/post/selectors';
-import { createComment } from 'modules/posts/store/post/thunk';
-import { Comment, CommentCreationDto } from 'modules/posts/store/post/types';
+import { selectPost } from 'modules/comment/store/selectors';
+import { createComment } from 'modules/comment/store/thunk';
+import { Comment, CommentCreationDto } from 'modules/comment/store/types';
 
 import './CommentsSectionWrapper.scss';
 

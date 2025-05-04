@@ -8,8 +8,8 @@ import { NewPostButtonWrapper } from 'modules/posts/components';
 import { PostFilterHandleFunction, PostFilterParams } from '../../types/types';
 import { selectFetchedUsers } from 'modules/user/store/selectors';
 import { fetchUsersAsync } from 'modules/user/store/thunk';
-import { resetPosts } from 'modules/posts/store/userPosts/slice';
-import { fetchPostsAsync } from 'modules/posts/store/userPosts/thunk';
+import { resetPosts } from 'modules/posts/store/slice';
+import { fetchPostsAsync } from 'modules/posts/store/thunk';
 
 export type PostsControls = {
     formValues: PostFilterParams;

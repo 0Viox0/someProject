@@ -3,9 +3,9 @@ import { text } from 'shared/text/text';
 import { CommentCrudModalProps, CommentFormValues } from './types';
 import { Modal, Button, Input, Textarea } from 'ui';
 import { CommentFormErros, validateEntity } from 'modules/validation';
+import { Comment } from 'modules/comment/store/types';
 
 import './CommentCrudModal.scss';
-import { Comment } from 'modules/posts/store/post/types';
 
 export const CommentCrudModal: FC<CommentCrudModalProps> = ({
     isOpen,

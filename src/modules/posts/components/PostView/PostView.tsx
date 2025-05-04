@@ -3,12 +3,12 @@ import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { Loader } from 'ui';
 import { text } from 'shared/text/text';
-import { selectPost } from 'modules/posts/store/post/selectors';
+import { selectPost } from 'modules/comment/store/selectors';
 import {
     fetchPost,
-    fetchPostComments,
     fetchPostAuthor,
-} from 'modules/posts/store/post/thunk';
+    fetchPostComments,
+} from 'modules/comment/store/thunk';
 
 import './PostView.scss';
 

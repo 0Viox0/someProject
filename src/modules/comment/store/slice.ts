@@ -1,5 +1,5 @@
 import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
-import { PostState } from './types';
+import { PostCommentsState } from './types';
 import {
     createComment,
     deleteComment,
@@ -9,7 +9,7 @@ import {
     fetchPostComments,
 } from './thunk';
 
-const initialState: PostState = {
+const initialState: PostCommentsState = {
     post: null,
     author: null,
     comments: [],

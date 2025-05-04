@@ -8,13 +8,13 @@ import { PostCrudModal } from 'modules/posts/components';
 import { PostsControls } from './components';
 import { PostFilterParams } from './types/types';
 import { ConfirmModal } from 'components/ConfirmModal';
-import { selectPosts } from 'modules/posts/store/userPosts/selectors';
+import { Post } from 'modules/posts/types/types';
+import { selectPosts } from 'modules/posts/store/selectors';
 import {
     fetchPostsAsync,
     removePost,
     editPost,
-} from 'modules/posts/store/userPosts/thunk';
-import { Post } from 'modules/posts/types/types';
+} from 'modules/posts/store/thunk';
 
 import './PostsList.scss';
 

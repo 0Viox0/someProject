@@ -1,4 +1,4 @@
-import { Comment } from 'modules/posts/store/post/types';
+import { Comment } from 'modules/comment/store/types';
 
 export type CommentCrudModalProps = {
     isOpen: boolean;

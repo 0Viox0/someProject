@@ -8,7 +8,7 @@ export type Comment = {
     body: string;
 };
 
-export type PostState = {
+export type PostCommentsState = {
     post: Post | null;
     author: User | null;
     comments: Comment[];

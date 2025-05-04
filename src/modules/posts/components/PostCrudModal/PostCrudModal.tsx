@@ -4,8 +4,8 @@ import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { Modal, Button, Input, Textarea } from 'ui';
 import { FormValues, Post } from 'modules/posts/types/types';
 import { PostFormErrors, validateEntity } from 'modules/validation';
-import { selectPosts } from 'modules/posts/store/userPosts/selectors';
-import { clearError } from 'modules/posts/store/userPosts/slice';
+import { selectPosts } from 'modules/posts/store/selectors';
+import { clearError } from 'modules/posts/store/slice';
 
 import './PostCrudModal.scss';
 

@@ -1,4 +1,4 @@
-export { validateEntity } from './utils/validatoinFunctions';
+export { validateEntity } from './utils/mainValidationFunction';
 export type {
     CommentFormErros,
     PostFormErrors,

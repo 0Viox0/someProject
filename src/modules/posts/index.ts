@@ -1,2 +1,4 @@
+import postsReducer from './store/slice';
+
 export { PostView, PostsList } from './components';
-export { postReducer, postsReducer } from './store';
+export { postsReducer };

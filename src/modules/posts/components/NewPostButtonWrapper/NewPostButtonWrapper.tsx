@@ -3,8 +3,8 @@ import { text } from 'shared/text/text';
 import { useAppDispatch } from 'shared/hooks';
 import { PostCrudModal } from '../PostCrudModal';
 import { Button } from 'ui';
-import { createPostAsync } from 'modules/posts/store/userPosts/thunk';
 import { Post } from 'modules/posts/types/types';
+import { createPostAsync } from 'modules/posts/store/thunk';
 
 import './NewPostButtonWrapper.scss';
 

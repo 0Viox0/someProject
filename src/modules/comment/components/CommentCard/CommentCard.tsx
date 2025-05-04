@@ -4,8 +4,8 @@ import { useAppDispatch } from 'shared/hooks';
 import { text } from 'shared/text/text';
 import { ConfirmModal } from 'components/ConfirmModal';
 import { CommentCrudModal } from '../CommentCrudModal';
-import { editComment, deleteComment } from 'modules/posts/store/post/thunk';
-import { Comment } from 'modules/posts/store/post/types';
+import { editComment, deleteComment } from 'modules/comment/store/thunk';
+import { Comment } from 'modules/comment/store/types';
 
 import EditIcon from 'shared/assets/icons/Edit.svg';
 import TrashIcon from 'shared/assets/icons/Trash.svg';

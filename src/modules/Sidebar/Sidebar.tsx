@@ -19,7 +19,7 @@ export const Sidebar: FC<SidebarProps> = ({
 
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth < 1000) {
+            if (window.outerWidth < 1000) {
                 setIsExpanded(false);
             }
         };

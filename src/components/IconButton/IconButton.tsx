@@ -1,5 +1,5 @@
 import { ButtonHTMLAttributes, FC, ReactNode } from 'react';
-import { Button } from 'components/Button';
+import { Button } from 'ui';
 import classNames from 'classnames';
 
 import './IconButton.scss';

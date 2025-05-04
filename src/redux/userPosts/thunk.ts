@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from 'shared/utils/axiosInstance';
+import { axiosInstance } from 'shared/api/axiosInstance';
 import {
     FetchPostsParams,
     Post,

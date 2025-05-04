@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Sidebar } from 'components/Sidebar/Sidebar';
-import { ThemeProvider } from 'features/darkTheme/components/ThemeProvider';
 import { ComponentProps } from 'react';
 import { MemoryRouter, Outlet, Route, Routes } from 'react-router';
-import { SidebarProps } from 'components/Sidebar/types';
+import { ThemeProvider } from 'modules/darkTheme';
+import { Sidebar } from 'modules/Sidebar';
+import { SidebarProps } from 'modules/Sidebar/types';
 
 import HomeIcon from 'shared/assets/icons/Home.svg';
 import BubbleIcon from 'shared/assets/icons/Bubble.svg';

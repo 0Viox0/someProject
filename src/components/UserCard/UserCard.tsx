@@ -6,10 +6,10 @@ import PhoneIcon from 'shared/assets/icons/Phone.svg';
 import WorldIcon from 'shared/assets/icons/World.svg';
 import { UserAddressCard } from './UserAddressCard';
 import { UserCompanyCard } from './UserCompanyCard';
-import { Button } from 'components/Button';
 import { text } from 'shared/text/text';
 import classNames from 'classnames';
 import CloseIcon from 'shared/assets/icons/CloseIcon.svg';
+import { Button } from 'ui';
 
 import './UserCard.scss';
 

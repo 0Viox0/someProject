@@ -1,16 +1,15 @@
-import { Input } from 'components/Input';
-import { Select } from 'components/Select';
-import { NewPostButtonWrapper } from 'features/posts/components';
 import { Dispatch, FC, useEffect, useState } from 'react';
 import { text } from 'shared/text/text';
 import { PostFilterHandleFunction, PostFilterParams } from '../types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectFetchedUsers } from '@redux/users/selectors';
-import { SelectProps } from 'components/Select/types';
 import { resetPosts } from '@redux/userPosts/slice';
 import { fetchPostsAsync } from '@redux/userPosts/thunk';
 import { fetchUsersAsync } from '@redux/users/thunk';
 import { useDebounce } from 'shared/hooks/useDebounce';
+import { SelectProps } from 'ui/Select/types';
+import { Input, Select } from 'ui';
+import { NewPostButtonWrapper } from 'modules/posts/components';
 
 export type PostControls = {
     formValues: PostFilterParams;

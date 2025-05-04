@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react';
 import { text } from 'shared/text/text';
-import { Button } from 'components/Button';
+import { Button } from 'ui';
 
 import './ErrorBoundary.scss';
 

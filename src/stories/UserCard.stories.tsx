@@ -1,7 +1,7 @@
 import { User } from '@redux/users/types';
 import type { Meta, StoryObj } from '@storybook/react';
 import { UserCard } from 'components/UserCard';
-import { ThemeProvider } from 'features/darkTheme';
+import { ThemeProvider } from 'modules/darkTheme';
 import { ComponentProps } from 'react';
 
 type StoryProps = ComponentProps<typeof UserCard>;

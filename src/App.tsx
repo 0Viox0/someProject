@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router';
-import { Layout } from 'components/Layout';
 import { UserPage, UserPostsPage, PostPage, Home, NotFoundPage } from 'pages';
 import { ErrorBoundary } from 'components/ErrorBoundary';
+import { Layout } from 'modules/Layout';
 
 import './index.scss';
 

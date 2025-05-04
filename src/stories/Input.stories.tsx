@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Input } from 'components/Input/Input';
+import { Input } from 'ui';
 import { ComponentProps } from 'react';
 
 type StoryProps = ComponentProps<typeof Input>;

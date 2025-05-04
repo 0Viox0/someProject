@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tabs } from 'components/Tabs';
+import { Tabs } from 'ui';
 import { ComponentProps } from 'react';
 
 import PandaIcon from 'shared/assets/icons/Panda.svg';

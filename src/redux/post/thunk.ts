@@ -1,7 +1,7 @@
 import { Post } from '@redux/userPosts/types';
 import { User } from '@redux/users/types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { axiosInstance } from 'shared/utils/axiosInstance';
+import { axiosInstance } from 'shared/api/axiosInstance';
 import { Comment, CommentCreationDto } from './types';
 
 export const fetchPost = createAsyncThunk(

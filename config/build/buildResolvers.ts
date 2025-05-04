@@ -5,9 +5,10 @@ export const buildResolvers = (): Configuration['resolve'] => {
         extensions: ['.tsx', '.ts', '.js'],
         alias: {
             components: '/src/components',
-            features: '/src/features',
             pages: '/src/pages',
             shared: '/src/shared',
+            ui: '/src/ui',
+            modules: '/src/modules',
             '@redux': '/src/redux',
         },
     };

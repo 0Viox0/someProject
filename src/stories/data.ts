@@ -1,4 +1,4 @@
-import { TableProps } from 'components/Table/types';
+import { TableProps } from 'ui/Table/types';
 
 export interface City {
     city: string;

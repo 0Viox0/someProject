@@ -1,15 +1,13 @@
-import { text } from 'shared/text/text';
-import { PostView } from 'components/PostView';
-import { CommentsSectionWrapper } from './CommentsSectionWrapper';
-
-import './PostPage.scss';
+import { PostView } from 'modules/PostView';
+import { CommentsSectionWrapper } from 'modules/CommentsSectionWrapper';
+import { PostPageHeader, PostPageWrapper } from './components';
 
 export const PostPage = () => {
     return (
-        <div className={'userPostPage'}>
-            <h2 className="userPostHeader">{text.POST_PAGE.heading}</h2>
+        <PostPageWrapper>
+            <PostPageHeader />
             <PostView />
             <CommentsSectionWrapper />
-        </div>
+        </PostPageWrapper>
     );
 };

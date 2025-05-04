@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Table } from 'components/Table';
+import { Table } from 'ui';
 import { City, columns, dataSource } from './data';
 import { ComponentProps } from 'react';
 

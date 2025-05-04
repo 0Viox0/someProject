@@ -1,19 +1,19 @@
 import { text } from 'shared/text/text';
-import { Button } from 'components/Button';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PostFilterParams } from './types';
 import { useAppDispatch, useAppSelector } from 'shared/hooks';
 import { selectPosts } from '@redux/userPosts/selectors';
 import { editPost, fetchPostsAsync, removePost } from '@redux/userPosts/thunk';
-import { Loader } from 'components/Loader';
 import { PostCard } from 'components/PostCard';
 import { useDebounce } from 'shared/hooks/useDebounce';
 import { useNavigate, useSearchParams } from 'react-router';
-import { ConfirmModal, PostCrudModal } from 'features/posts/components';
 import { Post } from '@redux/userPosts/types';
 import { PostsControls } from './PostsControls/PostsControls';
+import { Loader, Button } from 'ui';
+import { ConfirmModal, PostCrudModal } from 'modules/posts/components';
 
 import './UserPostsPage.scss';
+import { UserPostsHeader } from './components';
 
 const POST_LIMIT = 5;
 
@@ -160,7 +160,7 @@ export const UserPostsPage = () => {
 
     return (
         <div className={'userPostPage'}>
-            <h2 className="userPostsHeader">{text.userPosts}</h2>
+            <UserPostsHeader />
             <PostsControls
                 setPage={setPage}
                 setNoMorePosts={setNoMorePosts}

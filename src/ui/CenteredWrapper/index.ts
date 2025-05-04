@@ -1,0 +1,1 @@
+export { CenteredWrapper } from './CenteredWrapper';

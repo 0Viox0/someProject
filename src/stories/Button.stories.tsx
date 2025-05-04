@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Button } from 'components/Button';
+import { Button } from 'ui';
 import { ComponentProps } from 'react';
 import { fn } from '@storybook/test';
 import ExpandErrorIcon from 'shared/assets/icons/ExpandArrow.svg';

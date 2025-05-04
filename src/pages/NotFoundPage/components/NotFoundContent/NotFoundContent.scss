@@ -1,0 +1,12 @@
+.notFoundPageWrapper {
+    color: var(--textColor);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .notFoundHeading {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+}

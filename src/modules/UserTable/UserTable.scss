@@ -1,0 +1,30 @@
+@use 'shared/styles/variables' as v;
+
+.userSearchInput {
+    margin-top: 30px;
+}
+
+.tableUserCardWrapper {
+    display: flex;
+    width: 100%;
+
+    .userCard {
+        margin: 0px 30px;
+    }
+
+    .error {
+        margin-top: 30px;
+        font-size: 1.4rem;
+        color: v.$primaryColor;
+        width: 100%;
+    }
+
+    .userLoader {
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .userList {
+        margin-top: 30px;
+    }
+}

@@ -7,7 +7,7 @@ import './UserCompanyCard.scss';
 
 export const UserCompanyCard: FC<UserCompanyCardProps> = ({ userCompany }) => {
     return (
-        <div className={'companyCardWrapper'}>
+        <div className="companyCardWrapper">
             <div className="companyCardHeader">
                 <h3 className="companyHeadingText">{text.companyHeading}</h3>
                 <ChartIcon className="chartIcon" />

@@ -15,7 +15,7 @@ export const PostCard: FC<PostCardProps> = ({
     onViewComments,
 }) => {
     return (
-        <div className={'postWrapper'}>
+        <div className="postWrapper">
             <div className="actualPostWrapper">
                 <h3 className="postHeading">{post.title}</h3>
                 <p className="postContent">{post.body}</p>

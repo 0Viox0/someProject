@@ -126,39 +126,36 @@ export const PostsList = () => {
     const renderPostContent = () => {
         if (isLoading && !posts.length) {
             return <Loader text={text.fetchingPosts} />;
-        } else if (
-            ((isError && !errorMessage) || !posts.length) &&
-            noMorePosts
-        ) {
-            return <div className="error">{text.noPostsAvailable}</div>;
-        } else {
-            return (
-                <>
-                    {posts.map((post) => (
-                        <PostCard
-                            key={post.id}
-                            post={post}
-                            onEdit={() => handlePostEdit(post)}
-                            onDelete={() => handlePostDelete(post)}
-                            onViewComments={() =>
-                                handlePostViewComments(post.id)
-                            }
-                        />
-                    ))}
-                    {!noMorePosts ? (
-                        <Button
-                            size="big"
-                            loading={isLoading}
-                            onClick={handleFetchMorePosts}
-                        >
-                            {text.loadMore}
-                        </Button>
-                    ) : (
-                        <div className="noPostsLeft">{text.noMorePosts}</div>
-                    )}
-                </>
-            );
         }
+
+        if (((isError && !errorMessage) || !posts.length) && noMorePosts) {
+            return <div className="error">{text.noPostsAvailable}</div>;
+        }
+
+        return (
+            <>
+                {posts.map((post) => (
+                    <PostCard
+                        key={post.id}
+                        post={post}
+                        onEdit={() => handlePostEdit(post)}
+                        onDelete={() => handlePostDelete(post)}
+                        onViewComments={() => handlePostViewComments(post.id)}
+                    />
+                ))}
+                {!noMorePosts ? (
+                    <Button
+                        size="big"
+                        loading={isLoading}
+                        onClick={handleFetchMorePosts}
+                    >
+                        {text.loadMore}
+                    </Button>
+                ) : (
+                    <div className="noPostsLeft">{text.noMorePosts}</div>
+                )}
+            </>
+        );
     };
 
     return (

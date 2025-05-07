@@ -7,5 +7,5 @@ export type UserPageWrapperProps = {
 };
 
 export const UserPageWrapper: FC<UserPageWrapperProps> = ({ children }) => {
-    return <div className={'userPage'}>{children}</div>;
+    return <div className="userPage">{children}</div>;
 };

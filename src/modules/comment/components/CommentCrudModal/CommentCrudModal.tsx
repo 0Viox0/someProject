@@ -2,7 +2,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 import { text } from 'shared/text/text';
 import { CommentCrudModalProps, CommentFormValues } from './types';
 import { Modal, Button, Input, Textarea } from 'ui';
-import { CommentFormErros, validateEntity } from 'modules/validation';
+import { CommentFormErrors, validateEntity } from 'modules/validation';
 import { Comment } from 'modules/comment/store/types';
 
 import './CommentCrudModal.scss';
@@ -16,7 +16,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
     footerButtonText,
     isLoading,
 }) => {
-    const initialFormErrors: Readonly<CommentFormErros> = useMemo(
+    const initialFormErrors: Readonly<CommentFormErrors> = useMemo(
         () => ({
             nameError: '',
             bodyError: '',
@@ -32,7 +32,7 @@ export const CommentCrudModal: FC<CommentCrudModalProps> = ({
             commentBody: predefinedComment?.body ?? '',
         });
     const [commentFormErrors, setCommentFormErrors] =
-        useState<CommentFormErros>(initialFormErrors);
+        useState<CommentFormErrors>(initialFormErrors);
 
     useEffect(() => {
         if (!isOpen) {

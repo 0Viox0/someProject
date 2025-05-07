@@ -51,9 +51,9 @@ export const Sidebar: FC<SidebarProps> = ({
                         <span className="headerTextWrapper">{headerText}</span>
                     )}
                 </div>
-                <div className={'line'}>
+                <div className="line">
                     <button
-                        className={'sidebarToggleButton'}
+                        className="sidebarToggleButton"
                         onClick={handleButtonClick}
                     >
                         <ArrowIcon

@@ -1,5 +1,5 @@
-export { PostPage } from './Postpage';
+export { PostPage } from './PostPage';
 export { UserPage } from './UserPage';
 export { UserPostsPage } from './UserPostsPage';
 export { NotFoundPage } from './NotFoundPage';
-export { Home } from './Home';
+export { HomePage } from './Home';

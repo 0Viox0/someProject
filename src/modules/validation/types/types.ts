@@ -4,7 +4,7 @@ export interface PostFormErrors {
     writteByError: string;
 }
 
-export type CommentFormErros = {
+export type CommentFormErrors = {
     nameError: string;
     emailError: string;
     bodyError: string;
@@ -12,7 +12,7 @@ export type CommentFormErros = {
 
 export type ValidateResultComment = {
     isError: boolean;
-    errors: CommentFormErros;
+    errors: CommentFormErrors;
 };
 
 export type ValidateResultPost = {

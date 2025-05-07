@@ -16,7 +16,7 @@ export const IconButton: FC<IconButtonProps> = ({
     className,
     ...props
 }) => {
-    const bttonClasses = classNames(
+    const buttonClasses = classNames(
         'circle',
         {
             transparent: colorTheme === 'transparent',
@@ -28,7 +28,7 @@ export const IconButton: FC<IconButtonProps> = ({
         <Button
             theme={colorTheme === 'transparent' ? 'primary' : colorTheme}
             icon={icon}
-            className={bttonClasses}
+            className={buttonClasses}
             {...props}
         />
     );

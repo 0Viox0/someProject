@@ -7,7 +7,7 @@ import './UserAddressCard.scss';
 
 export const UserAddressCard: FC<UserAddressCardProps> = ({ userAddress }) => {
     return (
-        <div className={'addressCard'}>
+        <div className="addressCard">
             <div className="addressCardHeader">
                 <div className="basicAddressWrapper">
                     <h3 className="cityName">{userAddress.city}</h3>

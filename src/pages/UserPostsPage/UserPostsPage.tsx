@@ -1,6 +1,5 @@
 import { PostsList } from 'modules/posts';
-import { UserPostsHeader } from './components';
-import { UserPostsWrapper } from './components/UserPostsWrapper';
+import { UserPostsHeader, UserPostsWrapper } from './components';
 
 export const UserPostsPage = () => {
     return (

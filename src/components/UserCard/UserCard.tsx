@@ -1,15 +1,16 @@
 import { FC } from 'react';
 import { UserCardProps } from './type';
-import { UpperCardInfo } from './UpperCardInfo/UpperCardInfo';
-import EmailIcon from 'shared/assets/icons/Message.svg';
-import PhoneIcon from 'shared/assets/icons/Phone.svg';
-import WorldIcon from 'shared/assets/icons/World.svg';
+import { UpperCardInfo } from './UpperCardInfo';
 import { UserAddressCard } from './UserAddressCard';
 import { UserCompanyCard } from './UserCompanyCard';
 import { text } from 'shared/text/text';
 import classNames from 'classnames';
 import CloseIcon from 'shared/assets/icons/CloseIcon.svg';
 import { Button } from 'ui';
+
+import EmailIcon from 'shared/assets/icons/Message.svg';
+import PhoneIcon from 'shared/assets/icons/Phone.svg';
+import WorldIcon from 'shared/assets/icons/World.svg';
 
 import './UserCard.scss';
 
@@ -22,7 +23,7 @@ export const UserCard: FC<UserCardProps> = ({
     return (
         <div className={classNames('userCard', className)}>
             <div className="userCardHeader">
-                <div className="userCardheaderNameWrapper">
+                <div className="userCardHeaderNameWrapper">
                     <h3 className="headerName">{user.name}</h3>
                     <button className="userCardCloseButton" onClick={onClose}>
                         <CloseIcon className="icon" />

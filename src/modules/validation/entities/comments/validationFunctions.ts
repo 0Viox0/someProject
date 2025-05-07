@@ -1,11 +1,11 @@
 import { Comment } from 'modules/comment/store/types';
 import {
-    CommentFormErros,
+    CommentFormErrors,
     ValidateResultComment,
 } from 'modules/validation/types/types';
 import { text } from 'shared/text/text';
 
-export const initialFormErrorsComments: Readonly<CommentFormErros> = {
+export const initialFormErrorsComments: Readonly<CommentFormErrors> = {
     bodyError: '',
     emailError: '',
     nameError: '',
@@ -13,7 +13,7 @@ export const initialFormErrorsComments: Readonly<CommentFormErros> = {
 
 export const validateComment = (comment: Comment): ValidateResultComment => {
     let isError = false;
-    const errors: CommentFormErros = { ...initialFormErrorsComments };
+    const errors: CommentFormErrors = { ...initialFormErrorsComments };
 
     if (!comment.name) {
         errors.nameError = text.MODAL_ERRORS.COMMENTS.nameEmpty;

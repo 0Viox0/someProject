@@ -1,0 +1,120 @@
+@use 'sass:color';
+
+$borderRadius: 10px;
+
+@mixin collapseButtonTransition() {
+    transition: transform 0.2s linear;
+}
+
+.sidebar {
+    display: inline-flex;
+    flex-direction: column;
+
+    width: auto;
+    height: 100vh;
+
+    position: sticky;
+    top: 0px;
+
+    border-radius: 0 $borderRadius $borderRadius 0;
+
+    flex-shrink: 0;
+
+    background-color: var(--sidebarBgColor);
+    color: var(--sidebarTextColor);
+
+    .sidebarHeaderWrapper {
+        .sidebarHeader {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            margin: 5px 20px;
+
+            > * {
+                flex-shrink: 0;
+            }
+
+            .headerIconWrapper {
+                > * {
+                    width: 35px;
+                    height: 45px;
+                }
+
+                &.expanded {
+                    margin-right: 10px;
+                }
+            }
+
+            .headerTextWrapper {
+                margin-right: 14px;
+                font-weight: bold;
+                font-size: 1.1rem;
+            }
+        }
+
+        .line {
+            position: relative;
+
+            width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 13px;
+            height: 1.7px;
+
+            background-color: var(--highlightColor);
+
+            border-radius: 10px;
+
+            .sidebarToggleButton {
+                position: absolute;
+
+                right: 0;
+                transform: translate(65%, -50%);
+
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                border-radius: 50%;
+                padding: 5px;
+
+                box-shadow: 1px 1px 10px rgb(113, 106, 106, 0.5);
+
+                border: none;
+                outline: none;
+
+                background-color: var(--oppositeSidebarBgColor);
+                color: var(--oppositeSidebarTextColor);
+
+                & > * {
+                    flex-shrink: 0;
+
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                .icon-expanded {
+                    @include collapseButtonTransition();
+                    transform: rotate(180deg);
+                }
+
+                .icon-collapsed {
+                    @include collapseButtonTransition();
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+
+    .sidebarFooter {
+        display: flex;
+        justify-content: center;
+        margin-top: auto;
+        margin-bottom: 20px;
+    }
+}

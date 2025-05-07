@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Select } from 'components/Select';
+import { Select } from 'ui';
 import { ComponentProps } from 'react';
 
 type StoryProps = ComponentProps<typeof Select>;

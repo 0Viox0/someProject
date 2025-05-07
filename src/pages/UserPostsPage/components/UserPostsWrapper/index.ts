@@ -1,0 +1,1 @@
+export { UserPostsWrapper } from './UserPostsWrapper';

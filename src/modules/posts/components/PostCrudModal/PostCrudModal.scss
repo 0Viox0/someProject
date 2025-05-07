@@ -1,0 +1,14 @@
+.createModalInputsWrapper {
+    width: 500px;
+    height: 340px;
+
+    margin-left: 10px;
+
+    .createModalTextarea {
+        resize: none;
+        width: 100%;
+        height: 200px;
+
+        margin: 20px 0px 40px;
+    }
+}

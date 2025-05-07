@@ -1,0 +1,35 @@
+@use '../styles/sharedUserCardStyles' as uc;
+
+.companyCardWrapper {
+    @include uc.userInfoCardBg();
+
+    width: 130px;
+
+    text-wrap: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .companyCardHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 14px;
+
+        .companyHeadingText {
+            font-size: 1.125rem;
+            font-weight: lighter;
+            margin-right: 10px;
+        }
+
+        .chartIcon {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+        }
+    }
+
+    .companyName {
+        font-size: 1rem;
+    }
+}

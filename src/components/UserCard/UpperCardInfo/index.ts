@@ -1,0 +1,1 @@
+export { UpperCardInfo } from './UpperCardInfo';

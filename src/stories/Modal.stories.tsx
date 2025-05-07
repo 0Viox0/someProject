@@ -1,8 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal } from 'components/Modal';
 import { ComponentProps, FC, useState } from 'react';
-import { ModalProps } from 'components/Modal/types';
-import { Button } from 'components/Button';
+import { Modal, Button } from 'ui';
+import { ModalProps } from 'ui/Modal/types';
 
 type StoryProps = ComponentProps<typeof Modal>;
 

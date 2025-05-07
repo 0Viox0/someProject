@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Loader } from 'components/Loader';
+import { Loader } from 'ui';
 import { ComponentProps } from 'react';
 
 type StorybookProps = ComponentProps<typeof Loader>;

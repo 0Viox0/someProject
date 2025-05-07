@@ -19,3 +19,51 @@ $baseColorsMap: (
     info: $infoColor,
     danger: $dangerColor,
 );
+
+html[data-theme='light'] {
+    --textColor: black;
+
+    --sidebarBgColor: #e2e5e7;
+    --oppositeSidebarBgColor: #101827;
+
+    --sidebarTextColor: #101827;
+    --oppositeSidebarTextColor: #e8e9ea;
+
+    --highlightColor: #d2d4dc;
+
+    --userCardGradient: linear-gradient(
+        to bottom,
+        rgba(153, 152, 150, 0.42),
+        #fffdfa
+    );
+
+    --userCardInfoBg: rgba(167, 167, 167, 0.48);
+    --postCardBg: #fff;
+    --commentEmailColor: #7d7d7d;
+
+    body {
+        background-color: white;
+    }
+}
+
+html[data-theme='dark'] {
+    --textColor: white;
+
+    --sidebarBgColor: #101827;
+    --oppositeSidebarBgColor: #e2e5e7;
+
+    --sidebarTextColor: #e8e9ea;
+    --oppositeSidebarTextColor: #101827;
+
+    --highlightColor: #384151;
+
+    --userCardGradient: linear-gradient(to bottom, #52566f, #222329);
+
+    --userCardInfoBg: rgba(206, 230, 251, 0.48);
+    --postCardBg: #52566f;
+    --commentEmailColor: #bbbaba;
+
+    body {
+        background-color: #222329;
+    }
+}

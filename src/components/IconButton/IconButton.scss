@@ -1,0 +1,43 @@
+@use 'shared/styles/_variables.scss' as v;
+@use 'sass:color';
+
+.circle {
+    padding: 5px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #888383;
+
+    height: 40px;
+    width: 40px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+
+    &.transparent {
+        background-color: white;
+
+        &:hover {
+            background-color: rgba($color: #ddd, $alpha: 0.5);
+        }
+    }
+
+    .iconWrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > * {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}

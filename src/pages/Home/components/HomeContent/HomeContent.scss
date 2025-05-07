@@ -1,0 +1,27 @@
+.homePage {
+    margin-left: 50px;
+
+    flex: 1 1 auto;
+
+    color: var(--textColor);
+
+    .homePageHeader {
+        font-size: 3rem;
+        font-weight: bold;
+
+        margin-top: 30px;
+    }
+
+    .additionalInfo {
+        margin-top: 40px;
+        font-size: 1.2rem;
+
+        .lowerText {
+            margin-top: 12px;
+        }
+    }
+
+    .actionButton {
+        margin-top: 40px;
+    }
+}

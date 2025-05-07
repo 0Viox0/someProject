@@ -1,0 +1,47 @@
+.postWrapper {
+    width: 800px;
+
+    border-radius: 11px;
+    box-shadow: 0 0 16.9px 1px rgba(0, 0, 0, 0.25);
+
+    padding: 38px 28px;
+
+    display: flex;
+    justify-content: space-between;
+
+    color: var(--textColor);
+    background-color: var(--postCardBg);
+
+    .actualPostWrapper {
+        .postHeading {
+            max-width: 55ch;
+            font-size: 1.5rem;
+            font-weight: normal;
+            margin-bottom: 36px;
+        }
+
+        .postContent {
+            font-size: 1rem;
+            max-width: 72ch;
+
+            margin-bottom: 51px;
+        }
+
+        .author {
+            font-size: 1rem;
+        }
+    }
+
+    .buttonsWrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+
+        .upperButtonWrapper {
+            > *:not(:last-child) {
+                margin-bottom: 22px;
+            }
+        }
+    }
+}

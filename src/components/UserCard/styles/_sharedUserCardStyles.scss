@@ -1,0 +1,10 @@
+@mixin userInfoCardBg {
+    border-radius: 11px;
+    padding: 13px;
+
+    display: inline-block;
+
+    color: black;
+
+    background-color: var(--userCardInfoBg);
+}

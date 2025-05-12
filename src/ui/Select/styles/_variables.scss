@@ -1,0 +1,6 @@
+$borderRadius: 4px;
+$opacityWhileExpanded: 0.6;
+
+@mixin selectTransition() {
+    transition: all 0.2s ease-in-out;
+}

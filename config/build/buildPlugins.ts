@@ -1,10 +1,9 @@
-import webpack, { Configuration, web } from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { BuildOptions } from './types/types';
 import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
-import CopyPlugin from 'copy-webpack-plugin';
 
 export const buildPlugins = (
     options: BuildOptions,

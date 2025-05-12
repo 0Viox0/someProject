@@ -1,0 +1,66 @@
+@use '../styles/sharedUserCardStyles' as uc;
+
+$streetSecondaryColor: #2e2e2e;
+
+.addressCard {
+    @include uc.userInfoCardBg();
+
+    width: 200px;
+    flex-shrink: 0;
+
+    .addressCardHeader {
+        .basicAddressWrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .cityName {
+                font-size: 1.25rem;
+                font-weight: lighter;
+            }
+        }
+
+        .suiteWrapper {
+            color: $streetSecondaryColor;
+            line-height: 0.9rem;
+        }
+
+        .streetWrapper {
+            color: $streetSecondaryColor;
+
+            line-height: 0.9rem;
+
+            margin-top: 7px;
+
+            .streetName {
+                margin-right: 6px;
+            }
+
+            .streetText {
+                font-size: 0.9rem;
+            }
+        }
+
+        .homeIcon {
+            width: 32px;
+            height: 32px;
+            color: #33363f;
+
+            flex-shrink: 0;
+
+            margin-left: 10px;
+        }
+    }
+
+    .zipWrapper {
+        margin-top: 20px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .zipCode {
+            font-size: 1.125rem;
+        }
+    }
+}

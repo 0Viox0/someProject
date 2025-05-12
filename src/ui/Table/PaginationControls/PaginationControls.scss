@@ -1,0 +1,82 @@
+@use 'shared/styles/variables.scss' as v;
+@use 'sass:color';
+
+.paginationControls {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    padding: 10px 0;
+
+    .arrow {
+        &:hover {
+            cursor: pointer;
+            scale: 1.1;
+        }
+
+        &:active {
+            scale: 0.98;
+        }
+
+        &.left {
+            rotate: 0deg;
+        }
+
+        &.right {
+            rotate: 180deg;
+        }
+    }
+
+    .pageCardsWrapper {
+        display: flex;
+        justify-content: end;
+        align-items: center;
+
+        .pageCard {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:not(:first-child) {
+                margin-left: 3px;
+            }
+
+            @each $value, $color in v.$baseColorsMap {
+                &.active-#{$value} {
+                    background-color: color.scale($color, $alpha: -70%);
+                }
+
+                &-#{$value} {
+                    border: 1px solid $color;
+                    border-radius: 0.4em;
+
+                    &:hover {
+                        background-color: color.scale($color, $alpha: -50%);
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .small {
+        width: 20px;
+        height: 20px;
+
+        font-size: 0.7rem;
+    }
+
+    .medium {
+        width: 40px;
+        height: 40px;
+
+        font-size: 1.2rem;
+    }
+
+    .big {
+        width: 60px;
+        height: 60px;
+
+        font-size: 1.4rem;
+    }
+}

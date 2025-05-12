@@ -1,0 +1,38 @@
+@use '../styles/variables' as modal;
+
+.header-wrapper {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+
+    padding: 15px;
+
+    &.withoutTitle {
+        justify-content: end;
+    }
+
+    .closeIcon {
+        width: 30px;
+        height: 30px;
+
+        stroke-width: 2px;
+
+        flex-shrink: 0;
+
+        &:hover {
+            scale: 1.1;
+            cursor: pointer;
+        }
+
+        &:active {
+            scale: 0.95;
+        }
+    }
+
+    .modal-title {
+        font-size: modal.$baseFont;
+        font-weight: 400;
+    }
+}

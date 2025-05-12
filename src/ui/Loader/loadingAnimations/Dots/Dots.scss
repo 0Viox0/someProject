@@ -1,0 +1,46 @@
+@use 'shared/styles/variables.scss' as v;
+@use 'sass:color';
+
+.dots-wrapper {
+    display: flex;
+    justify-content: start;
+
+    .dot {
+        border-radius: 50%;
+
+        &-small {
+            width: 10px;
+            height: 10px;
+
+            margin-right: 6px;
+        }
+
+        &-medium {
+            width: 14px;
+            height: 14px;
+
+            margin-right: 10px;
+        }
+
+        &-big {
+            width: 20px;
+            height: 20px;
+
+            margin-right: 15px;
+        }
+
+        @each $value, $color in v.$baseColorsMap {
+            &-#{$value}-light {
+                background-color: color.scale($color: $color, $lightness: 40%);
+            }
+
+            &-#{$value}-normal {
+                background-color: $color;
+            }
+
+            &-#{$value}-dark {
+                background-color: color.scale($color: $color, $lightness: -40%);
+            }
+        }
+    }
+}
